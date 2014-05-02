@@ -40,12 +40,14 @@ class Utilities
         // Loop through all the rules and do the replacement.
         foreach (array_keys($rules) as $key) {
             // If the end of the word doesn't match the key, it's not a candidate for replacement. Move on to the next plural ending.
-            if (substr($word, (strlen($key) * -1)) != $key)
+            if (substr($word, (strlen($key) * -1)) != $key) {
                 continue;
+            }
 
             // If the value of the key is false, stop looping and return the original version of the word.
-            if ($key === false)
+            if ($key === false) {
                 return $word;
+            }
 
             // We've made it this far, so we can do the replacement.
             return substr($word, 0, strlen($word) - strlen($key)) . $rules[$key];
