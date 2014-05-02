@@ -48,16 +48,16 @@ class WordPress_Plugin_Framework {
      */
     private function __construct() {
         /* Includes */
-        include_once 'inc/custom-post-type.php';
-        include_once 'inc/page.php';
-        include_once 'inc/menu-page.php';
-        include_once 'inc/object-page.php';
-        include_once 'inc/options-page.php';
-        include_once 'inc/sub-menu-page.php';
-        include_once 'inc/utility-page.php';
-        include_once 'inc/settings.php';
-        include_once 'inc/taxonomy.php';
-        include_once 'inc/view.php';
+        include_once 'custom-post-type.php';
+        include_once 'page.php';
+        include_once 'menu-page.php';
+        include_once 'object-page.php';
+        include_once 'options-page.php';
+        include_once 'sub-menu-page.php';
+        include_once 'utility-page.php';
+        include_once 'settings.php';
+        include_once 'taxonomy.php';
+        include_once 'view.php';
 
         /* Set properties. */
         self::$plugin_path = plugin_dir_path( __FILE__ );
