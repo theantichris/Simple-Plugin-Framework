@@ -10,18 +10,6 @@
 class WordPress_Plugin_Framework {
     /** @var null|WordPress_Plugin_Framework Refers to a single instance of this class. */
     private static $instance = null;
-    /** @var  string The path to the plugin file. */
-    private static $plugin_path;
-    /** @var  string The URL to the plugin file. */
-    private static $plugin_url;
-    /** @var Custom_Post_Type[] Custom post type objects used by the plugin. */
-    private $custom_post_types = array();
-    /** @var Taxonomy[] Taxonomies objects used by the plugin. */
-    private $taxonomies = array();
-    /** @var Page[] Page objects used by the plugin. */
-    private $pages = array();
-    /** @var Settings[] Settings objects used by the plugin. */
-    private $settings = array();
 
     /**
      * Creates or returns an instance of this class.
