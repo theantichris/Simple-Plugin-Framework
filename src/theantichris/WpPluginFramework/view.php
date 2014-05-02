@@ -2,6 +2,15 @@
 
 namespace theantichris\WpPluginFramework;
 
+/**
+ * Class View
+ *
+ * A view model class.
+ *
+ * @package theantichris\WpPluginFramework
+ *
+ * @since 0.1.0
+ */
 class View
 {
     /**
@@ -23,6 +32,7 @@ class View
 
         ob_start(); // Start the output buffer.
 
+        /** @noinspection PhpIncludeInspection */
         include_once($view_file); // Include the template.
 
         /** @var string $template Contains the contents of the output buffer. */
