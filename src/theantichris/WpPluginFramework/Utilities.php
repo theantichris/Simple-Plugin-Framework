@@ -13,7 +13,6 @@ namespace theantichris\WpPluginFramework;
  */
 class Utilities
 {
-
     /**
      * Takes a plural string and returns the singular version.
      *
