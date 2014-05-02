@@ -3,7 +3,7 @@
 namespace theantichris\WpPluginFramework;
 
 /**
- * Class Menu_Page
+ * Class MenuPage
  *
  * A class for adding a top level menu page to the WordPress Dashboard. Extends Page.
  *
