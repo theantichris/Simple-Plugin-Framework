@@ -120,7 +120,7 @@ class CustomPostType
      *
      * @return string
      */
-    public function get_post_typeSlug()
+    public function getPostSlug()
     {
         return $this->postTypeSlug;
     }
