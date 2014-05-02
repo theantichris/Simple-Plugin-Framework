@@ -27,6 +27,6 @@ class Options_Page extends Page {
 	 * @return void
 	 */
 	public function add_page() {
-		add_options_page( $this->page_title, $this->page_title, $this->capability, $this->page_slug, array( $this, 'display_page' ) );
+		add_options_page( $this->page_title, $this->page_title, $this->capability, $this->page_slug, array( $this, 'displayPage' ) );
 	}
 }

@@ -38,8 +38,8 @@ class Settings {
 	private $section = array(
 		'title'     => 'Default',
 		'id'        => 'default',
-		'view_path' => null,
-		'view_data' => array()
+		'viewPath' => null,
+		'viewData' => array()
 	);
 
 	/**
@@ -71,9 +71,9 @@ class Settings {
 			$this->section[ 'title' ] = $title;
 			$this->section[ 'id' ]    = WordPress_Plugin_Framework::make_slug( $title );
 
-			$this->section[ 'view_path' ]            = $view_path;
-			$this->section[ 'view_data' ]            = $view_data;
-			$this->section[ 'view_data' ][ 'title' ] = $title;
+			$this->section[ 'viewPath' ]            = $view_path;
+			$this->section[ 'viewData' ]            = $view_data;
+			$this->section[ 'viewData' ][ 'title' ] = $title;
 
 			add_action( 'admin_init', array( $this, 'register_section' ) );
 		}
@@ -98,7 +98,7 @@ class Settings {
 	 * @return void
 	 */
 	public function display_section() {
-		echo View::render( $this->section[ 'view_path' ], $this->section[ 'view_data' ] );
+		echo View::render( $this->section[ 'viewPath' ], $this->section[ 'viewData' ] );
 	}
 
 	/**
