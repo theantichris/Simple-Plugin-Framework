@@ -1,0 +1,8 @@
+{
+    "name": "theantichris/wp-plugin-framework",
+    "autoload": {
+        "psr-0" : {
+            "theantichris\\WpPluginFramework" : "src"
+        }
+    }
+}
