@@ -47,8 +47,16 @@ abstract class Page
      * @param string $textDomain Text domain for the plugin.
      * @return Page
      */
-    public function __construct($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null,  $viewData = array(), $parentSlug = null, $textDomain = '')
-    {
+    public function __construct(
+        $pageTitle,
+        $viewPath,
+        $capability = null,
+        $menuIcon = null,
+        $position = null,
+        $viewData = array(),
+        $parentSlug = null,
+        $textDomain = ''
+    ) {
         $this->pageTitle = $pageTitle;
         $this->pageSlug = sanitize_title($pageTitle);
 
