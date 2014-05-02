@@ -13,11 +13,33 @@
             "role": "Developer"
         }
     ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "http://wpackagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "wordpress",
+                "version": "3.9",
+                "type": "webroot",
+                "dist": {
+                    "type": "zip",
+                    "url": "https://github.com/WordPress/WordPress/archive/3.9.zip"
+                },
+                "require": {
+                    "fancyguy/webroot-installer": "1.1.0"
+                }
+            }
+        }
+    ],
     "require": {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "wordpress": "3.9"
     },
     "autoload": {
-        "psr-0" : {
+        "psr-4" : {
             "theantichris\\WpPluginFramework" : "src"
         }
     }
