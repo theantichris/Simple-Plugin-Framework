@@ -47,7 +47,6 @@ class WordPress_Plugin_Framework {
      * @return WordPress_Plugin_Framework
      */
     private function __construct() {
-        /* Includes */
         include_once 'custom-post-type.php';
         include_once 'page.php';
         include_once 'menu-page.php';
@@ -58,32 +57,6 @@ class WordPress_Plugin_Framework {
         include_once 'settings.php';
         include_once 'taxonomy.php';
         include_once 'view.php';
-
-        /* Set properties. */
-        self::$plugin_path = plugin_dir_path( __FILE__ );
-        self::$plugin_url  = plugin_dir_url( __FILE__ );
-    }
-
-    /**
-     * Returns $plugin_url.
-     *
-     * @since 5.0.1
-     *
-     * @return string
-     */
-    public static function get_plugin_url() {
-        return self::$plugin_url;
-    }
-
-    /**
-     * Returns $plugin_path.
-     *
-     * @since 5.0.1
-     *
-     * @return string
-     */
-    public static function get_plugin_path() {
-        return self::$plugin_path;
     }
 
     /**
