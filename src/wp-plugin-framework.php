@@ -62,24 +62,6 @@ class WordPress_Plugin_Framework {
         /* Set properties. */
         self::$plugin_path = plugin_dir_path( __FILE__ );
         self::$plugin_url  = plugin_dir_url( __FILE__ );
-
-        /* Load text domain. */
-        load_plugin_textdomain( 'wordpress-plugin-framework', false, self::$plugin_path . '/lang' );
-
-        /* Load scripts and styles in the Dashboard. */
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_scripts' ) );
-        add_action( 'admin_enqueue_scripts', array( $this, 'register_styles' ) );
-
-        /* Load scripts and styles on the front end. */
-        add_action( 'wp_enqueue_scripts', array( $this, 'register_scripts' ) );
-        add_action( 'wp_enqueue_scripts', array( $this, 'register_styles' ) );
-
-        /* Register activation and deactivation hooks. */
-        register_activation_hook( __FILE__, array( $this, 'activation' ) );
-        register_deactivation_hook( __FILE__, array( $this, 'deactivation' ) );
-
-        /* Run plugin. */
-        $this->run_plugin();
     }
 
     /**
@@ -102,87 +84,6 @@ class WordPress_Plugin_Framework {
      */
     public static function get_plugin_path() {
         return self::$plugin_path;
-    }
-
-    /**
-     * This method runs at plugin activation.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function activation() {
-
-    }
-
-    /**
-     * This method runs at plugin deactivation.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function deactivation() {
-
-    }
-
-    /**
-     * Place any scripts that need to be registered with WordPress in this method.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function register_scripts() {
-
-    }
-
-    /**
-     * Place any styles that need to be registered with WordPress in this method.
-     *
-     * @since 1.0.0
-     *
-     * @return void
-     */
-    public function register_styles() {
-
-    }
-
-    /**
-     * Method containing the plugin functionality. Place your code here.
-     *
-     * @since 4.1.0
-     *
-     * @return void
-     */
-    private function run_plugin() {
-
-    }
-
-    /**
-     * If WordPress debugging is turned on this method will write data to debug.log located in the wp-content directory.
-     *
-     * Add the following lines to wp-config.php:
-     *
-     * define( 'WP_DEBUG', true );  // Turn debugging ON
-     * define( 'SAVEQUERIES', true );
-     * define( 'WP_DEBUG_DISPLAY', false ); // Turn forced display OFF
-     * define( 'WP_DEBUG_LOG', true );  // Turn logging to wp-content/debug.log ON
-     *
-     * @since 1.0.0
-     *
-     * @param mixed $message Message to pass to the error log.
-     *
-     * @return void
-     */
-    public static function print_to_log( $message ) {
-        if ( true === WP_DEBUG ) {
-            if ( is_array( $message ) || is_object( $message ) ) {
-                error_log( print_r( $message ), true );
-            } else {
-                error_log( $message );
-            }
-        }
     }
 
     /**
