@@ -2,7 +2,9 @@
 
 ## Introduction
 
-This is an OOP framework for developing WordPress plugins.
+This is an OOP framework for making the development of WordPress plugins easier.
+
+It simplifies the creation of custom post types, taxonomies, pages, and settings. It also includes a class for using a view model for displaying HTML output.
 
 ## Custom Post Types
 
