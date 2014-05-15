@@ -6,6 +6,16 @@ This is an OOP framework for making the development of WordPress plugins easier.
 
 It simplifies the creation of custom post types, taxonomies, pages, and settings. It also includes a class for using a view model for displaying HTML output.
 
+## Getting Started
+
+### Composer
+
+The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be using with Composer. Just add package to your composer.json.
+
+### Drop In
+
+Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using include statements or namespacing.
+
 ## Custom Post Types
 
 You can create a custom post type through the CustomPostType object. The class accepts optional arguments for post capabilities (array), post support ( array ), and menu icon (string). If nothing is specified they are set to the WordPress default
