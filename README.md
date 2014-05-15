@@ -98,7 +98,17 @@ You can remove a page using the removePage() method.
 $page->removePage($pageSlug);
 ```
 
-### View
+### Settings
+
+You can create options for your plugin using the Settings class.
+
+```
+$setting = new Settings( $page_slug ); // Creates the settings object with the slug of the page. This could be a default page or one you create.
+$setting->add_section( 'My Section', $view ); // Creates the settings section your options will be grouped under. The view will contain the header for the section.
+$setting->add_field( 'My Field', $view ); // Creates the field and adds it to the section. The view needs to contain the input field for the option.
+```
+
+## View
 
 The View class makes it simpler to display output from your plugin.
 
@@ -117,16 +127,6 @@ echo View::render( $viewFile, $viewData = null );
 $viewFile should contain the full path and file name of the view file to render.
 
 $viewData is used to pass data to the view if needed. It is an associated array. To use the data in the view file use a variable with the name of the data's key in the array. For example `$viewData['example']` will be `$example` in the view.
-
-### Settings
-
-You can create options for your plugin using the Settings class.
-
-```
-$setting = new Settings( $page_slug ); // Creates the settings object with the slug of the page. This could be a default page or one you create.
-$setting->add_section( 'My Section', $view ); // Creates the settings section your options will be grouped under. The view will contain the header for the section.
-$setting->add_field( 'My Field', $view ); // Creates the field and adds it to the section. The view needs to contain the input field for the option.
-```
 
 ## Utilities
 
