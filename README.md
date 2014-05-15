@@ -16,7 +16,9 @@ The package is hosted on [Packagist](https://packagist.org/packages/theantichris
 
 Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using include statements or namespacing.
 
-## Custom Post Types
+## Creating WordPress Objects
+
+### Custom Post Types
 
 You can create a custom post type through the CustomPostType object. The class accepts optional arguments for post capabilities (array), post support ( array ), and menu icon (string). If nothing is specified they are set to the WordPress default
 
@@ -26,7 +28,7 @@ Create new custom post types in the main plugin class constructor.
 $new_post_type = new Custom_Post_Type( $plural_post_type_name, $capabilities, $support, $menu_icon );
 ```
 
-## Taxonomies
+### Taxonomies
 
 Taxonomies can be added to post types by creating a Custom_Taxonomy object. The $post_types parameter is options and will use “post” if not specified, it will accept a string or array of strings.
 
@@ -34,7 +36,7 @@ Taxonomies can be added to post types by creating a Custom_Taxonomy object. The 
 $new_taxonomy = new Custom_Taxonomy( $plural_taxonomy_name, $post_types );
 ```
 
-## Terms
+### Terms
 
 You can add terms to a Custom_Taxonomy object by using the add_terms() method. It accepts a single parameter that can either be a string or array of strings.
 
@@ -42,7 +44,7 @@ You can add terms to a Custom_Taxonomy object by using the add_terms() method. I
 $new_taxonomy->add_terms( $terms );
 ```
 
-## Pages
+### Pages
 
 You can create new dashboard pages by using the Menu_Page, Object_Page, Utility_Page, Sub_Menu_Page, and Options_Page classes.
 
@@ -56,11 +58,11 @@ To add a top-level menu page use the Menu_Page class.
 $menu_page = new Menu_Page( $page_title, $view_path, $capability = 'manage_options', $icon_url = null, $position = null, $view_data = array(), $parent_slug = null );
 ```
 
-### Removing Pages
+#### Removing Pages
 
 You can remove a page using the remove_page( $page_slug ) method.
 
-## View
+### View
 
 There is a View class that provides to introduce some MVC functionality to the framework and make it simpler to create pages and other output.
 
@@ -74,7 +76,7 @@ View::render() must be echoed.
 echo View::render( $view_file, $view_data = null );
 ```
 
-## Settings
+### Settings
 
 You can create options for your plugin using the Settings class.
 
