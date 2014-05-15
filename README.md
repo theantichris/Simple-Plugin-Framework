@@ -4,14 +4,6 @@
 
 This is an OOP framework for developing WordPress plugins.
 
-## Instantiating Objects
-
-When instantiating an object such as Custom_Post_Type or Taxonomy save it to the proper array property on the main class.
-
-```
-$this->custom_post_types[ 'new_custom_post_type' ] = Custom_Post_Type( $plural_post_type_name, $capabilities, $support, $menu_icon );
-```
-
 ## Custom Post Types
 
 You can create a custom post type through the CustomPostType object. The class accepts optional arguments for post capabilities (array), post support ( array ), and menu icon (string). If nothing is specified they are set to the WordPress default
