@@ -60,10 +60,18 @@ $menuPage = new MenuPage($pageTitle, $viewPath, $capability = null, $menuIcon = 
 
 #### ObjectPage
 
-ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.).
+ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.)
 
 ```
 $objectPage = new ObjectPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
+```
+
+#### UtilityPage
+
+UtilityPage adds a top-level page on the Utility level ( Appearance, Plugins, Users, Tools, Settings, etc.)
+
+```
+$utilityPage = new UtilityPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
 ```
 
 #### Removing Pages
