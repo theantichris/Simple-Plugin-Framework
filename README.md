@@ -100,12 +100,12 @@ $page->removePage($pageSlug);
 
 ### Settings
 
-You can create options for your plugin using the Settings class.
+You can create options for your plugin using the Settings class. The Settings class uses the View class to display output.
 
 ```
-$setting = new Settings( $page_slug ); // Creates the settings object with the slug of the page. This could be a default page or one you create.
-$setting->add_section( 'My Section', $view ); // Creates the settings section your options will be grouped under. The view will contain the header for the section.
-$setting->add_field( 'My Field', $view ); // Creates the field and adds it to the section. The view needs to contain the input field for the option.
+$setting = new Settings( $pageSlug ); // Creates the settings object with the slug of the page the settings should be on. This could be a default Dashboard page or one you create.
+$setting->addSection( 'My Section', $view ); // Creates the settings section that your options will be grouped under. The view will contain the header for the section.
+$setting->addField( 'My Field', $view ); // Creates a settings field and adds it to the settings section. The view needs to contain the HTML to display the form field for the option.
 ```
 
 ## View
