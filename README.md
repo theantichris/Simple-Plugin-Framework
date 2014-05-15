@@ -134,7 +134,7 @@ Some helper functions are included in the Utilities class. They are public, stat
 
 ### makeSingular()
 
-Takes a plural string and makes it singular.
+Takes a plural string and makes it singular. Some WordPress object classes use it to automatically generate slugs.
 
 ```
 $singular_string = Utilities::make_singular( $plural_string );
