@@ -34,12 +34,12 @@ Taxonomies can be added to post types by creating a Taxonomy object. The $postTy
 $newTaxonomy = new Taxonomy($taxonomyName, $postTypes = null, $textDomain = "");
 ```
 
-### Terms
+#### Terms
 
-You can add terms to a Custom_Taxonomy object by using the add_terms() method. It accepts a single parameter that can either be a string or array of strings.
+You can add terms to a Taxonomy object by using the addTerms() method. It accepts a single parameter that can either be a string or an array of strings.
 
 ```
-$new_taxonomy->add_terms( $terms );
+$newTaxonomy->addTerms($terms);
 ```
 
 ### Pages
