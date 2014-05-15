@@ -100,17 +100,23 @@ $page->removePage($pageSlug);
 
 ### View
 
-There is a View class that provides to introduce some MVC functionality to the framework and make it simpler to create pages and other output.
+The View class makes it simpler to display output from your plugin.
 
-To create a view place a PHP file that displays the HTML into the /views/ directory.
+It allows you to take the code that displays the output and gives it its own file. Your output (or view) is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
 
-Assign the file name to $view_file. If you need to pass any data to the View assign it to an associative array to the $view_data property.
+Create a directory in your project to hold all your view files.
 
-View::render() must be echoed.
+Use the View class' render() static function to display the view and send any data the view needs to know about.
+
+View::render() must be echoed in order to work.
 
 ```
-echo View::render( $view_file, $view_data = null );
+echo View::render( $viewFile, $viewData = null );
 ```
+
+$viewFile should contain the full path and file name of the view file to render.
+
+$viewData is used to pass data to the view if needed. It is an associated array. To use the data in the view file use a variable with the name of the data's key in the array. For example `$viewData['example']` will be `$example` in the view.
 
 ### Settings
 
