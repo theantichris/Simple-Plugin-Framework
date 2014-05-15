@@ -86,30 +86,14 @@ $setting->add_section( 'My Section', $view ); // Creates the settings section yo
 $setting->add_field( 'My Field', $view ); // Creates the field and adds it to the section. The view needs to contain the input field for the option.
 ```
 
-## Helper Functions
+## Utilities
 
-Some helper functions are included in the main plugin class. They are public, static functions so can be used anywhere.
+Some helper functions are included in the Utilities class. They are public, static functions so can be used anywhere.
 
-### print_to_log()
-
-Writes a message to debug.log in the wp-content folder if you have the wp-config.php setup to do that. It will accept any variable or string.
-
-```
-WordPress_Plugin_Framework::print_to_log( $message_to_send );
-```
-
-### make_singular()
+### makeSingular()
 
 Takes a plural string and makes it singular.
 
 ```
-$singular_string = WordPress_Plugin_Framework::make_singular( $plural_string );
-```
-
-### make_slug()
-
-Takes a string and makes a WordPress slug by replacing spaces with hyphens and making all letters lowercase.
-
-```
-$slug = WordPress_Plugin_Framework::make_slug( $string );
+$singular_string = Utilities::make_singular( $plural_string );
 ```
