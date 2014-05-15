@@ -20,20 +20,18 @@ Move the files from the __theantichris/WpPluginFramework__ directory into your p
 
 ### Custom Post Types
 
-You can create a custom post type through the CustomPostType object. The class accepts optional arguments for post capabilities (array), post support ( array ), and menu icon (string). If nothing is specified they are set to the WordPress default
-
-Create new custom post types in the main plugin class constructor.
+The CustomPostType class accepts optional arguments for post capabilities (array), post support (array), menu icon (string), and text domain (string). If a parameter is not specified it will be set to the WordPress defaults.
 
 ```
-$new_post_type = new Custom_Post_Type( $plural_post_type_name, $capabilities, $support, $menu_icon );
+$newPostType = new CustomPostType($postTypeName, $capabilities = null, $supports = null, $menuIcon = null, $textDomain = "");
 ```
 
 ### Taxonomies
 
-Taxonomies can be added to post types by creating a Custom_Taxonomy object. The $post_types parameter is options and will use “post” if not specified, it will accept a string or array of strings.
+Taxonomies can be added to post types by creating a Taxonomy object. The $postTypes parameter is options and will use “post” if not specified, it will accept a string or array of strings.
 
 ```
-$new_taxonomy = new Custom_Taxonomy( $plural_taxonomy_name, $post_types );
+$newTaxonomy = new Taxonomy($taxonomyName, $postTypes = null, $textDomain = "");
 ```
 
 ### Terms
