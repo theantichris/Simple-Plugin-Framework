@@ -48,7 +48,7 @@ You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPag
 
 The only required fields are $pageTitle and $viewPath. The $parentSlug field is only required for the SubMenuPage class.
 
-All pages use the View object to echo the HTML.
+All pages use the View class to echo the HTML.
 
 #### MenuPage
 
