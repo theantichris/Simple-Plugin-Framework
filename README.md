@@ -44,16 +44,26 @@ $newTaxonomy->addTerms($terms);
 
 ### Pages
 
-You can create new dashboard pages by using the Menu_Page, Object_Page, Utility_Page, Sub_Menu_Page, and Options_Page classes.
+You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes.
 
-The only required fields are $page_title and $view_path. The $parent_slug field is only required for Sub_Menu_Page.
+The only required fields are $pageTitle and $viewPath. The $parentSlug field is only required for the SubMenuPage class.
 
 All pages use the View object to echo the HTML.
 
-To add a top-level menu page use the Menu_Page class.
+#### MenuPage
+
+To add a top-level menu page use the MenuPage class.
 
 ```
-$menu_page = new Menu_Page( $page_title, $view_path, $capability = 'manage_options', $icon_url = null, $position = null, $view_data = array(), $parent_slug = null );
+$menuPage = new MenuPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
+```
+
+#### ObjectPage
+
+ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.).
+
+```
+$objectPage = new ObjectPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
 ```
 
 #### Removing Pages
