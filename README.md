@@ -74,6 +74,14 @@ UtilityPage adds a top-level page on the Utility level ( Appearance, Plugins, Us
 $utilityPage = new UtilityPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
 ```
 
+#### OptionsPage
+
+OptionsPage adds a sub-men page under Settings.
+
+```
+$optionsPage = new OptionsPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
+```
+
 #### SubMenuPage
 
 SubMenuPage adds a page as a sub-menu item for another page. $parentSlug should contain the slug of the page to place the sub-page under.
@@ -84,7 +92,11 @@ $subMenuPage = new SubMenuPage($pageTitle, $viewPath, $capability = null, $menuI
 
 #### Removing Pages
 
-You can remove a page using the remove_page( $page_slug ) method.
+You can remove a page using the removePage() method.
+
+```
+$page->removePage($pageSlug);
+```
 
 ### View
 
