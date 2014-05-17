@@ -116,7 +116,7 @@ It allows you to take the code that displays the output and gives it its own fil
 
 Create a directory in your project to hold all your view files.
 
-Use the View class' render() static function to display the view and send any data the view needs to know about.
+Use the View class' render() function to display the view and send any data the view needs to know about.
 
 render() must be echoed in order to work.
 
