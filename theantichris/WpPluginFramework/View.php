@@ -16,6 +16,10 @@ class View
     private $view_file;
     private $view_data;
 
+    /**
+     * @param string $view_file
+     * @param mixed[]|null $view_data
+     */
     public function __construct($view_file, $view_data = null)
     {
         $this->view_file = $view_file;
