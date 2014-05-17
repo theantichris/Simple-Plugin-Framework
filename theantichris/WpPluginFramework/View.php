@@ -13,27 +13,33 @@ namespace theantichris\WpPluginFramework;
  */
 class View
 {
+    private $view_file;
+    private $view_data;
+
+    public function __construct($view_file, $view_data = null)
+    {
+        $this->view_file = $view_file;
+        $this->view_data = $view_data;
+    }
+
     /**
-     * Renders HTML template.
+     * Extracts any view data that is part of the view then saves the view file to a string with any processed data.
      *
      * @since 0.1.0
      *
-     * @param string $view_file The full path to the view file.
-     * @param array $view_data An associative array of variables that the view needs.
-     *
      * @return string
      */
-    public function render($view_file, $view_data = null)
+    public function render()
     {
         // Check if any data was sent.
-        if ($view_data) {
-            extract($view_data);
+        if ($this->view_data) {
+            extract($this->view_data);
         }
 
         ob_start(); // Start the output buffer.
 
         /** @noinspection PhpIncludeInspection */
-        include_once($view_file); // Include the template.
+        include_once($this->view_file); // Include the template.
 
         /** @var string $template Contains the contents of the output buffer. */
         $template = ob_get_contents(); // Add the template contents to the output buffer.
