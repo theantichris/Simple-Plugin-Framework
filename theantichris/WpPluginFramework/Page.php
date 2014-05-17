@@ -134,6 +134,8 @@ abstract class Page
             wp_die(__('You do not have sufficient permissions to access this page.', $this->textDomain));
         }
 
-        echo View::render($this->viewPath, $this->viewData);
+        $view = new View($this->viewPath, $this->viewData);
+
+        echo $view->render();
     }
 }
