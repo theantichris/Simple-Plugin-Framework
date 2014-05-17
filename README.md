@@ -10,11 +10,11 @@ It simplifies the creation of custom post types, taxonomies, pages, and settings
 
 ### Composer
 
-The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be using with Composer. Just add package to your composer.json.
+The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be using with [Composer](https://getcomposer.org/). Just add package to your composer.json.
 
 ### Drop In
 
-Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using include statements or namespacing.
+Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using `include` statements or namespacing.
 
 ## Creating WordPress Objects
 
