@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class View
 {
     /**
-     * A static function that allows rendering of a HTML template from anywhere within a plugin.
+     * Renders HTML template.
      *
      * @since 0.1.0
      *
@@ -23,7 +23,7 @@ class View
      *
      * @return string
      */
-    public static function render($view_file, $view_data = null)
+    public function render($view_file, $view_data = null)
     {
         // Check if any data was sent.
         if ($view_data) {
