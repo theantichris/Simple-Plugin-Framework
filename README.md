@@ -23,7 +23,7 @@ Move the files from the __theantichris/WpPluginFramework__ directory into your p
 The CustomPostType class accepts optional arguments for post capabilities (array), post support (array), menu icon (string), and text domain (string). If a parameter is not specified it will be set to the WordPress defaults.
 
 ```
-$newPostType = new CustomPostType($postTypeName, $capabilities = null, $supports = null, $menuIcon = null, $textDomain = "");
+$newPostType = new CustomPostType($name, $capabilities = null, $supports = null, $menuIcon = null, $textDomain = "");
 ```
 
 ### Taxonomies
