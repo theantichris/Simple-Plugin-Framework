@@ -19,12 +19,12 @@ class CustomPostType
     private $slug;
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments = array();
-    /** @var array Labels for the post type. */
+    /** @var string[] Labels for the post type. */
     private $labels = array();
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
     /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain;
+    private $textDomain = '';
 
     /** @var string[] Capabilities to set for the post type. */
     private $capabilities = array(
@@ -49,25 +49,25 @@ class CustomPostType
      */
     function __construct(CustomPostTypeArg $args)
     {
-        $this->name = $args->name;
-        $this->slug = sanitize_title($args->name);
+        if (!empty($args->name)) {
+            foreach ($args as $key => $value) {
+                if (!empty($value)) {
+                    $this->{$key} = $value;
+                }
+            }
 
-        if (!empty($args->capabilities)) {
-            $this->capabilities = $args->capabilities;
+            $this->slug = sanitize_title($args->name);
+
+            if (empty($this->labels)) {
+                $this->labels = $this->setLabels();
+            }
+
+            $this->arguments = $this->setArguments();
+
+            add_action('init', array($this, 'register_custom_post_type'));
+        } else {
+            wp_die(__('You did not specify a name for your post type.', $this->textDomain));
         }
-
-        if (!empty($args->supports)) {
-            $this->supports = $args->supports;
-        }
-
-        $this->menuIcon = $args->menuIcon;
-
-        $this->textDomain = $args->textDomain;
-
-        $this->labels    = $this->setLabels($args->labels);
-        $this->arguments = $this->setArguments();
-
-        add_action('init', array($this, 'register_custom_post_type'));
     }
 
     /**
@@ -119,37 +119,33 @@ class CustomPostType
     /**
      * Sets the $labels property.
      *
-     * @param $labels
-     *
      * @since 1.2.0
      *
      * @return string[]
      */
-    private function setLabels($labels)
+    private function setLabels()
     {
         /** @var string $singular Singular version of $name. */
         $singular = Utilities::makeSingular($this->name);
 
-        if (empty($labels)) {
-            $labels = array(
-                'name'               => __($this->name, $this->textDomain),
-                'singular_name'      => __($singular, $this->textDomain),
-                'add_new'            => __('Add New', $this->textDomain),
-                'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
-                'edit_item'          => __('Edit ' . $singular, $this->textDomain),
-                'new_item'           => __('New ' . $singular, $this->textDomain),
-                'all_items'          => __('All ' . $this->name, $this->textDomain),
-                'view_item'          => __('View ' . $singular, $this->textDomain),
-                'search_items'       => __('Search ' . $this->name, $this->textDomain),
-                'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
-                'not_found_in_trash' => __(
-                    'No ' . strtolower($this->name) . ' found in Trash.',
-                    $this->textDomain
-                ),
-                'parent_item_colon'  => '',
-                'menu_name'          => __($this->name, $this->textDomain)
-            );
-        }
+        $labels = array(
+            'name'               => __($this->name, $this->textDomain),
+            'singular_name'      => __($singular, $this->textDomain),
+            'add_new'            => __('Add New', $this->textDomain),
+            'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
+            'edit_item'          => __('Edit ' . $singular, $this->textDomain),
+            'new_item'           => __('New ' . $singular, $this->textDomain),
+            'all_items'          => __('All ' . $this->name, $this->textDomain),
+            'view_item'          => __('View ' . $singular, $this->textDomain),
+            'search_items'       => __('Search ' . $this->name, $this->textDomain),
+            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
+            'not_found_in_trash' => __(
+                'No ' . strtolower($this->name) . ' found in Trash.',
+                $this->textDomain
+            ),
+            'parent_item_colon'  => '',
+            'menu_name'          => __($this->name, $this->textDomain)
+        );
 
         return $labels;
     }
