@@ -17,7 +17,7 @@ class CustomPostType
     private $name;
     /** @var  string WordPress slug for the post type. */
     private $slug;
-    /** @var  array Arguments for the register_post_type() function. */
+    /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments = array();
     /** @var array Labels for the post type. */
     private $labels = array();
@@ -64,37 +64,8 @@ class CustomPostType
 
         $this->textDomain = $args->textDomain;
 
-        /** @var string $singular Singular version of $name. */
-        $singular = Utilities::makeSingular($this->name);
-
-        if (empty($args->labels)) {
-            $this->labels = array(
-                'name'               => __($this->name, $this->textDomain),
-                'singular_name'      => __($singular, $this->textDomain),
-                'add_new'            => __('Add New', $this->textDomain),
-                'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
-                'edit_item'          => __('Edit ' . $singular, $this->textDomain),
-                'new_item'           => __('New ' . $singular, $this->textDomain),
-                'all_items'          => __('All ' . $this->name, $this->textDomain),
-                'view_item'          => __('View ' . $singular, $this->textDomain),
-                'search_items'       => __('Search ' . $this->name, $this->textDomain),
-                'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
-                'not_found_in_trash' => __(
-                    'No ' . strtolower($this->name) . ' found in Trash.',
-                    $this->textDomain
-                ),
-                'parent_item_colon'  => '',
-                'menu_name'          => __($this->name, $this->textDomain)
-            );
-        }
-
-        $this->arguments = array(
-            'labels'       => $this->labels,
-            'public'       => true,
-            'menuIcon'     => $this->menuIcon,
-            'capabilities' => $this->capabilities,
-            'supports'     => $this->supports
-        );
+        $this->labels    = $this->setLabels($args->labels);
+        $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'register_custom_post_type'));
     }
@@ -123,5 +94,63 @@ class CustomPostType
     public function getPostSlug()
     {
         return $this->slug;
+    }
+
+    /**
+     * Sets the $arguments properties.
+     *
+     * @since 1.2.0
+     *
+     * @return mixed[]
+     */
+    private function setArguments()
+    {
+        $arguments = array(
+            'labels'       => $this->labels,
+            'public'       => true,
+            'menuIcon'     => $this->menuIcon,
+            'capabilities' => $this->capabilities,
+            'supports'     => $this->supports
+        );
+
+        return $arguments;
+    }
+
+    /**
+     * Sets the $labels property.
+     *
+     * @param $labels
+     *
+     * @since 1.2.0
+     *
+     * @return string[]
+     */
+    private function setLabels($labels)
+    {
+        /** @var string $singular Singular version of $name. */
+        $singular = Utilities::makeSingular($this->name);
+
+        if (empty($labels)) {
+            $labels = array(
+                'name'               => __($this->name, $this->textDomain),
+                'singular_name'      => __($singular, $this->textDomain),
+                'add_new'            => __('Add New', $this->textDomain),
+                'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
+                'edit_item'          => __('Edit ' . $singular, $this->textDomain),
+                'new_item'           => __('New ' . $singular, $this->textDomain),
+                'all_items'          => __('All ' . $this->name, $this->textDomain),
+                'view_item'          => __('View ' . $singular, $this->textDomain),
+                'search_items'       => __('Search ' . $this->name, $this->textDomain),
+                'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
+                'not_found_in_trash' => __(
+                    'No ' . strtolower($this->name) . ' found in Trash.',
+                    $this->textDomain
+                ),
+                'parent_item_colon'  => '',
+                'menu_name'          => __($this->name, $this->textDomain)
+            );
+        }
+
+        return $labels;
     }
 }
