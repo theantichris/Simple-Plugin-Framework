@@ -1,3 +1,5 @@
 test.php
 .idea/
 wordpress/
+Vagrantfile
+puppet/
