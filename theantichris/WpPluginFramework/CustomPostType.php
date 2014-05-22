@@ -17,6 +17,8 @@ class CustomPostType
     private $name;
     /** @var  string WordPress slug for the post type. */
     private $slug;
+    /** @var bool If the post type is publicly accessible by admin and front-end. */
+    public $public;
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments = array();
     /** @var string[] Labels for the post type. */
@@ -107,7 +109,7 @@ class CustomPostType
     {
         $arguments = array(
             'labels'       => $this->labels,
-            'public'       => true,
+            'public'       => $this->public,
             'menuIcon'     => $this->menuIcon,
             'capabilities' => $this->capabilities,
             'supports'     => $this->supports
