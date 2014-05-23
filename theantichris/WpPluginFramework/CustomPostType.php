@@ -51,25 +51,21 @@ class CustomPostType
      */
     function __construct(CustomPostTypeArg $args)
     {
-        if (!empty($args->name)) {
-            foreach ($args as $key => $value) {
-                if (!empty($value)) {
-                    $this->{$key} = $value;
-                }
+        foreach ($args as $key => $value) {
+            if (!empty($value)) {
+                $this->{$key} = $value;
             }
-
-            $this->slug = sanitize_title($args->name);
-
-            if (empty($this->labels)) {
-                $this->labels = $this->setLabels();
-            }
-
-            $this->arguments = $this->setArguments();
-
-            add_action('init', array($this, 'register_custom_post_type'));
-        } else {
-            wp_die(__('You did not specify a name for your post type.', $this->textDomain));
         }
+
+        $this->slug = sanitize_title($args->name);
+
+        if (empty($this->labels)) {
+            $this->labels = $this->setLabels();
+        }
+
+        $this->arguments = $this->setArguments();
+
+        add_action('init', array($this, 'register_custom_post_type'));
     }
 
     /**
