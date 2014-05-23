@@ -19,10 +19,10 @@ class Taxonomy
     private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
     private $postTypes;
-    /** @var array Arguments to pass to register_taxonomy(). */
-    private $arguments;
     /** @var array UI labels for the taxonomy. */
     private $labels;
+    /** @var array Arguments to pass to register_taxonomy(). */
+    private $arguments;
 
     /**
      * Class constructor.
