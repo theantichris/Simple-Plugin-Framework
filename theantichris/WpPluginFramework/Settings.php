@@ -26,27 +26,21 @@ namespace theantichris\WpPluginFramework;
 class Settings
 {
     /** @var string The WordPress page slug the settings will appear on. */
-    private $page = 'general';
+    private $page;
     /** @var mixed[] Information about the settings section if used. */
-    private $section = array(
-        'title' => 'Default',
-        'id' => 'default',
-        'viewPath' => null,
-        'viewData' => array()
-    );
+    private $section;
 
     /**
      * Class constructor.
      *
      * @since 0.1.0
      *
-     * @param string $page
+     * @param SettingsArg $settingsArg
      */
-    public function __construct($page = 'general')
+    public function __construct(SettingsArg $settingsArg)
     {
-        if ('' != trim($page)) {
-            $this->page = $page;
-        }
+        $this->page    = $settingsArg->getPage();
+        $this->section = $settingsArg->getSection();
     }
 
     /**
@@ -64,10 +58,10 @@ class Settings
     {
         if (('' != trim($title)) && (file_exists($viewPath))) {
             $this->section['title'] = $title;
-            $this->section['id'] = sanitize_title($title);
+            $this->section['id']    = sanitize_title($title);
 
-            $this->section['viewPath'] = $viewPath;
-            $this->section['viewData'] = $viewData;
+            $this->section['viewPath']          = $viewPath;
+            $this->section['viewData']          = $viewData;
             $this->section['viewData']['title'] = $title;
 
             add_action('admin_init', array($this, 'registerSection'));
@@ -119,7 +113,7 @@ class Settings
     {
         // Make sure both the title and view path are valid.
         if (('' != trim($title)) && (file_exists($viewPath))) {
-            $page = $this->page;
+            $page    = $this->page;
             $section = $this->section['id'];
 
             // Call hook to register the setting field with WordPress.
@@ -135,7 +129,7 @@ class Settings
                         function () use ($id, $title, $viewPath, $viewData) {
                             // Display the field's view.
                             $viewData['title'] = $title;
-                            $viewData['id'] = $id;
+                            $viewData['id']    = $id;
                             echo View::render($viewPath, $viewData);
                         },
                         $page,
