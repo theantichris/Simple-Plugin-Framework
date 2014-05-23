@@ -45,8 +45,8 @@ class CustomPostType
             }
         }
 
-        $this->name = $args->getName();
-        $this->slug = sanitize_title($args->getName());
+        $this->name   = $args->getName();
+        $this->slug   = sanitize_title($args->getName());
         $this->labels = $args->getLabels();
 
         $this->arguments = $this->setArguments();
