@@ -11,8 +11,8 @@ class SettingsArg
 {
     /** @var string Slug of the page the settings will appear on. */
     private $pageSlug;
-    /** @var mixed[] */
-    private $sectionInfo;
+    /** @var SettingsSection */
+    private $settingsSection;
     /** @var string */
     private $textDomain;
 
@@ -20,39 +20,19 @@ class SettingsArg
      * @since 1.2.0
      *
      * @param string $pageSlug
-     * @param null $sectionInfo
+     * @param SettingsSection $settingsSection
      * @param string $textDomain
      */
-    public function __construct($pageSlug = 'general', $sectionInfo = null, $textDomain = '')
+    public function __construct($pageSlug, SettingsSection $settingsSection, $textDomain = '')
     {
         $this->textDomain = $textDomain;
 
         if (empty($page)) {
             wp_die(__('You did not specify a page for your settings.', $this->textDomain));
         } else {
-            $this->pageSlug     = $pageSlug;
-            $this->$sectionInfo = $this->setSection($sectionInfo);
+            $this->pageSlug         = $pageSlug;
+            $this->$settingsSection = $settingsSection;
         }
-    }
-
-    /**
-     * @since 1.2.0
-     *
-     * @param mixed[] $sectionInfo
-     * @return mixed[]
-     */
-    private function setSection($sectionInfo)
-    {
-        if (empty($sectionInfo)) {
-            return array(
-                'title'    => __('My Settings', $this->textDomain),
-                'id'       => 'my-settings',
-                'viewPath' => null,
-                'viewData' => array(),
-            );
-        }
-
-        return $sectionInfo;
     }
 
     /**
@@ -68,8 +48,8 @@ class SettingsArg
      * @since 1.2.0
      * @return mixed[]
      */
-    public function getSectionInfo()
+    public function getSettingsSection()
     {
-        return $this->$sectionInfo;
+        return $this->$settingsSection;
     }
 } 

@@ -27,8 +27,8 @@ class Settings
 {
     /** @var string The WordPress page slug the settings will appear on. */
     private $page;
-    /** @var mixed[] Information about the settings section if used. */
-    private $section;
+    /** @var SettingsSection */
+    private $settingsSection;
 
     /**
      * Class constructor.
@@ -39,8 +39,8 @@ class Settings
      */
     public function __construct(SettingsArg $settingsArg)
     {
-        $this->page    = $settingsArg->getPageSlug();
-        $this->section = $settingsArg->getSectionInfo();
+        $this->page             = $settingsArg->getPageSlug();
+        $this->$settingsSection = $settingsArg->getSettingsSection();
 
         add_action('admin_init', array($this, 'registerSection'));
     }
@@ -54,12 +54,7 @@ class Settings
      */
     public function registerSection()
     {
-        add_settings_section(
-            $this->section['id'],
-            $this->section['title'],
-            array($this, 'displaySection'),
-            $this->page
-        );
+        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this, 'displaySection'), $this->page);
     }
 
     /**
