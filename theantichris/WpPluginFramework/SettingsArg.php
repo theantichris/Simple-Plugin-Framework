@@ -13,11 +13,15 @@ class SettingsArg
     private $pageSlug;
     /** @var mixed[] */
     private $sectionInfo;
+    /** @var string */
+    private $textDomain;
 
     public function __construct($pageSlug = 'general', $sectionInfo = null, $textDomain = '')
     {
+        $this->textDomain = $textDomain;
+
         if (empty($page)) {
-            wp_die(__('You did not specify a page for your settings.', $textDomain));
+            wp_die(__('You did not specify a page for your settings.', $this->textDomain));
         } else {
             $this->pageSlug     = $pageSlug;
             $this->$sectionInfo = $this->setSection($sectionInfo);
