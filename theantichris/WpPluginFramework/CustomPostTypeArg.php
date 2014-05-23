@@ -32,7 +32,7 @@ class CustomPostTypeArg
     public $supports = array('title', 'editor');
 
     /** @var string The text domain for translation. */
-    public $textDomain;
+    private $textDomain;
 
     /**
      * @since 1.2.0
