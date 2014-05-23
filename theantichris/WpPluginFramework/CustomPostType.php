@@ -49,7 +49,7 @@ class CustomPostType
 
         $this->arguments = $this->setArguments();
 
-        add_action('init', array($this, 'register_custom_post_type'));
+        add_action('init', array($this, 'registerCustomPostType'));
     }
 
     /**
@@ -79,7 +79,7 @@ class CustomPostType
      *
      * @return void
      */
-    public function register_custom_post_type()
+    public function registerCustomPostType()
     {
         if (!post_type_exists($this->slug)) {
             register_post_type($this->slug, $this->arguments);
