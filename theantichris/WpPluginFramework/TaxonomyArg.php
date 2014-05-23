@@ -36,7 +36,7 @@ class TaxonomyArg
      */
     private function setLabels()
     {
-        /** @var string $singular Singular version of $this->name. */
+        /** @var string $singular Singular version of the taxonomy name. */
         $singular = Utilities::makeSingular($this->name);
 
         return array(
