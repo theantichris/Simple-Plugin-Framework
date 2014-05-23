@@ -30,19 +30,24 @@ class CustomPostTypeArg
     );
     /** @var string[] What WordPress features the post type supports. */
     public $supports = array('title', 'editor');
+
     /** @var string The text domain for translation. */
     public $textDomain;
 
     /**
      * @since 1.2.0
+     *
      * @param string $name
+     * @param string $textDomain
      */
-    public function __construct($name)
+    public function __construct($name, $textDomain)
     {
+        $this->textDomain = $textDomain;
+
         if (empty($name)) {
-            wp_die('You did not specify a name for your post type.');
+            wp_die(__('You did not specify a name for your post type.', $this->textDomain));
         } else {
-            $this->name = $name;
+            $this->name   = $name;
             $this->labels = $this->setLabels();
         }
     }
@@ -94,7 +99,8 @@ class CustomPostTypeArg
      * @since 1.2.0
      * @return \string[]
      */
-    public function getLabels() {
+    public function getLabels()
+    {
         return $this->labels;
     }
 }
