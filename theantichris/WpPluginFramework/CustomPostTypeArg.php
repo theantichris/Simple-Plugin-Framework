@@ -18,6 +18,7 @@ class CustomPostTypeArg
     private $labels;
     /** @var string URL to the post type's menu icon. */
     public $menuIcon;
+
     /** @var string[] The post type's capabilities. */
     public $capabilities = array(
         'edit_post'          => 'edit_post',
@@ -28,6 +29,7 @@ class CustomPostTypeArg
         'publish_posts'      => 'publish_posts',
         'read_private_posts' => 'read_private_posts'
     );
+
     /** @var string[] What WordPress features the post type supports. */
     public $supports = array('title', 'editor');
 
