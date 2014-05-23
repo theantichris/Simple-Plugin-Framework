@@ -32,7 +32,7 @@ class SettingsArg
     {
         if (empty($sectionInfo)) {
             return array(
-                'title'    => 'My Settings',
+                'title'    => __('My Settings', $this->textDomain),
                 'id'       => 'my-settings',
                 'viewPath' => null,
                 'viewData' => array(),
