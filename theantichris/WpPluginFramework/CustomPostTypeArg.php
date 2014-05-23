@@ -6,7 +6,7 @@ namespace theantichris\WpPluginFramework;
 class CustomPostTypeArg
 {
     /** @var string User-readable plural name of the post type. */
-    public $name;
+    private $name;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
     public $public;
     /** @var string[] An array of labels for the post type. */
