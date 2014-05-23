@@ -75,22 +75,22 @@ class Taxonomy
      * @since 0.1.0
      *
      * @param string|array $terms Terms to add to the taxonomy.
-     *
+     * @param string $textDomain
      * @return void
      */
-    public function addTerms($terms)
+    public function addTerms($terms, $textDomain = '')
     {
         if (is_array($terms)) {
             if (!empty($terms)) {
                 foreach ($terms as $term) {
                     if ('' != trim($term)) {
-                        $this->insertTerm(trim($term));
+                        $this->insertTerm(trim($term), $textDomain);
                     }
                 }
             }
         } else {
             if ('' != trim($terms)) {
-                $this->insertTerm(trim($terms));
+                $this->insertTerm(trim($terms), $textDomain);
             }
         }
     }
@@ -101,19 +101,19 @@ class Taxonomy
      * @since 0.1.0
      *
      * @param string $term Validated term to add to the taxonomy.
-     *
+     * @param $textDomain
      * @return void
      */
-    private function insertTerm($term)
+    private function insertTerm($term, $textDomain)
     {
         /** @var string $taxonomySlug Used to bring the property into the scope of the anonymous function. */
         $taxonomySlug = $this->slug;
 
         add_action(
             'init',
-            function () use ($term, $taxonomySlug) {
+            function () use ($term, $taxonomySlug, $textDomain) {
                 $args = array('slug' => sanitize_title($term));
-                wp_insert_term(__($term, $this->textDomain), $taxonomySlug, $args);
+                wp_insert_term(__($term, $textDomain), $taxonomySlug, $args);
             }
         );
     }
