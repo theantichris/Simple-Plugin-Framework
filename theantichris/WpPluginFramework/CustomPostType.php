@@ -19,16 +19,16 @@ class CustomPostType
     private $slug;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
     public $public;
-    /** @var  mixed[] Arguments for the register_post_type() function. */
-    private $arguments = array();
     /** @var string[] Labels for the post type. */
-    private $labels = array();
+    private $labels;
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
     /** @var string[] Capabilities to set for the post type. */
     private $capabilities;
     /** @var string[] $supports What features the post type supports. */
     private $supports;
+    /** @var  mixed[] Arguments for the register_post_type() function. */
+    private $arguments;
 
     /**
      * Class constructor.
@@ -39,19 +39,37 @@ class CustomPostType
      */
     function __construct(CustomPostTypeArg $args)
     {
-        foreach ($args as $key => $value) {
-            if (!empty($value)) {
-                $this->{$key} = $value;
-            }
-        }
-
-        $this->name   = $args->getName();
-        $this->slug   = sanitize_title($args->getName());
-        $this->labels = $args->getLabels();
+        $this->name         = $args->getName();
+        $this->slug         = sanitize_title($args->getName());
+        $this->public       = $args->public;
+        $this->labels       = $args->getLabels();
+        $this->menuIcon     = $args->menuIcon;
+        $this->capabilities = $args->capabilities;
+        $this->supports     = $args->supports;
 
         $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'register_custom_post_type'));
+    }
+
+    /**
+     * Sets the $arguments properties.
+     *
+     * @since 1.2.0
+     *
+     * @return mixed[]
+     */
+    private function setArguments()
+    {
+        $arguments = array(
+            'labels'       => $this->labels,
+            'public'       => $this->public,
+            'menuIcon'     => $this->menuIcon,
+            'capabilities' => $this->capabilities,
+            'supports'     => $this->supports
+        );
+
+        return $arguments;
     }
 
     /**
@@ -78,25 +96,5 @@ class CustomPostType
     public function getPostSlug()
     {
         return $this->slug;
-    }
-
-    /**
-     * Sets the $arguments properties.
-     *
-     * @since 1.2.0
-     *
-     * @return mixed[]
-     */
-    private function setArguments()
-    {
-        $arguments = array(
-            'labels'       => $this->labels,
-            'public'       => $this->public,
-            'menuIcon'     => $this->menuIcon,
-            'capabilities' => $this->capabilities,
-            'supports'     => $this->supports
-        );
-
-        return $arguments;
     }
 }
