@@ -25,8 +25,6 @@ class CustomPostType
     private $labels = array();
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
-    /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain = '';
     /** @var string[] Capabilities to set for the post type. */
     private $capabilities;
     /** @var string[] $supports What features the post type supports. */
