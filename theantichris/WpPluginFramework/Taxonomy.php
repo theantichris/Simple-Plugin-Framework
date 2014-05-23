@@ -14,17 +14,15 @@ namespace theantichris\WpPluginFramework;
 class Taxonomy
 {
     /** @var string User readable name for the taxonomy. */
-    private $taxonomyName;
+    private $name;
     /** @var string WordPress ID for the taxonomy. */
-    private $taxonomySlug;
+    private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
     private $postTypes = 'post';
     /** @var array Arguments to pass to register_taxonomy(). */
-    private $taxonomyArgs;
+    private $arguments;
     /** @var array UI labels for the taxonomy. */
-    private $taxonomyLabels;
-    /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain;
+    private $lables;
 
     /**
      * Class constructor.
@@ -39,8 +37,8 @@ class Taxonomy
      */
     public function __construct($taxonomyName, $postTypes = null, $textDomain = "")
     {
-        $this->taxonomyName = $taxonomyName;
-        $this->taxonomySlug = sanitize_title($taxonomyName);
+        $this->name = $taxonomyName;
+        $this->slug = sanitize_title($taxonomyName);
 
         // If $postTypes is specified, set it. Otherwise it will default to 'post'.
         if (!empty($postTypes)) {
@@ -49,10 +47,10 @@ class Taxonomy
 
         $this->textDomain = $textDomain;
 
-        /** @var string $singular Singular version of $taxonomyName. */
+        /** @var string $singular Singular version of $name. */
         $singular = Utilities::makeSingular($taxonomyName);
 
-        $this->taxonomyLabels = array(
+        $this->lables = array(
             'name' => __($taxonomyName, $this->textDomain),
             'singular_name' => __($singular, $this->textDomain),
             'search_items' => __('Search ' . $taxonomyName, $this->textDomain),
@@ -66,8 +64,8 @@ class Taxonomy
             'menu_name' => __($singular, $this->textDomain),
         );
 
-        $this->taxonomyArgs = array(
-            'labels' => $this->taxonomyLabels
+        $this->arguments = array(
+            'labels' => $this->lables
         );
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
@@ -82,8 +80,8 @@ class Taxonomy
      */
     public function registerCustomTaxonomy()
     {
-        if (!taxonomy_exists($this->taxonomySlug)) {
-            register_taxonomy($this->taxonomySlug, $this->postTypes, $this->taxonomyArgs);
+        if (!taxonomy_exists($this->slug)) {
+            register_taxonomy($this->slug, $this->postTypes, $this->arguments);
         }
     }
 
@@ -125,7 +123,7 @@ class Taxonomy
     private function insertTerm($term)
     {
         /** @var string $taxonomySlug Used to bring the property into the scope of the anonymous function. */
-        $taxonomySlug = $this->taxonomySlug;
+        $taxonomySlug = $this->slug;
 
         add_action(
             'init',

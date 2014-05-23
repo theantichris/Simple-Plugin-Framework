@@ -27,7 +27,7 @@ Move the files from the __theantichris/WpPluginFramework__ directory into your p
 Taxonomies can be added to post types by creating a Taxonomy object. The $postTypes parameter is options and will use “post” if not specified, it will accept a string or array of strings.
 
 ```
-$newTaxonomy = new Taxonomy($taxonomyName, $postTypes = null, $textDomain = "");
+$newTaxonomy = new Taxonomy($name, $postTypes = null, $textDomain = "");
 ```
 
 #### Terms
