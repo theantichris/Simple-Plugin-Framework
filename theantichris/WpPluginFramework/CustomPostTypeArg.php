@@ -13,7 +13,7 @@ class CustomPostTypeArg
     /** @var string User-readable plural name of the post type. */
     private $name;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
-    public $public = false;
+    public $public = true;
     /** @var string[] An array of labels for the post type. */
     private $labels;
     /** @var string URL to the post type's menu icon. */
