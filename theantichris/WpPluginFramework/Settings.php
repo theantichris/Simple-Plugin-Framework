@@ -41,31 +41,8 @@ class Settings
     {
         $this->page    = $settingsArg->getPageSlug();
         $this->section = $settingsArg->getSectionInfo();
-    }
 
-    /**
-     * Adds a settings section to the object.
-     *
-     * @since 0.1.0
-     *
-     * @param string $title User readable title for the settings section.
-     * @param string $viewPath The full path to the settings section's view.
-     * @param array $viewData Any data that needs to be passed to the view.
-     *
-     * @return void
-     */
-    public function addSection($title, $viewPath, $viewData = array())
-    {
-        if (('' != trim($title)) && (file_exists($viewPath))) {
-            $this->section['title'] = $title;
-            $this->section['id']    = sanitize_title($title);
-
-            $this->section['viewPath']          = $viewPath;
-            $this->section['viewData']          = $viewData;
-            $this->section['viewData']['title'] = $title;
-
-            add_action('admin_init', array($this, 'registerSection'));
-        }
+        add_action('admin_init', array($this, 'registerSection'));
     }
 
     /**
