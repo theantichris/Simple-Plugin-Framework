@@ -3,6 +3,11 @@
 namespace theantichris\WpPluginFramework;
 
 
+/**
+ * Class CustomPostTypeArg
+ * @package theantichris\WpPluginFramework
+ * @since 1.2.0
+ */
 class CustomPostTypeArg
 {
     /** @var string User-readable plural name of the post type. */
@@ -21,13 +26,24 @@ class CustomPostTypeArg
     public $textDomain;
 
     /**
+     * @since 1.2.0
      * @param string $name
      */
-    public function __construct($name){
-        if (empty(trim($name))){
+    public function __construct($name)
+    {
+        if (empty($name)) {
             wp_die('You did not specify a name for your post type.');
         } else {
             $this->name = $name;
         }
+    }
+
+    /**
+     * @since 1.2.0
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
     }
 }
