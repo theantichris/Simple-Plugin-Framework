@@ -20,9 +20,12 @@ class CustomPostTypeArg
     /** @var string The text domain for translation. */
     public $textDomain;
 
+    /**
+     * @param string $name
+     */
     public function __construct($name){
         if (empty(trim($name))){
-            wp_die();
+            wp_die('You did not specify a name for your post type.');
         } else {
             $this->name = $name;
         }
