@@ -19,4 +19,4 @@ class CustomPostTypeArg
     public $supports;
     /** @var string The text domain for translation. */
     public $textDomain;
-} 
+}
