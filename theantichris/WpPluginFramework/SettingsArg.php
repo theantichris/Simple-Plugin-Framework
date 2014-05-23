@@ -38,7 +38,7 @@ class SettingsArg
         return $sectionInfo;
     }
 
-    public function getPage()
+    public function getPageSlug()
     {
         return $this->pageSlug;
     }
