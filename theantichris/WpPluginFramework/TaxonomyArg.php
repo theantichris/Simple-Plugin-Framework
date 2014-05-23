@@ -11,8 +11,6 @@ class TaxonomyArg
 {
     /** @var string User readable name for the taxonomy. */
     private $name;
-    /** @var string WordPress ID for the taxonomy. */
-    private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
     public $postTypes = 'post';
     /** @var array UI labels for the taxonomy. */
@@ -32,8 +30,28 @@ class TaxonomyArg
         }
     }
 
+    /**
+     * @since 1.2.0
+     * @return string[]
+     */
     private function setLabels()
     {
+        /** @var string $singular Singular version of $this->name. */
+        $singular = Utilities::makeSingular($this->name);
+
+        return array(
+            'name' => __($this->name, $this->textDomain),
+            'singular_name' => __($singular, $this->textDomain),
+            'search_items' => __('Search ' . $this->name, $this->textDomain),
+            'all_items' => __('All ' . $this->name, $this->textDomain),
+            'parent_item' => __('Parent ' . $singular, $this->textDomain),
+            'parent_item_colon' => __('Parent ' . $singular . ':', $this->textDomain),
+            'edit_item' => __('Edit ' . $singular, $this->textDomain),
+            'update_item' => __('Update ' . $singular, $this->textDomain),
+            'add_new_item' => __('Add New ' . $singular, $this->textDomain),
+            'new_item_name' => __('New ' . $singular . ' Name', $this->textDomain),
+            'menu_name' => __($singular, $this->textDomain),
+        );
     }
 
     /**
