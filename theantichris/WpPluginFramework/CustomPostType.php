@@ -47,7 +47,7 @@ class CustomPostType
         $this->capabilities = $customPostTypeAags->capabilities;
         $this->supports     = $customPostTypeAags->supports;
 
-        $this->arguments = $this->setArguments();
+        $this->setArguments();
 
         add_action('init', array($this, 'registerCustomPostType'));
     }
@@ -56,20 +56,16 @@ class CustomPostType
      * Sets the $arguments properties.
      *
      * @since 1.2.0
-     *
-     * @return mixed[]
      */
     private function setArguments()
     {
-        $arguments = array(
+        $this->arguments = array(
             'labels'       => $this->labels,
             'public'       => $this->public,
             'menuIcon'     => $this->menuIcon,
             'capabilities' => $this->capabilities,
             'supports'     => $this->supports
         );
-
-        return $arguments;
     }
 
     /**
