@@ -19,7 +19,7 @@ class SettingsArg
         if (empty($page)) {
             wp_die(__('You did not specify a page for your settings.', $textDomain));
         } else {
-            $this->page    = $page;
+            $this->page         = $page;
             $this->$sectionInfo = $this->setSection();
         }
     }
