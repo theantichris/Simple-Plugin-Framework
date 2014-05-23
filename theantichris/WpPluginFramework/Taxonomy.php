@@ -22,7 +22,7 @@ class Taxonomy
     /** @var array Arguments to pass to register_taxonomy(). */
     private $arguments;
     /** @var array UI labels for the taxonomy. */
-    private $lables;
+    private $labels;
 
     /**
      * Class constructor.
@@ -50,7 +50,7 @@ class Taxonomy
         /** @var string $singular Singular version of $name. */
         $singular = Utilities::makeSingular($taxonomyName);
 
-        $this->lables = array(
+        $this->labels = array(
             'name' => __($taxonomyName, $this->textDomain),
             'singular_name' => __($singular, $this->textDomain),
             'search_items' => __('Search ' . $taxonomyName, $this->textDomain),
@@ -65,7 +65,7 @@ class Taxonomy
         );
 
         $this->arguments = array(
-            'labels' => $this->lables
+            'labels' => $this->labels
         );
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
