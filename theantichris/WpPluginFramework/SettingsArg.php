@@ -14,7 +14,7 @@ class SettingsArg
     /** @var mixed[] */
     private $sectionInfo;
 
-    public function __construct($page, $sectionInfo, $textDomain)
+    public function __construct($page, $sectionInfo, $textDomain = '')
     {
         if (empty($page)) {
             wp_die(__('You did not specify a page for your settings.', $textDomain));
