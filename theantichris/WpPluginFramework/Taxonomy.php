@@ -18,7 +18,7 @@ class Taxonomy
     /** @var string WordPress ID for the taxonomy. */
     private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
-    private $postTypes = 'post';
+    private $postTypes;
     /** @var array Arguments to pass to register_taxonomy(). */
     private $arguments;
     /** @var array UI labels for the taxonomy. */
