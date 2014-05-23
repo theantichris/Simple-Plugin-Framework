@@ -47,10 +47,7 @@ class CustomPostType
 
         $this->name = $args->getName();
         $this->slug = sanitize_title($args->getName());
-
-        if (empty($this->labels)) {
-            $this->labels = $this->setLabels();
-        }
+        $this->labels = $args->getLabels();
 
         $this->arguments = $this->setArguments();
 
@@ -101,39 +98,5 @@ class CustomPostType
         );
 
         return $arguments;
-    }
-
-    /**
-     * Sets the $labels property.
-     *
-     * @since 1.2.0
-     *
-     * @return string[]
-     */
-    private function setLabels()
-    {
-        /** @var string $singular Singular version of $name. */
-        $singular = Utilities::makeSingular($this->name);
-
-        $labels = array(
-            'name'               => __($this->name, $this->textDomain),
-            'singular_name'      => __($singular, $this->textDomain),
-            'add_new'            => __('Add New', $this->textDomain),
-            'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
-            'edit_item'          => __('Edit ' . $singular, $this->textDomain),
-            'new_item'           => __('New ' . $singular, $this->textDomain),
-            'all_items'          => __('All ' . $this->name, $this->textDomain),
-            'view_item'          => __('View ' . $singular, $this->textDomain),
-            'search_items'       => __('Search ' . $this->name, $this->textDomain),
-            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
-            'not_found_in_trash' => __(
-                'No ' . strtolower($this->name) . ' found in Trash.',
-                $this->textDomain
-            ),
-            'parent_item_colon'  => '',
-            'menu_name'          => __($this->name, $this->textDomain)
-        );
-
-        return $labels;
     }
 }

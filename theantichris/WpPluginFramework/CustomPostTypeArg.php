@@ -15,7 +15,7 @@ class CustomPostTypeArg
     /** @var bool If the post type is publicly accessible by admin and front-end. */
     public $public = false;
     /** @var string[] An array of labels for the post type. */
-    public $labels;
+    private $labels;
     /** @var string URL to the post type's menu icon. */
     public $menuIcon;
     /** @var string[] The post type's capabilities. */
@@ -43,6 +43,7 @@ class CustomPostTypeArg
             wp_die('You did not specify a name for your post type.');
         } else {
             $this->name = $name;
+            $this->labels = $this->setLabels();
         }
     }
 
@@ -53,5 +54,47 @@ class CustomPostTypeArg
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Sets the $labels property.
+     *
+     * @since 1.2.0
+     *
+     * @return string[]
+     */
+    private function setLabels()
+    {
+        /** @var string $singular Singular version of $name. */
+        $singular = Utilities::makeSingular($this->name);
+
+        $labels = array(
+            'name'               => __($this->name, $this->textDomain),
+            'singular_name'      => __($singular, $this->textDomain),
+            'add_new'            => __('Add New', $this->textDomain),
+            'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
+            'edit_item'          => __('Edit ' . $singular, $this->textDomain),
+            'new_item'           => __('New ' . $singular, $this->textDomain),
+            'all_items'          => __('All ' . $this->name, $this->textDomain),
+            'view_item'          => __('View ' . $singular, $this->textDomain),
+            'search_items'       => __('Search ' . $this->name, $this->textDomain),
+            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
+            'not_found_in_trash' => __(
+                'No ' . strtolower($this->name) . ' found in Trash.',
+                $this->textDomain
+            ),
+            'parent_item_colon'  => '',
+            'menu_name'          => __($this->name, $this->textDomain)
+        );
+
+        return $labels;
+    }
+
+    /**
+     * @since 1.2.0
+     * @return \string[]
+     */
+    public function getLabels() {
+        return $this->labels;
     }
 }
