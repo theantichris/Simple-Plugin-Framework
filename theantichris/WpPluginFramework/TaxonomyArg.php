@@ -11,8 +11,8 @@ class TaxonomyArg
 {
     /** @var string User readable name for the taxonomy. */
     private $name;
-    /** @var array|string What post types the taxonomy will be registered to. */
-    public $postTypes = array('post');
+    /** @var string|string[] What post types the taxonomy will be registered to. */
+    public $postTypes = 'post';
     /** @var array UI labels for the taxonomy. */
     private $labels;
     /** @var  string $textDomain Text domain for the plugin. */
