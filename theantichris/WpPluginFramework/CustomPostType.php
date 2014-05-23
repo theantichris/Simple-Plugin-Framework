@@ -35,17 +35,17 @@ class CustomPostType
      *
      * @since 0.1.0
      *
-     * @param CustomPostTypeArg $args Object containing arguments for creating a custom post type.
+     * @param CustomPostTypeArg $customPostTypeAags Object containing arguments for creating a custom post type.
      */
-    function __construct(CustomPostTypeArg $args)
+    function __construct(CustomPostTypeArg $customPostTypeAags)
     {
-        $this->name         = $args->getName();
-        $this->slug         = $args->getSlug();
-        $this->public       = $args->public;
-        $this->labels       = $args->getLabels();
-        $this->menuIcon     = $args->menuIcon;
-        $this->capabilities = $args->capabilities;
-        $this->supports     = $args->supports;
+        $this->name         = $customPostTypeAags->getName();
+        $this->slug         = $customPostTypeAags->getSlug();
+        $this->public       = $customPostTypeAags->public;
+        $this->labels       = $customPostTypeAags->getLabels();
+        $this->menuIcon     = $customPostTypeAags->menuIcon;
+        $this->capabilities = $customPostTypeAags->capabilities;
+        $this->supports     = $customPostTypeAags->supports;
 
         $this->arguments = $this->setArguments();
 
