@@ -23,7 +23,7 @@ class TaxonomyArg
         $this->textDomain = $textDomain;
 
         if (empty($name)) {
-            wp_die(__('You did not specify a name for your post type.', $this->textDomain));
+            wp_die(__('You did not specify a name for your taxonomy.', $this->textDomain));
         } else {
             $this->name   = $name;
             $this->labels = $this->setLabels();
