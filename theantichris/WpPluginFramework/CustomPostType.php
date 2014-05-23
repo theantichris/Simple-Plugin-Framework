@@ -18,7 +18,7 @@ class CustomPostType
     /** @var  string WordPress slug for the post type. */
     private $slug;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
-    public $public = false;
+    public $public;
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments = array();
     /** @var string[] Labels for the post type. */
@@ -27,20 +27,10 @@ class CustomPostType
     private $menuIcon;
     /** @var  string $textDomain Text domain for the plugin. */
     private $textDomain = '';
-
     /** @var string[] Capabilities to set for the post type. */
-    private $capabilities = array(
-        'edit_post'          => 'edit_post',
-        'read_post'          => 'read_post',
-        'delete_post'        => 'delete_post',
-        'edit_posts'         => 'edit_posts',
-        'edit_others_posts'  => 'edit_others_post',
-        'publish_posts'      => 'publish_posts',
-        'read_private_posts' => 'read_private_posts'
-    );
-
+    private $capabilities;
     /** @var string[] $supports What features the post type supports. */
-    private $supports = array('title', 'editor');
+    private $supports;
 
     /**
      * Class constructor.
