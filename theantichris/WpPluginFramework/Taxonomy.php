@@ -29,46 +29,28 @@ class Taxonomy
      *
      * @since 0.1.0
      *
-     * @param string $taxonomyName User readable name for the taxonomy.
-     * @param string|array|null $postTypes What post types to register the taxonomy with.
-     * @param string $textDomain Text domain for the plugin.
-     *
-     * @return Taxonomy
+     * @param TaxonomyArg $taxonomyArg
      */
-    public function __construct($taxonomyName, $postTypes = null, $textDomain = "")
+    public function __construct(TaxonomyArg $taxonomyArg)
     {
-        $this->name = $taxonomyName;
-        $this->slug = sanitize_title($taxonomyName);
+        $this->name      = $taxonomyArg->getName();
+        $this->slug      = $taxonomyArg->getSlug();
+        $this->postTypes = $taxonomyArg->postTypes;
+        $this->labels    = $taxonomyArg->getLabels();
 
-        // If $postTypes is specified, set it. Otherwise it will default to 'post'.
-        if (!empty($postTypes)) {
-            $this->postTypes = $postTypes;
-        }
-
-        $this->textDomain = $textDomain;
-
-        /** @var string $singular Singular version of $name. */
-        $singular = Utilities::makeSingular($taxonomyName);
-
-        $this->labels = array(
-            'name' => __($taxonomyName, $this->textDomain),
-            'singular_name' => __($singular, $this->textDomain),
-            'search_items' => __('Search ' . $taxonomyName, $this->textDomain),
-            'all_items' => __('All ' . $taxonomyName, $this->textDomain),
-            'parent_item' => __('Parent ' . $singular, $this->textDomain),
-            'parent_item_colon' => __('Parent ' . $singular . ':', $this->textDomain),
-            'edit_item' => __('Edit ' . $singular, $this->textDomain),
-            'update_item' => __('Update ' . $singular, $this->textDomain),
-            'add_new_item' => __('Add New ' . $singular, $this->textDomain),
-            'new_item_name' => __('New ' . $singular . ' Name', $this->textDomain),
-            'menu_name' => __($singular, $this->textDomain),
-        );
-
-        $this->arguments = array(
-            'labels' => $this->labels
-        );
+        $this->setArguments();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
+    }
+
+    /**
+     * @since 1.2.0
+     */
+    private function setArguments()
+    {
+        $this->arguments = array(
+            'labels' => $this->labels,
+        );
     }
 
     /**
