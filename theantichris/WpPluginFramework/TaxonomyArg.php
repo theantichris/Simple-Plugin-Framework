@@ -40,18 +40,27 @@ class TaxonomyArg
         $singular = Utilities::makeSingular($this->name);
 
         return array(
-            'name' => __($this->name, $this->textDomain),
-            'singular_name' => __($singular, $this->textDomain),
-            'search_items' => __('Search ' . $this->name, $this->textDomain),
-            'all_items' => __('All ' . $this->name, $this->textDomain),
-            'parent_item' => __('Parent ' . $singular, $this->textDomain),
+            'name'              => __($this->name, $this->textDomain),
+            'singular_name'     => __($singular, $this->textDomain),
+            'search_items'      => __('Search ' . $this->name, $this->textDomain),
+            'all_items'         => __('All ' . $this->name, $this->textDomain),
+            'parent_item'       => __('Parent ' . $singular, $this->textDomain),
             'parent_item_colon' => __('Parent ' . $singular . ':', $this->textDomain),
-            'edit_item' => __('Edit ' . $singular, $this->textDomain),
-            'update_item' => __('Update ' . $singular, $this->textDomain),
-            'add_new_item' => __('Add New ' . $singular, $this->textDomain),
-            'new_item_name' => __('New ' . $singular . ' Name', $this->textDomain),
-            'menu_name' => __($singular, $this->textDomain),
+            'edit_item'         => __('Edit ' . $singular, $this->textDomain),
+            'update_item'       => __('Update ' . $singular, $this->textDomain),
+            'add_new_item'      => __('Add New ' . $singular, $this->textDomain),
+            'new_item_name'     => __('New ' . $singular . ' Name', $this->textDomain),
+            'menu_name'         => __($singular, $this->textDomain),
         );
+    }
+
+    /**
+     * @since 1.2.0
+     * @return string[]
+     */
+    public function getLabels()
+    {
+        return $this->labels;
     }
 
     /**
