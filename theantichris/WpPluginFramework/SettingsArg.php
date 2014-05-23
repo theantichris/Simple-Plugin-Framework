@@ -12,15 +12,15 @@ class SettingsArg
     /** @var string */
     private $page = 'general';
     /** @var mixed[] */
-    private $section;
+    private $sectionInfo;
 
-    public function __construct($page, $textDomain)
+    public function __construct($page, $sectionInfo, $textDomain)
     {
         if (empty($page)) {
             wp_die(__('You did not specify a page for your settings.', $textDomain));
         } else {
             $this->page    = $page;
-            $this->section = $this->setSection();
+            $this->$sectionInfo = $this->setSection();
         }
     }
 
@@ -39,8 +39,8 @@ class SettingsArg
         return $this->page;
     }
 
-    public function getSection()
+    public function getSectionInfo()
     {
-        return $this->section;
+        return $this->$sectionInfo;
     }
 } 

@@ -40,7 +40,7 @@ class Settings
     public function __construct(SettingsArg $settingsArg)
     {
         $this->page    = $settingsArg->getPage();
-        $this->section = $settingsArg->getSection();
+        $this->section = $settingsArg->getSectionInfo();
     }
 
     /**
