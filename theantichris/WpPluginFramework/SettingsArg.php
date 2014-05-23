@@ -10,17 +10,17 @@ namespace theantichris\WpPluginFramework;
 class SettingsArg
 {
     /** @var string */
-    private $page = 'general';
+    private $pageSlug = 'general';
     /** @var mixed[] */
     private $sectionInfo;
 
-    public function __construct($page, $sectionInfo, $textDomain = '')
+    public function __construct($pageSlug, $sectionInfo = null, $textDomain = '')
     {
         if (empty($page)) {
             wp_die(__('You did not specify a page for your settings.', $textDomain));
         } else {
-            $this->page         = $page;
-            $this->$sectionInfo = $this->setSection();
+            $this->pageSlug     = $pageSlug;
+            $this->$sectionInfo = $this->setSection($sectionInfo);
         }
     }
 
@@ -36,7 +36,7 @@ class SettingsArg
 
     public function getPage()
     {
-        return $this->page;
+        return $this->pageSlug;
     }
 
     public function getSectionInfo()
