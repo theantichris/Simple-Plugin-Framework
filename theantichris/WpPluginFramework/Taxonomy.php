@@ -38,17 +38,19 @@ class Taxonomy
         $this->postTypes = $taxonomyArg->postTypes;
         $this->labels    = $taxonomyArg->getLabels();
 
-        $this->setArguments();
+        $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
     }
 
     /**
      * @since 1.2.0
+     *
+     * @return string[]
      */
     private function setArguments()
     {
-        $this->arguments = array(
+        return array(
             'labels' => $this->labels,
         );
     }
