@@ -40,7 +40,7 @@ class CustomPostType
     function __construct(CustomPostTypeArg $args)
     {
         $this->name         = $args->getName();
-        $this->slug         = sanitize_title($args->getName());
+        $this->slug         = $args->getSlug();
         $this->public       = $args->public;
         $this->labels       = $args->getLabels();
         $this->menuIcon     = $args->menuIcon;

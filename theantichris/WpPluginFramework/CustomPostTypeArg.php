@@ -62,6 +62,15 @@ class CustomPostTypeArg
     }
 
     /**
+     * @since 1.2.0
+     * @return string
+     */
+    public function getSlug()
+    {
+        return sanitize_title($this->name);
+    }
+
+    /**
      * Sets the $labels property.
      *
      * @since 1.2.0
