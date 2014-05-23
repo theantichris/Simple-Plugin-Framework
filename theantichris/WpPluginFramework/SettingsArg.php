@@ -9,7 +9,7 @@ namespace theantichris\WpPluginFramework;
  */
 class SettingsArg
 {
-    /** @var string */
+    /** @var string Slug of the page the settings will appear on. */
     private $pageSlug = 'general';
     /** @var mixed[] */
     private $sectionInfo;
