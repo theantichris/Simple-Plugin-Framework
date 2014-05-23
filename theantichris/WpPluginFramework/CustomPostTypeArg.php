@@ -19,4 +19,12 @@ class CustomPostTypeArg
     public $supports;
     /** @var string The text domain for translation. */
     public $textDomain;
+
+    public function __construct($name){
+        if (empty(trim($name))){
+            wp_die();
+        } else {
+            $this->name = $name;
+        }
+    }
 }
