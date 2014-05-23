@@ -16,6 +16,13 @@ class SettingsArg
     /** @var string */
     private $textDomain;
 
+    /**
+     * @since 1.2.0
+     *
+     * @param string $pageSlug
+     * @param null $sectionInfo
+     * @param string $textDomain
+     */
     public function __construct($pageSlug = 'general', $sectionInfo = null, $textDomain = '')
     {
         $this->textDomain = $textDomain;
@@ -28,6 +35,12 @@ class SettingsArg
         }
     }
 
+    /**
+     * @since 1.2.0
+     *
+     * @param mixed[] $sectionInfo
+     * @return mixed[]
+     */
     private function setSection($sectionInfo)
     {
         if (empty($sectionInfo)) {
@@ -42,11 +55,19 @@ class SettingsArg
         return $sectionInfo;
     }
 
+    /**
+     * @since 1.2.0
+     * @return string
+     */
     public function getPageSlug()
     {
         return $this->pageSlug;
     }
 
+    /**
+     * @since 1.2.0
+     * @return mixed[]
+     */
     public function getSectionInfo()
     {
         return $this->$sectionInfo;
