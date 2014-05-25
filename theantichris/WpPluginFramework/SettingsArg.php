@@ -52,6 +52,6 @@ class SettingsArg
      */
     public function getSettingsSection()
     {
-        return $this->$settingsSection;
+        return $this->settingsSection;
     }
 } 
