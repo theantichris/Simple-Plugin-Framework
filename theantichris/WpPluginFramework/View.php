@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class View
 {
     private $view_file;
-    private $view_data;
+    public $view_data;
 
     /**
      * @param string $view_file
