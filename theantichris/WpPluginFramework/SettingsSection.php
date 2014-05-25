@@ -36,8 +36,8 @@ class SettingsSection
         return sanitize_title($this->title);
     }
 
-    public function getView()
+    public function displaySection()
     {
-        return $this->view;
+        echo $this->view->render();
     }
 } 

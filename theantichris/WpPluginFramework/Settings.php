@@ -54,6 +54,7 @@ class Settings
      */
     public function registerSection()
     {
+        // TODO: See if this can call $this->settingsSection->displaySection() directly.
         add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this, 'displaySection'), $this->page);
     }
 
@@ -66,7 +67,7 @@ class Settings
      */
     public function displaySection()
     {
-        echo View::render($this->section['viewPath'], $this->section['viewData']);
+        $this->settingsSection->displaySection();
     }
 
     /**
