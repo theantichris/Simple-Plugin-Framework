@@ -14,6 +14,12 @@ class SettingsSection
     /** @var View */
     private $view;
 
+    /**
+     * @since 1.2.0
+     * @param string $title
+     * @param View $view
+     * @param string $textDomain
+     */
     public function __construct($title, $view, $textDomain = '')
     {
         if (empty($title)) {
@@ -27,16 +33,28 @@ class SettingsSection
         }
     }
 
+    /**
+     * @since 1.2.0
+     * @return string
+     */
     public function getTitle()
     {
         return $this->title;
     }
 
+    /**
+     * @since 1.2.0
+     * @return string
+     */
     public function getId()
     {
         return sanitize_title($this->title);
     }
 
+    /**
+     * @since 1.2.0
+     * @return void
+     */
     public function displaySection()
     {
         echo $this->view->render();
