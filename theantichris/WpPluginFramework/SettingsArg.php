@@ -27,7 +27,7 @@ class SettingsArg
     {
         $this->textDomain = $textDomain;
 
-        if (empty($page)) {
+        if (empty($pageSlug)) {
             wp_die(__('You did not specify a page for your settings.', $this->textDomain));
         } elseif (empty($settingsSection)) {
             wp_die(__('You did not specify a section for your settings.', $this->textDomain));
