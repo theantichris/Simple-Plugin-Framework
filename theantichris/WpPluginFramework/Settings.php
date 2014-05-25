@@ -40,7 +40,7 @@ class Settings
     public function __construct(SettingsArg $settingsArg)
     {
         $this->page             = $settingsArg->getPageSlug();
-        $this->$settingsSection = $settingsArg->getSettingsSection();
+        $this->settingsSection = $settingsArg->getSettingsSection();
 
         add_action('admin_init', array($this, 'registerSection'));
     }
