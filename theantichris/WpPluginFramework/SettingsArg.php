@@ -33,7 +33,7 @@ class SettingsArg
             wp_die(__('You did not specify a section for your settings.', $this->textDomain));
         } else {
             $this->pageSlug         = $pageSlug;
-            $this->$settingsSection = $settingsSection;
+            $this->settingsSection = $settingsSection;
         }
     }
 
