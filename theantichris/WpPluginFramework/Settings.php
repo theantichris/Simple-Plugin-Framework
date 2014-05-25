@@ -54,20 +54,7 @@ class Settings
      */
     public function registerSection()
     {
-        // TODO: See if this can call $this->settingsSection->displaySection() directly.
-        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this, 'displaySection'), $this->page);
-    }
-
-    /**
-     * Displays the settings section output.
-     *
-     * @since 0.1.0
-     *
-     * @return void
-     */
-    public function displaySection()
-    {
-        $this->settingsSection->displaySection();
+        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this->settingsSection, 'displaySection'), $this->page);
     }
 
     /**
