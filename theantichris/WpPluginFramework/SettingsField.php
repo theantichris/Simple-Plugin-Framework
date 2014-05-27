@@ -71,6 +71,6 @@ class SettingsField
      */
     public function display()
     {
-        echo $this->view->render();
+        $this->view->render();
     }
 } 

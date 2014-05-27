@@ -57,6 +57,6 @@ class SettingsSection
      */
     public function display()
     {
-        echo $this->view->render();
+        $this->view->render();
     }
 } 

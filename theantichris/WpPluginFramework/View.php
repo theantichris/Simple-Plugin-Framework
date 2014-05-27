@@ -50,6 +50,6 @@ class View
 
         ob_end_clean(); // End the output buffer.
 
-        return $template;
+        echo $template;
     }
 }
