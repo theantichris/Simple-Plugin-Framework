@@ -31,7 +31,7 @@ class View
      *
      * @since 0.1.0
      *
-     * @return string
+     * @return void
      */
     public function render()
     {
