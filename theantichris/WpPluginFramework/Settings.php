@@ -72,7 +72,7 @@ class Settings
      */
     private function registerField($field)
     {
-        $page = $this->page;
+        $page      = $this->page;
         $sectionId = $this->settingsSection->getId();
 
         add_action(
