@@ -78,7 +78,7 @@ class Settings
         add_action(
             'admin_init', function () use ($field, $page, $sectionId) {
                 /** @noinspection PhpVoidFunctionResultUsedInspection */
-                add_settings_field($field->getID(), $field->getTitle(), $field->display(), $page, $sectionId, $field->getArgs());
+                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $page, $sectionId, $field->getArgs());
 
                 register_setting($page, $field->getID());
             }
