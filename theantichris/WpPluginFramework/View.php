@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class View
 {
     private $view_file;
-    private $view_data;
+    public $view_data;
 
     /**
      * @param string $view_file
@@ -31,7 +31,7 @@ class View
      *
      * @since 0.1.0
      *
-     * @return string
+     * @return void
      */
     public function render()
     {
@@ -50,6 +50,6 @@ class View
 
         ob_end_clean(); // End the output buffer.
 
-        return $template;
+        echo $template;
     }
 }

@@ -14,89 +14,60 @@ namespace theantichris\WpPluginFramework;
 class CustomPostType
 {
     /** @var  string User readable name for the post type. Must be plural. */
-    private $postTypeName;
+    private $name;
     /** @var  string WordPress slug for the post type. */
-    private $postTypeSlug;
-    /** @var  array Arguments for the register_post_type() function. */
-    private $postTypeArgs = array();
-    /** @var array Labels for the post type. */
-    private $postTypeLabels = array();
+    private $slug;
+    /** @var bool If the post type is publicly accessible by admin and front-end. */
+    public $public;
+    /** @var string[] Labels for the post type. */
+    private $labels;
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
     /** @var string[] Capabilities to set for the post type. */
-    private $capabilities = array(
-        'edit_post' => 'edit_post',
-        'read_post' => 'read_post',
-        'delete_post' => 'delete_post',
-        'edit_posts' => 'edit_posts',
-        'edit_others_posts' => 'edit_others_post',
-        'publish_posts' => 'publish_posts',
-        'read_private_posts' => 'read_private_posts'
-    );
+    private $capabilities;
     /** @var string[] $supports What features the post type supports. */
-    private $supports = array('title', 'editor');
-    /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain;
+    private $supports;
+    /** @var  mixed[] Arguments for the register_post_type() function. */
+    private $arguments;
 
     /**
      * Class constructor.
      *
      * @since 0.1.0
      *
-     * @param string $postTypeName User readable name of the post type. Must be plural.
-     * @param string[]|null $capabilities Capabilities to set for the post type.
-     * @param string[]|null $supports What features the post type supports.
-     * @param string|null $menuIcon URL to the post type's menu icon.
-     * @param string $textDomain Text domain for the plugin.
+     * @param CustomPostTypeArg $customPostTypeArgs Object containing arguments for creating a custom post type.
      */
-    function __construct($postTypeName, $capabilities = null, $supports = null, $menuIcon = null, $textDomain = "")
+    function __construct(CustomPostTypeArg $customPostTypeArgs)
     {
-        $this->postTypeName = $postTypeName;
-        $this->postTypeSlug = sanitize_title($postTypeName);
+        $this->name         = $customPostTypeArgs->getName();
+        $this->slug         = $customPostTypeArgs->getSlug();
+        $this->public       = $customPostTypeArgs->public;
+        $this->labels       = $customPostTypeArgs->getLabels();
+        $this->menuIcon     = $customPostTypeArgs->menuIcon;
+        $this->capabilities = $customPostTypeArgs->capabilities;
+        $this->supports     = $customPostTypeArgs->supports;
 
-        if (!empty($capabilities)) {
-            $this->capabilities = $capabilities;
-        }
+        $this->arguments = $this->setArguments();
 
-        if (!empty($capabilities)) {
-            $this->supports = $supports;
-        }
+        add_action('init', array($this, 'registerCustomPostType'));
+    }
 
-        $this->menuIcon = $menuIcon;
-
-        $this->textDomain = $textDomain;
-
-        /** @var string $singular Singular version of $postTypeName. */
-        $singular = Utilities::makeSingular($this->postTypeName);
-
-        $this->postTypeLabels = array(
-            'name' => __($this->postTypeName, $this->textDomain),
-            'singular_name' => __($singular, $this->textDomain),
-            'add_new' => __('Add New', $this->textDomain),
-            'add_new_item' => __('Add New ' . $singular, $this->textDomain),
-            'edit_item' => __('Edit ' . $singular, $this->textDomain),
-            'new_item' => __('New ' . $singular, $this->textDomain),
-            'all_items' => __('All ' . $this->postTypeName, $this->textDomain),
-            'view_item' => __('View ' . $singular, $this->textDomain),
-            'search_items' => __('Search ' . $this->postTypeName, $this->textDomain),
-            'not_found' => __('No ' . strtolower($this->postTypeName) . ' found.', $this->textDomain),
-            'not_found_in_trash' => __(
-                'No ' . strtolower($this->postTypeName) . ' found in Trash.',
-                $this->textDomain
-            ),
-            'parent_item_colon' => '',
-            'menu_name' => __($this->postTypeName, $this->textDomain)
-        );
-
-        $this->postTypeArgs = array(
-            'labels' => $this->postTypeLabels,
-            'public' => true,
-            'menuIcon' => $this->menuIcon,
+    /**
+     * Sets the $arguments properties.
+     *
+     * @since 1.2.0
+     *
+     * @return mixed[]
+     */
+    private function setArguments()
+    {
+        return array(
+            'labels'       => $this->labels,
+            'public'       => $this->public,
+            'menuIcon'     => $this->menuIcon,
             'capabilities' => $this->capabilities,
-            'supports' => $this->supports
+            'supports'     => $this->supports,
         );
-
-        add_action('init', array($this, 'register_custom_post_type'));
     }
 
     /**
@@ -106,22 +77,22 @@ class CustomPostType
      *
      * @return void
      */
-    public function register_custom_post_type()
+    public function registerCustomPostType()
     {
-        if (!post_type_exists($this->postTypeSlug)) {
-            register_post_type($this->postTypeSlug, $this->postTypeArgs);
+        if (!post_type_exists($this->slug)) {
+            register_post_type($this->slug, $this->arguments);
         }
     }
 
     /**
-     * Returns $postTypeSlug.
+     * Returns $slug.
      *
      * @since 0.1.0
      *
      * @return string
      */
-    public function getPostSlug()
+    public function getSlug()
     {
-        return $this->postTypeSlug;
+        return $this->slug;
     }
 }
