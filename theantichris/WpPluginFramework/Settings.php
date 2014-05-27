@@ -17,6 +17,8 @@ class Settings
     private $page;
     /** @var SettingsSection */
     private $settingsSection;
+    /** @var SettingsField|SettingsField[] */
+    private $settingsFields;
 
     /**
      * Class constructor.
@@ -29,8 +31,11 @@ class Settings
     {
         $this->page            = $settingsArg->getPageSlug();
         $this->settingsSection = $settingsArg->getSettingsSection();
+        $this->settingsFields  = $settingsArg->getSettingsFields();
 
         add_action('admin_init', array($this, 'registerSection'));
+
+        $this->registerFields();
     }
 
     /**
@@ -46,49 +51,37 @@ class Settings
     }
 
     /**
-     * Adds a settings field to the object.
-     *
-     * @since 0.1.0
-     *
-     * @param string $title User readable name for the field.
-     * @param string $viewPath Path to the view for the field
-     * @param array $viewData Data to pass to the view.
-     * @param array $args Optional arguments the field needs in WordPress.
-     *
+     * @since 1.2.0
      * @return void
      */
-    public function addField($title, $viewPath, $viewData = array(), $args = array())
+    private function registerFields()
     {
-        // Make sure both the title and view path are valid.
-        if (('' != trim($title)) && (file_exists($viewPath))) {
-            $page    = $this->page;
-            $section = $this->section['id'];
-
-            // Call hook to register the setting field with WordPress.
-            add_action(
-                'admin_init',
-                function () use ($title, $viewPath, $viewData, $args, $page, $section) {
-                    $id = sanitize_title($title);
-
-                    // Add settings field.
-                    add_settings_field(
-                        $id,
-                        $title,
-                        function () use ($id, $title, $viewPath, $viewData) {
-                            // Display the field's view.
-                            $viewData['title'] = $title;
-                            $viewData['id']    = $id;
-                            echo View::render($viewPath, $viewData);
-                        },
-                        $page,
-                        $section,
-                        $args
-                    );
-
-                    // Register setting.
-                    register_setting($page, $id);
-                }
-            );
+        if (is_array($this->settingsFields)) {
+            foreach ($this->settingsFields as $field) {
+                $this->registerField($field);
+            }
+        } else {
+            $this->registerField($this->settingsFields);
         }
+    }
+
+    /**
+     * @since 1.2.0
+     * @param SettingsField $field
+     * @return void
+     */
+    private function registerField($field)
+    {
+        $page = $this->page;
+        $sectionId = $this->settingsSection->getId();
+
+        add_action(
+            'admin_init', function () use ($field, $page, $sectionId) {
+                /** @noinspection PhpVoidFunctionResultUsedInspection */
+                add_settings_field($field->getID(), $field->getTitle(), $field->display(), $page, $sectionId, $field->getArgs());
+
+                register_setting($page, $field->getID());
+            }
+        );
     }
 }
