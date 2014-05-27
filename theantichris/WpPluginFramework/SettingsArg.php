@@ -13,6 +13,8 @@ class SettingsArg
     private $pageSlug;
     /** @var SettingsSection */
     private $settingsSection;
+    /** @var SettingsField|SettingsField[] */
+    private $settingsFields;
     /** @var string */
     private $textDomain;
 
@@ -21,9 +23,10 @@ class SettingsArg
      *
      * @param string $pageSlug
      * @param SettingsSection $settingsSection
+     * @param SettingsField|SettingsField[] $settingsFields
      * @param string $textDomain
      */
-    public function __construct($pageSlug, SettingsSection $settingsSection, $textDomain = '')
+    public function __construct($pageSlug, SettingsSection $settingsSection, $settingsFields, $textDomain = '')
     {
         $this->textDomain = $textDomain;
 
@@ -32,8 +35,9 @@ class SettingsArg
         } elseif (empty($settingsSection)) {
             wp_die(__('You did not specify a section for your settings.', $this->textDomain));
         } else {
-            $this->pageSlug         = $pageSlug;
+            $this->pageSlug        = $pageSlug;
             $this->settingsSection = $settingsSection;
+            $this->settingsFields  = $settingsFields;
         }
     }
 
@@ -54,4 +58,13 @@ class SettingsArg
     {
         return $this->settingsSection;
     }
-} 
+
+    /**
+     * @since 1.2.0
+     * @return SettingsField|SettingsField[]
+     */
+    public function getSettingsFields()
+    {
+        return $this->settingsFields;
+    }
+}
