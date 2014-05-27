@@ -55,7 +55,7 @@ class SettingsSection
      * @since 1.2.0
      * @return void
      */
-    public function displaySection()
+    public function display()
     {
         echo $this->view->render();
     }

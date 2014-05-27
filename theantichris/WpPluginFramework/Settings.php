@@ -47,7 +47,7 @@ class Settings
      */
     public function registerSection()
     {
-        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this->settingsSection, 'displaySection'), $this->page);
+        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this->settingsSection, 'display'), $this->page);
     }
 
     /**
