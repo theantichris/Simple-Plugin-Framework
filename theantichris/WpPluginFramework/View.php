@@ -18,11 +18,16 @@ class View
      * @since 1.2.0
      * @param string $viewFile
      * @param mixed[]|null $viewData
+     * @param string $textDomain
      */
-    public function __construct($viewFile, $viewData = null)
+    public function __construct($viewFile, $viewData = null, $textDomain = '')
     {
-        $this->viewFile = $viewFile;
-        $this->viewData = $viewData;
+        if (file_exists($viewFile)) {
+            $this->viewFile = $viewFile;
+            $this->viewData = $viewData;
+        } else {
+            wp_die(__('You did not specify a view file.', $textDomain));
+        }
     }
 
     /**
