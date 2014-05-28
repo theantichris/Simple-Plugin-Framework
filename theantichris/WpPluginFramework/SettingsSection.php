@@ -29,7 +29,7 @@ class SettingsSection
         } else {
             $this->title                    = $title;
             $this->view                     = $view;
-            $this->view->view_data['title'] = $this->title;
+            $this->view->viewData['title'] = $this->title;
         }
     }
 
