@@ -17,6 +17,8 @@ abstract class Page
     protected $title;
     /** @var string Unique ID for the page. */
     protected $slug;
+    /** @var  View */
+    protected $view;
 
     /**
      * Class constructor.
@@ -25,34 +27,12 @@ abstract class Page
      *
      * @param PageArg $pageArg
      */
-    public function __construct(PageArg $pageArg) {
-        $this->title = $pageTitle;
-        $this->slug = sanitize_title($pageTitle);
+    public function __construct(PageArg $pageArg)
+    {
+        $this->title = $pageArg->getTitle();
+        $this->slug  = $pageArg->getSlug();
 
-        $this->viewPath = $viewPath;
-
-        if (!empty($capability)) {
-            $this->capability = $capability;
-        }
-
-        if (!empty($menuIcon)) {
-            $this->menuIcon = $menuIcon;
-        }
-
-        if (!empty($position)) {
-            $this->position = $position;
-        }
-
-        if (!empty($viewData)) {
-            $this->viewData = $viewData;
-        }
-
-        $this->viewData['title'] = $this->title;
-        $this->viewData['slug'] = $this->slug;
-
-        $this->parentSlug = $parentSlug;
-
-        $this->textDomain = $textDomain;
+        $this->view = $pageArg->getView();
 
         add_action('admin_menu', array($this, 'addPage'));
     }
