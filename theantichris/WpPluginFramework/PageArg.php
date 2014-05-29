@@ -21,13 +21,17 @@ class PageArg
     public $position;
     /** @var  string */
     public $parentSlug;
+    /** @var  string */
+    private $textDomain;
 
     public function __construct($title, View $view, $textDomain = '')
     {
+        $this->textDomain = $textDomain;
+
         if (empty($title)) {
-            wp_die(__('You did not specify a title for your page.', $textDomain));
+            wp_die(__('You did not specify a title for your page.', $this->textDomain));
         } elseif (empty($view)) {
-            wp_die(__('You did not specify a view for your page.', $textDomain));
+            wp_die(__('You did not specify a view for your page.', $this->textDomain));
         } else {
             $this->title                   = $title;
             $this->view                    = $view;
