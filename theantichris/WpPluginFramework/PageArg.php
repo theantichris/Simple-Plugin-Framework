@@ -29,8 +29,9 @@ class PageArg
         } elseif (empty($view)) {
             wp_die(__('You did not specify a view for your page.', $textDomain));
         } else {
-            $this->title = $title;
-            $this->view  = $view;
+            $this->title                   = $title;
+            $this->view                    = $view;
+            $this->view->viewData['title'] = $this->title;
         }
     }
 
