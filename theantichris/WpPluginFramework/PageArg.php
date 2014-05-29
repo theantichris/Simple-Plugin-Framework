@@ -14,7 +14,7 @@ class PageArg
     /** @var  View */
     private $view;
     /** @var  string */
-    public $capability;
+    public $capability = 'manage_options';
     /** @var  string */
     public $menuIcon;
     /** @var  int */
