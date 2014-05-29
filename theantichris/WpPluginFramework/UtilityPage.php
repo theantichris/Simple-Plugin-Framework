@@ -11,15 +11,17 @@ namespace theantichris\WpPluginFramework;
  *
  * @since 0.1.0
  */
-class UtilityPage extends Page {
-	/**
-	 * Add the page to WordPress.
-	 *
-	 * @since 0.1.0
-	 *
-	 * @return void
-	 */
-	public function addPage() {
-		add_utility_page( $this->title, $this->title, $this->capability, $this->slug, array( $this, 'display'), $this->menuIcon );
-	}
+class UtilityPage extends Page
+{
+    /**
+     * Add the page to WordPress.
+     *
+     * @since 0.1.0
+     *
+     * @return void
+     */
+    public function addPage()
+    {
+        add_utility_page($this->title, $this->title, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
+    }
 }
