@@ -23,10 +23,10 @@ class MenuPage extends Page
     public function addPage()
     {
         add_menu_page(
-            $this->pageTitle,
-            $this->pageTitle,
+            $this->title,
+            $this->title,
             $this->capability,
-            $this->pageSlug,
+            $this->slug,
             array($this, 'displayPage'),
             $this->menuIcon,
             $this->position

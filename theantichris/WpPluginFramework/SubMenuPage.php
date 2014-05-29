@@ -20,7 +20,7 @@ class SubMenuPage extends Page {
 	 * @return void
 	 */
 	public function addPage() {
-		add_submenu_page( $this->parentSlug, $this->pageTitle, $this->pageTitle, $this->capability, $this->pageSlug, array( $this, 'displayPage' ) );
+		add_submenu_page( $this->parentSlug, $this->title, $this->title, $this->capability, $this->slug, array( $this, 'displayPage' ) );
 	}
 
 	/**
@@ -31,6 +31,6 @@ class SubMenuPage extends Page {
 	 * @return void
 	 */
 	public function removePage() {
-		remove_submenu_page( $this->parentSlug, $this->pageSlug );
+		remove_submenu_page( $this->parentSlug, $this->slug );
 	}
 }

@@ -14,51 +14,20 @@ namespace theantichris\WpPluginFramework;
 abstract class Page
 {
     /** @var string User readable title for the page and menu item. */
-    protected $pageTitle;
+    protected $title;
     /** @var string Unique ID for the page. */
-    protected $pageSlug;
-    /** @var string The capability required for the menu item to be displayed to the user. */
-    protected $capability = 'manage_options';
-    /** @var string|null The URL to the icon to be used for the menu item. */
-    protected $menuIcon = null;
-    /** @var integer|null The position in the menu this page should appear. */
-    protected $position = null;
-    /** @var string The full path to the view file that will display the content. */
-    protected $viewPath;
-    /** @var array Any variables that the templates need access to in an associative array. */
-    protected $viewData = array();
-    /** @var string The WordPress slug for the parent page. */
-    protected $parentSlug;
-    /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain;
+    protected $slug;
 
     /**
      * Class constructor.
      *
      * @since 0.1.0
      *
-     * @param string $pageTitle User readable title for the page and menu item.
-     * @param string $viewPath Path to the view file the page will use to display content.
-     * @param string $capability The capability required for the menu item to be displayed to the user.
-     * @param string|null $menuIcon The URL to the icon to be used for the menu item.
-     * @param string|null $position The position in the menu this page should appear.
-     * @param array $viewData Any variables that the templates need access to in an associative array.
-     * @param array|null $parentSlug The WordPress slug for the parent page.
-     * @param string $textDomain Text domain for the plugin.
-     * @return Page
+     * @param PageArg $pageArg
      */
-    public function __construct(
-        $pageTitle,
-        $viewPath,
-        $capability = null,
-        $menuIcon = null,
-        $position = null,
-        $viewData = array(),
-        $parentSlug = null,
-        $textDomain = ''
-    ) {
-        $this->pageTitle = $pageTitle;
-        $this->pageSlug = sanitize_title($pageTitle);
+    public function __construct(PageArg $pageArg) {
+        $this->title = $pageTitle;
+        $this->slug = sanitize_title($pageTitle);
 
         $this->viewPath = $viewPath;
 
@@ -78,8 +47,8 @@ abstract class Page
             $this->viewData = $viewData;
         }
 
-        $this->viewData['title'] = $this->pageTitle;
-        $this->viewData['slug'] = $this->pageSlug;
+        $this->viewData['title'] = $this->title;
+        $this->viewData['slug'] = $this->slug;
 
         $this->parentSlug = $parentSlug;
 
@@ -89,15 +58,15 @@ abstract class Page
     }
 
     /**
-     * Returns the $pageSlug property.
+     * Returns the $slug property.
      *
      * @since 0.1.0
      *
      * @return string
      */
-    public function getPageSlug()
+    public function getSlug()
     {
-        return $this->pageSlug;
+        return $this->slug;
     }
 
     /**
@@ -118,7 +87,7 @@ abstract class Page
      */
     public function removePage()
     {
-        remove_menu_page($this->pageSlug);
+        remove_menu_page($this->slug);
     }
 
     /**
