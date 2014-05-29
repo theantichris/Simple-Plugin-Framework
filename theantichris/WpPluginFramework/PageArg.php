@@ -9,5 +9,38 @@ namespace theantichris\WpPluginFramework;
  */
 class PageArg
 {
+    /** @var  string */
+    private $title;
+    /** @var  View */
+    private $view;
+    /** @var  string */
+    public $capability;
+    /** @var  string */
+    public $menuIcon;
+    /** @var  int */
+    public $position;
+    /** @var  string */
+    public $parentSlug;
 
-} 
+    public function __construct($title, View $view, $textDomain = '')
+    {
+        if (empty($title)) {
+            wp_die(__('You did not specify a title for your page.', $textDomain));
+        } elseif (empty($view)) {
+            wp_die(__('You did not specify a view for your page.', $textDomain));
+        } else {
+            $this->title = $title;
+            $this->view  = $view;
+        }
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    public function getSlug()
+    {
+        return sanitize_title($this->title);
+    }
+}
