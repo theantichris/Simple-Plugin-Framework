@@ -39,11 +39,6 @@ class PageArg
         return $this->title;
     }
 
-    public function getSlug()
-    {
-        return sanitize_title($this->title);
-    }
-
     public function getView()
     {
         return $this->view;
