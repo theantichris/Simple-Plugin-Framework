@@ -55,18 +55,6 @@ abstract class Page
     abstract public function addPage();
 
     /**
-     * Removes a page from WordPress.
-     *
-     * @since 0.1.0
-     *
-     * @return void
-     */
-    public function removePage()
-    {
-        remove_menu_page($this->slug);
-    }
-
-    /**
      * Displays the HTML output of the page.
      *
      * @since 0.1.0
