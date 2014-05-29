@@ -17,6 +17,14 @@ abstract class Page
     protected $title;
     /** @var  View */
     protected $view;
+    /** @var  string */
+    protected $capability;
+    /** @var  string */
+    protected $menuIcon;
+    /** @var  int */
+    protected $position;
+    /** @var  string */
+    protected $parentSlug;
 
     /**
      * Class constructor.
@@ -27,8 +35,12 @@ abstract class Page
      */
     public function __construct(PageArg $pageArg)
     {
-        $this->title = $pageArg->getTitle();
-        $this->view = $pageArg->getView();
+        $this->title      = $pageArg->getTitle();
+        $this->view       = $pageArg->getView();
+        $this->capability = $pageArg->capability;
+        $this->menuIcon   = $pageArg->menuIcon;
+        $this->position   = $pageArg->position;
+        $this->parentSlug = $pageArg->parentSlug;
 
         add_action('admin_menu', array($this, 'addPage'));
     }
