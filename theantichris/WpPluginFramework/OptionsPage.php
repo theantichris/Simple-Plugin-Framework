@@ -20,6 +20,6 @@ class OptionsPage extends Page {
 	 * @return void
 	 */
 	public function addPage() {
-		add_options_page( $this->title, $this->title, $this->capability, $this->slug, array( $this, 'displayPage' ) );
+		add_options_page( $this->title, $this->title, $this->capability, $this->slug, array( $this, 'display') );
 	}
 }

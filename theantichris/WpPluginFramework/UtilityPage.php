@@ -20,6 +20,6 @@ class UtilityPage extends Page {
 	 * @return void
 	 */
 	public function addPage() {
-		add_utility_page( $this->title, $this->title, $this->capability, $this->slug, array( $this, 'displayPage' ), $this->menuIcon );
+		add_utility_page( $this->title, $this->title, $this->capability, $this->slug, array( $this, 'display'), $this->menuIcon );
 	}
 }

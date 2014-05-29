@@ -27,7 +27,7 @@ class MenuPage extends Page
             $this->title,
             $this->capability,
             $this->slug,
-            array($this, 'displayPage'),
+            array($this, 'display'),
             $this->menuIcon,
             $this->position
         );

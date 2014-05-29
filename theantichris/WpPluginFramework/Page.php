@@ -61,7 +61,7 @@ abstract class Page
      *
      * @return void
      */
-    public function displayPage()
+    public function display()
     {
         if (!current_user_can($this->capability)) {
             wp_die(__('You do not have sufficient permissions to access this page.', $this->textDomain));
