@@ -22,7 +22,7 @@ class PageArg
     /** @var  string */
     public $parentSlug;
     /** @var  string */
-    private $textDomain;
+    public $textDomain;
 
     public function __construct($title, View $view, $textDomain = '')
     {

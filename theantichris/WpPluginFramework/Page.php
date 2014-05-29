@@ -41,6 +41,7 @@ abstract class Page
         $this->menuIcon   = $pageArg->menuIcon;
         $this->position   = $pageArg->position;
         $this->parentSlug = $pageArg->parentSlug;
+        $this->textDomain = $pageArg->textDomain;
 
         add_action('admin_menu', array($this, 'addPage'));
     }
