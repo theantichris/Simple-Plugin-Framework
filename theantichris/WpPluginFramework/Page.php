@@ -15,8 +15,6 @@ abstract class Page
 {
     /** @var string User readable title for the page and menu item. */
     protected $title;
-    /** @var string Unique ID for the page. */
-    protected $slug;
     /** @var  View */
     protected $view;
 
@@ -30,8 +28,6 @@ abstract class Page
     public function __construct(PageArg $pageArg)
     {
         $this->title = $pageArg->getTitle();
-        $this->slug  = $pageArg->getSlug();
-
         $this->view = $pageArg->getView();
 
         add_action('admin_menu', array($this, 'addPage'));
@@ -46,7 +42,7 @@ abstract class Page
      */
     public function getSlug()
     {
-        return $this->slug;
+        return sanitize_title($this->title);
     }
 
     /**
