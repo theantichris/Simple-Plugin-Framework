@@ -43,4 +43,9 @@ class PageArg
     {
         return sanitize_title($this->title);
     }
+
+    public function getView()
+    {
+        return $this->view;
+    }
 }
