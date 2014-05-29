@@ -25,6 +25,8 @@ abstract class Page
     protected $position;
     /** @var  string */
     protected $parentSlug;
+    /** @var string */
+    protected $textDomain;
 
     /**
      * Class constructor.
