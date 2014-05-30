@@ -26,7 +26,7 @@ class View
             $this->viewFile = $viewFile;
             $this->viewData = $viewData;
         } else {
-            wp_die(__('You did not specify a view file.', $textDomain));
+            wp_die(__('Cannot find the view file.', $textDomain));
         }
     }
 

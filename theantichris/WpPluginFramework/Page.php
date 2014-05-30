@@ -14,90 +14,50 @@ namespace theantichris\WpPluginFramework;
 abstract class Page
 {
     /** @var string User readable title for the page and menu item. */
-    protected $pageTitle;
-    /** @var string Unique ID for the page. */
-    protected $pageSlug;
-    /** @var string The capability required for the menu item to be displayed to the user. */
-    protected $capability = 'manage_options';
-    /** @var string|null The URL to the icon to be used for the menu item. */
-    protected $menuIcon = null;
-    /** @var integer|null The position in the menu this page should appear. */
-    protected $position = null;
-    /** @var string The full path to the view file that will display the content. */
-    protected $viewPath;
-    /** @var array Any variables that the templates need access to in an associative array. */
-    protected $viewData = array();
-    /** @var string The WordPress slug for the parent page. */
+    protected $title;
+    /** @var  View */
+    protected $view;
+    /** @var  string */
+    protected $capability;
+    /** @var  string */
+    protected $menuIcon;
+    /** @var  int */
+    protected $position;
+    /** @var  string */
     protected $parentSlug;
-    /** @var  string $textDomain Text domain for the plugin. */
-    private $textDomain;
+    /** @var string */
+    protected $textDomain;
 
     /**
      * Class constructor.
      *
      * @since 0.1.0
      *
-     * @param string $pageTitle User readable title for the page and menu item.
-     * @param string $viewPath Path to the view file the page will use to display content.
-     * @param string $capability The capability required for the menu item to be displayed to the user.
-     * @param string|null $menuIcon The URL to the icon to be used for the menu item.
-     * @param string|null $position The position in the menu this page should appear.
-     * @param array $viewData Any variables that the templates need access to in an associative array.
-     * @param array|null $parentSlug The WordPress slug for the parent page.
-     * @param string $textDomain Text domain for the plugin.
-     * @return Page
+     * @param PageArg $pageArg
      */
-    public function __construct(
-        $pageTitle,
-        $viewPath,
-        $capability = null,
-        $menuIcon = null,
-        $position = null,
-        $viewData = array(),
-        $parentSlug = null,
-        $textDomain = ''
-    ) {
-        $this->pageTitle = $pageTitle;
-        $this->pageSlug = sanitize_title($pageTitle);
-
-        $this->viewPath = $viewPath;
-
-        if (!empty($capability)) {
-            $this->capability = $capability;
-        }
-
-        if (!empty($menuIcon)) {
-            $this->menuIcon = $menuIcon;
-        }
-
-        if (!empty($position)) {
-            $this->position = $position;
-        }
-
-        if (!empty($viewData)) {
-            $this->viewData = $viewData;
-        }
-
-        $this->viewData['title'] = $this->pageTitle;
-        $this->viewData['slug'] = $this->pageSlug;
-
-        $this->parentSlug = $parentSlug;
-
-        $this->textDomain = $textDomain;
+    public function __construct(PageArg $pageArg)
+    {
+        $this->title      = $pageArg->getTitle();
+        $this->view       = $pageArg->getView();
+        $this->capability = $pageArg->capability;
+        $this->menuIcon   = $pageArg->menuIcon;
+        $this->position   = $pageArg->position;
+        $this->parentSlug = $pageArg->parentSlug;
+        $this->textDomain = $pageArg->textDomain;
 
         add_action('admin_menu', array($this, 'addPage'));
     }
 
     /**
-     * Returns the $pageSlug property.
+     * Returns the $slug property.
      *
      * @since 0.1.0
      *
      * @return string
      */
-    public function getPageSlug()
+    public function getSlug()
     {
-        return $this->pageSlug;
+        return sanitize_title($this->title);
     }
 
     /**
@@ -110,32 +70,18 @@ abstract class Page
     abstract public function addPage();
 
     /**
-     * Removes a page from WordPress.
-     *
-     * @since 0.1.0
-     *
-     * @return void
-     */
-    public function removePage()
-    {
-        remove_menu_page($this->pageSlug);
-    }
-
-    /**
      * Displays the HTML output of the page.
      *
      * @since 0.1.0
      *
      * @return void
      */
-    public function displayPage()
+    public function display()
     {
         if (!current_user_can($this->capability)) {
             wp_die(__('You do not have sufficient permissions to access this page.', $this->textDomain));
         }
 
-        $view = new View($this->viewPath, $this->viewData);
-
-        echo $view->render();
+        $this->view->render();
     }
 }

@@ -11,15 +11,17 @@ namespace theantichris\WpPluginFramework;
  *
  * @since 0.1.0
  */
-class ObjectPage extends Page {
-	/**
-	 * Add the page to WordPress.
-	 *
-	 * @since 4.0.0
-	 *
-	 * @return void
-	 */
-	public function addPage() {
-		add_object_page( $this->pageTitle, $this->pageTitle, $this->capability, $this->pageSlug, array( $this, 'displayPage' ), $this->menuIcon );
-	}
+class ObjectPage extends Page
+{
+    /**
+     * Add the page to WordPress.
+     *
+     * @since 0.1.0
+     *
+     * @return void
+     */
+    public function addPage()
+    {
+        add_object_page($this->title, $this->title, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
+    }
 }
