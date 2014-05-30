@@ -16,17 +16,17 @@ class SettingsField
     /** @var  mixed[] */
     private $args;
     /** @var  string */
-    private $key;
+    private $prefix;
 
     /**
      * @since 1.2.0
      * @param string $title
      * @param View $view
      * @param mixed[] $args
-     * @param string $key
+     * @param string $prefix
      * @param string $textDomain
      */
-    public function __construct($title, View $view, $args = array(), $key = 'lwppfw', $textDomain = '')
+    public function __construct($title, View $view, $args = array(), $prefix = 'lwppfw', $textDomain = '')
     {
         if (empty($title)) {
             wp_die(__('You did not specify a title for your settings field.', $textDomain));
@@ -37,7 +37,7 @@ class SettingsField
             $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
             $this->args                    = $args;
-            $this->key                     = $key;
+            $this->prefix                     = $prefix;
         }
     }
 
@@ -56,7 +56,7 @@ class SettingsField
      */
     public function getID()
     {
-        return $this->key . '-' . sanitize_title($this->title);
+        return $this->prefix . '-' . sanitize_title($this->title);
     }
 
     /**
