@@ -26,7 +26,7 @@ class SettingsArg
      * @param SettingsField|SettingsField[] $settingsFields
      * @param string $textDomain
      */
-    public function __construct($pageSlug, SettingsSection $settingsSection, SettingsField $settingsFields, $textDomain = '')
+    public function __construct($pageSlug, SettingsSection $settingsSection, $settingsFields, $textDomain = '')
     {
         $this->textDomain = $textDomain;
 
