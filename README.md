@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This is an OOP framework for making the development of WordPress plugins easier.
+This is an OOP framework for making the development of WordPress plugins easier and more strongly typed.
 
-It simplifies the creation of custom post types, taxonomies, pages, and settings. It also includes a class for using a view model for displaying HTML output.
+Each WordPress Object in the framework handles the WordPress specific registration functions and ties those functions to the right hooks automatically so a use only needs to set up properties and create the object.
 
 ## Getting Started
 
@@ -14,7 +14,22 @@ The package is hosted on [Packagist](https://packagist.org/packages/theantichris
 
 ### Drop In
 
-Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using `include` statements or namespacing.
+Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using `include` statements.
+
+### Using the Framework in Your Plugin
+
+The easiest way to start using the frame work is to create a class for your plugin and place the framework code in the classes constructor.
+
+
+class myPlugin
+{
+    public function __construct()
+    {
+        // Place framework code in there.
+    }
+}
+
+new myPlugin();
 
 ## Creating WordPress Objects
 
