@@ -95,7 +95,7 @@ ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages
 
 #### UtilityPage
 
-UtilityPage adds a top-level page on the Utility level (Appearance, Plugins, Users, Tools, Settings, etc.) Calls the [add_utility_page()][http://codex.wordpress.org/Function_Reference/add_utility_page) function.
+UtilityPage adds a top-level page on the Utility level (Appearance, Plugins, Users, Tools, Settings, etc.) Calls the [add_utility_page()](http://codex.wordpress.org/Function_Reference/add_utility_page) function.
 
     $pageArg = new PageArg('My Page', $myView);
     $utilityPage = new UtilityPage($pageArg);
