@@ -117,13 +117,21 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 ### Settings
 
-You can create options for your plugin using the Settings class. The Settings class uses the View class to display output.
+The Settings class requires an instance of SettingsArg as a parameter.
 
-```
-$setting = new Settings( $pageSlug ); // Creates the settings object with the slug of the page the settings should be on. This could be a default Dashboard page or one you create.
-$setting->addSection( 'My Section', $view ); // Creates the settings section that your options will be grouped under. The view will contain the header for the section.
-$setting->addField( 'My Field', $view ); // Creates a settings field and adds it to the settings section. The view needs to contain the HTML to display the form field for the option.
-```
+SettingsArg requires the page slug that the settings will appear on, and instance of SettingsSection and a single instance or array of SettingsField.
+
+The SettingsSection class requires the title for the settings section and the instance of View that will render the section. Text domain is optional.
+
+The SettingsField class requires the title of the field and the instance of View that will render the field. Additional arguments, ID prefix, and text domain are optional. The prefix is set to 'lwppfw' by default.
+
+The Settings class constructor ties the [add_settings_section()](http://codex.wordpress.org/Function_Reference/add_settings_section) to the [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) hook then ties [add_settings_field()](http://codex.wordpress.org/Function_Reference/add_settings_field) and [register_setting()](http://codex.wordpress.org/Function_Reference/register_setting) to admin_init for each field in SettingsArg.
+
+    $section = new SettingsSection('My Settings', $sectionView);
+    $field1 = new SettingsField('Field 1', $fieldView1);
+    $field2 = new SettingsField('Field 2', $fieldView2);
+    $settingsArg = new SettingsArg($myPage->getSlug(), $section, array($field, $field2));
+    new Settings($settingsArg);
 
 ## View
 
