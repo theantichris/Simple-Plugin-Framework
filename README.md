@@ -71,59 +71,49 @@ Terms can be added to the taxonomy by using the addTerms() method. It requires a
 
 ### Pages
 
-You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes.
+You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-The only required fields are $pageTitle and $viewPath. The $parentSlug field is only required for the SubMenuPage class.
+The PageArg class requires the display title for the page and an instance of the View class. The View class is used by Page class' display() method to render the page. The text domain can be passed in optionally.
 
-All pages use the View class to echo the HTML.
+Capabilities, menu icon, and position can be set using standard object notation but are not required. Parent slug is only required for the SubMenuPage object and can be set using object notation.
+
+The base constructor for all pages requires an instance of PageArg. The constructor sets the parameters up then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
 #### MenuPage
 
-To add a top-level menu page use the MenuPage class.
+To add a top-level menu page use the MenuPage class. Calls the [add_menu_page()](http://codex.wordpress.org/Function_Reference/add_menu_page) function.
 
-```
-$menuPage = new MenuPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
-```
+    $pageArg = new PageArg('My Page', $myView);
+    $menuPage = new MenuPage($pageArg);
 
 #### ObjectPage
 
-ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.)
+ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.) Calls the [add_object_page()](http://codex.wordpress.org/Function_Reference/add_object_page) function.
 
-```
-$objectPage = new ObjectPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
-```
+    $pageArg = new PageArg('My Page', $myView);
+    $objectPage = new ObjectPage($pageArg);
 
 #### UtilityPage
 
-UtilityPage adds a top-level page on the Utility level ( Appearance, Plugins, Users, Tools, Settings, etc.)
+UtilityPage adds a top-level page on the Utility level (Appearance, Plugins, Users, Tools, Settings, etc.) Calls the [add_utility_page()][http://codex.wordpress.org/Function_Reference/add_utility_page) function.
 
-```
-$utilityPage = new UtilityPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
-```
+    $pageArg = new PageArg('My Page', $myView);
+    $utilityPage = new UtilityPage($pageArg);
 
 #### OptionsPage
 
-OptionsPage adds a sub-men page under Settings.
+OptionsPage adds a sub-men page under Settings. Class the [add_options_page](http://codex.wordpress.org/Function_Reference/add_options_page) function.
 
-```
-$optionsPage = new OptionsPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
-```
+    $pageArg = new PageArg('My Page', $myView);
+    $optionsPage = new OptionsPage($pageArg);
 
 #### SubMenuPage
 
-SubMenuPage adds a page as a sub-menu item for another page. $parentSlug should contain the slug of the page to place the sub-page under.
+SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_submenu_page()](http://codex.wordpress.org/Function_Reference/add_submenu_page) function.
 
-```
-$subMenuPage = new SubMenuPage($pageTitle, $viewPath, $capability = null, $menuIcon = null, $position = null, $viewData = array(), $parentSlug = null, $textDomain = '');
-```
-
-#### Removing Pages
-
-You can remove a page using the removePage() method.
-
-```
-$page->removePage($pageSlug);
-```
+    $pageArg = new PageArg('My Sub Page', $myView);
+    $pageArg->parentSlug = $myPage->getSlug();
+    $subPage = new SubMenuPage($pageArg);
 
 ### Settings
 
