@@ -48,11 +48,7 @@ The CustomPostType class requires an instance of the CustomPostTypeArg class whi
 The CustomPostType class constructor sets up the arguments for the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
 
     $postTypeArgs = new CustomPostTypeArg('My Posts');
-    $postTypeArgs->public = false;
-    $name = $postTypeArgs->getName();
-
     $myPostType = new CustomPostType($postTypeArgs);
-    $slug = $myPost->getSlug();
 
 ### Taxonomies
 
