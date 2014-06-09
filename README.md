@@ -37,28 +37,22 @@ The framework contains classes for creating custom post types, taxonomies, pages
 
 ### Custom Post Types
 
-The CustomPostType class requires an instance of the CustomPostTypeArg class which passes in the needed information.
-
-The class constructor sets up the arguments for the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
-
-A public function getSlug() is included that returns the post type's slug.
-
-    $myPostType = new CustomPostType($postTypeArgs);
-    $slug = $myPost->getSlug();
-
-#### Custom Post Type Arguments
-
 The CustomPostTypeArg class requires the plural display name of the post type upon construction. Optionally, you can pass in your text domain.
 
 CustomPostTypeArg uses the name to automatically generate the slug and labels for the post type.
 
-The rest of the properties are setup to create a publicly facing post type but can be overridden using standard object notation.
+The rest of the properties for CustomPostTypeArg are setup to create a publicly facing post type but can be overridden using standard object notation.
 
-Getters are provided for $name, $slug, and $labels.
+The CustomPostType class requires an instance of the CustomPostTypeArg class which passes in the needed information.
+
+The CustomPostType class constructor sets up the arguments for the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
 
     $postTypeArgs = new CustomPostTypeArg('My Posts');
     $postTypeArgs->public = false;
     $name = $postTypeArgs->getName();
+
+    $myPostType = new CustomPostType($postTypeArgs);
+    $slug = $myPost->getSlug();
 
 ### Taxonomies
 
