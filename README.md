@@ -137,31 +137,15 @@ The Settings class constructor ties the [add_settings_section()](http://codex.wo
 
 The View class makes it simpler to display output from your plugin.
 
-It allows you to take the code that displays the output and gives it its own file. Your output (or view) is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
+It allows you to take the code that displays the output and gives it its own file (the view). The view is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
 
-Create a directory in your project to hold all your view files.
+Create a directory in your project to hold all your view files is a good practice.
 
 Use the View class' render() function to display the view and send any data the view needs to know about.
 
-render() must be echoed in order to work.
-
-```
-$view = new View($viewFile, $viewData = null);
-echo $view->render();
-```
+    $view = new View($viewFile, $viewData = null);
+    $view->render();
 
 $viewFile should contain the full path and file name of the view file to render.
 
 $viewData is used to pass data to the view if needed. It is an associated array. To use the data in the view file use a variable with the name of the data's key in the array. For example `$viewData['example']` will be `$example` in the view.
-
-## Utilities
-
-Some helper functions are included in the Utilities class. They are public, static functions so can be used anywhere.
-
-### makeSingular()
-
-Takes a plural string and makes it singular. Some WordPress object classes use it to automatically generate slugs.
-
-```
-$singular_string = Utilities::make_singular( $plural_string );
-```
