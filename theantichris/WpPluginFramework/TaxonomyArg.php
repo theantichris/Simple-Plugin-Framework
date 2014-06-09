@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class TaxonomyArg
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class TaxonomyArg
 {
@@ -31,7 +31,7 @@ class TaxonomyArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string[]
      */
     private function setLabels()
@@ -55,7 +55,7 @@ class TaxonomyArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string[]
      */
     public function getLabels()
@@ -64,7 +64,7 @@ class TaxonomyArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getName()
@@ -73,7 +73,7 @@ class TaxonomyArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getSlug()

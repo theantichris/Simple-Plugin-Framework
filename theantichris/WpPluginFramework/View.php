@@ -15,7 +15,7 @@ class View
     public $viewData;
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @param string $viewFile
      * @param mixed[]|null $viewData
      * @param string $textDomain

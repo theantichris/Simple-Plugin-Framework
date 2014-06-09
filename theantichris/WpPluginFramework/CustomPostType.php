@@ -55,7 +55,7 @@ class CustomPostType
     /**
      * Sets the $arguments properties.
      *
-     * @since 1.2.0
+     * @since 2.0.0
      *
      * @return mixed[]
      */

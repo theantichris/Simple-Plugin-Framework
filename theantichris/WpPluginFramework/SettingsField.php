@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class SettingsField
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class SettingsField
 {
@@ -19,7 +19,7 @@ class SettingsField
     private $prefix;
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @param string $title
      * @param View $view
      * @param mixed[] $args
@@ -42,7 +42,7 @@ class SettingsField
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getTitle()
@@ -51,7 +51,7 @@ class SettingsField
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getID()
@@ -60,7 +60,7 @@ class SettingsField
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return mixed[]
      */
     public function getArgs()
@@ -69,7 +69,7 @@ class SettingsField
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return void
      */
     public function display()

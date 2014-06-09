@@ -51,7 +51,7 @@ class Settings
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return void
      */
     private function registerFields()
@@ -66,7 +66,7 @@ class Settings
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @param SettingsField $field
      * @return void
      */

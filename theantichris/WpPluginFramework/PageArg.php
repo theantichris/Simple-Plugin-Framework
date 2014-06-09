@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class PageArg
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class PageArg
 {

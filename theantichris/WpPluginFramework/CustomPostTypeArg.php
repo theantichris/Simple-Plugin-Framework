@@ -6,7 +6,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class CustomPostTypeArg
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class CustomPostTypeArg
 {
@@ -37,7 +37,7 @@ class CustomPostTypeArg
     private $textDomain;
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      *
      * @param string $name
      * @param string $textDomain
@@ -55,7 +55,7 @@ class CustomPostTypeArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getName()
@@ -64,7 +64,7 @@ class CustomPostTypeArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getSlug()
@@ -75,7 +75,7 @@ class CustomPostTypeArg
     /**
      * Sets the $labels property.
      *
-     * @since 1.2.0
+     * @since 2.0.0
      *
      * @return string[]
      */
@@ -107,7 +107,7 @@ class CustomPostTypeArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return \string[]
      */
     public function getLabels()

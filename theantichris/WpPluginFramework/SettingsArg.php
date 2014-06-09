@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class SettingsArg
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class SettingsArg
 {
@@ -19,7 +19,7 @@ class SettingsArg
     private $textDomain;
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      *
      * @param string $pageSlug
      * @param SettingsSection $settingsSection
@@ -44,7 +44,7 @@ class SettingsArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getPageSlug()
@@ -53,7 +53,7 @@ class SettingsArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return mixed[]
      */
     public function getSettingsSection()
@@ -62,7 +62,7 @@ class SettingsArg
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return SettingsField|SettingsField[]
      */
     public function getSettingsFields()

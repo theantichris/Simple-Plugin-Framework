@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class SettingsSection
  * @package theantichris\WpPluginFramework
- * @since 1.2.0
+ * @since 2.0.0
  */
 class SettingsSection
 {
@@ -15,7 +15,7 @@ class SettingsSection
     private $view;
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @param string $title
      * @param View $view
      * @param string $textDomain
@@ -34,7 +34,7 @@ class SettingsSection
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getTitle()
@@ -43,7 +43,7 @@ class SettingsSection
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return string
      */
     public function getId()
@@ -52,7 +52,7 @@ class SettingsSection
     }
 
     /**
-     * @since 1.2.0
+     * @since 2.0.0
      * @return void
      */
     public function display()
