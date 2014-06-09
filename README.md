@@ -21,13 +21,13 @@ Move the files from the __theantichris/WpPluginFramework__ directory into your p
 The easiest way to start using the frame work is to create a class for your plugin and place the framework code in the classes constructor.
 
 
-class myPlugin
-{
-    public function __construct()
+    class myPlugin
     {
-        // Place framework code in there.
+        public function __construct()
+        {
+            // Place framework code in there.
+        }
     }
-}
 
 new myPlugin();
 
