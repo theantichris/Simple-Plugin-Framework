@@ -62,19 +62,22 @@ Getters are provided for $name, $slug, and $labels.
 
 ### Taxonomies
 
-Taxonomies can be added to post types by creating a Taxonomy object. The $postTypes parameter is options and will use “post” if not specified, it will accept a string or array of strings.
+The TaxonomyArg class requires the plural display name of the taxonomy upon construction. Optionally, you can pass in your text domain.
 
-```
-$newTaxonomy = new Taxonomy($name, $postTypes = null, $textDomain = "");
-```
+TaxonomyArg uses the name to automatically generate the slug and labels for the taxonomy.
 
-#### Terms
+The rest of the TaxonomyArg properties are setup to create a taxonomy for the post post type but can be overridden using the $postTypes property.
 
-You can add terms to a Taxonomy object by using the addTerms() method. It accepts a single parameter that can either be a string or an array of strings.
+The Taxonomy class requires an instance of the TaxonomyArg class in order to be created.
 
-```
-$newTaxonomy->addTerms($terms);
-```
+The Taxonomy class constructor sets up the arguments for the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the taxonomy exists before adding it.
+
+Terms can be added to the taxonomy by using the addTerms() method. It requires a single string or array of strings to be used as the terms. You can optionally supply the text domain.
+
+    $taxonomyArgs = new TaxonomyArgs('Genre');
+    $taxonomyArgs->postTypes = $myPostType->getSlug();
+    $myTaxonomy = new Taxonomy($taxonomyArgs);
+    $myTaxonomy->addTerms('punk');
 
 ### Pages
 
