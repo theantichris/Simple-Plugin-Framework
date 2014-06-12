@@ -43,7 +43,7 @@ class View
         ob_start(); // Start the output buffer.
 
         /** @noinspection PhpIncludeInspection */
-        include_once($this->viewFile); // Include the template.
+        include($this->viewFile); // Include the template.
 
         /** @var string $template Contains the contents of the output buffer. */
         $template = ob_get_contents(); // Add the template contents to the output buffer.
