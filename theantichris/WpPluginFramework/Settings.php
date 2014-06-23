@@ -15,10 +15,8 @@ class Settings
 {
     /** @var string The WordPress page slug the settings will appear on. */
     private $page;
-    /** @var SettingsSection */
-    private $settingsSection;
-    /** @var SettingsField|SettingsField[] */
-    private $settingsFields;
+    /** @var SettingsSection|SettingsSection[] */
+    private $settingsSections;
 
     /**
      * Class constructor.
@@ -29,9 +27,8 @@ class Settings
      */
     public function __construct(SettingsArg $settingsArg)
     {
-        $this->page            = $settingsArg->getPageSlug();
-        $this->settingsSection = $settingsArg->getSettingsSection();
-        $this->settingsFields  = $settingsArg->getSettingsFields();
+        $this->page             = $settingsArg->getPageSlug();
+        $this->settingsSections = $settingsArg->getSettingsSections();
 
         add_action('admin_init', array($this, 'registerSection'));
 
@@ -47,33 +44,62 @@ class Settings
      */
     public function registerSection()
     {
-        add_settings_section($this->settingsSection->getId(), $this->settingsSection->getTitle(), array($this->settingsSection, 'display'), $this->page);
-    }
-
-    /**
-     * @since 2.0.0
-     * @return void
-     */
-    private function registerFields()
-    {
-        if (is_array($this->settingsFields)) {
-            foreach ($this->settingsFields as $field) {
-                $this->registerField($field);
+        if (is_array($this->settingsSections)) {
+            /** @var SettingsSection $section */
+            foreach ($this->settingsSections as $section) {
+                add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->page);
             }
         } else {
-            $this->registerField($this->settingsFields);
+            add_settings_section($this->settingsSections->getId(), $this->settingsSections->getTitle(), array($this->settingsSections, 'display'), $this->page);
         }
     }
 
     /**
      * @since 2.0.0
+     * @return void
+     * TODO: Refactor field loops into method.
+     */
+    private function registerFields()
+    {
+        if (is_array($this->settingsSections)) {
+            /** @var SettingsSection $section */
+            foreach ($this->settingsSections as $section) {
+                /** @var string $sectionId */
+                $sectionId = $section->getId();
+                /** @var SettingsField|SettingsField[] $fields */
+                $fields = $section->getSettingsFields();
+
+                if (is_array($fields)) {
+                    foreach ($fields as $field) {
+                        $this->registerField($sectionId, $field);
+                    }
+                } else {
+                    $this->registerField($sectionId, $fields);
+                }
+            }
+        } else {
+            /** @var SettingsField|SettingsField[] $fields */
+            $fields = $this->settingsSections->getSettingsFields();
+
+            if (is_array($fields)) {
+                foreach ($fields as $field) {
+                    $this->registerField($this->settingsSections->getId(), $field);
+                }
+            } else {
+                $this->registerField($this->settingsSections->getId(), $fields);
+            }
+        }
+    }
+
+    /**
+     * @since 2.0.0
+     * @param string $sectionId
      * @param SettingsField $field
      * @return void
      */
-    private function registerField($field)
+    private function registerField($sectionId, $field)
     {
-        $page      = $this->page;
-        $sectionId = $this->settingsSection->getId();
+        $page = $this->page;
 
         add_action(
             'admin_init', function () use ($field, $page, $sectionId) {
