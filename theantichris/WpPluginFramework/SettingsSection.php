@@ -29,6 +29,8 @@ class SettingsSection
             wp_die(__('You did not specify a title for your settings section.', $textDomain));
         } elseif (empty($view)) {
             wp_die(__('You did not specify a view for your settings section.', $textDomain));
+        } elseif(empty($settingsFields)){
+            wp_die(__('You did not specify any fields for your settings section.', $textDomain));
         } else {
             $this->title                   = $title;
             $this->view                    = $view;
