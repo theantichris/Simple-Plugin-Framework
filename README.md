@@ -119,7 +119,7 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 The Settings class requires an instance of SettingsArg as a parameter.
 
-SettingsArg requires the page slug that the settings will appear on, and instance or array of SettingsSection. Text domain is optional
+SettingsArg requires the page slug that the settings will appear on, and instance or array of SettingsSection. Text domain is optional. Page slug can be a default WordPress dashboard page or a page you create.
 
 The SettingsSection class requires the title for the settings section, the instance of View that will render the section, and an instance or array of SettingsField. Text domain is optional.
 
