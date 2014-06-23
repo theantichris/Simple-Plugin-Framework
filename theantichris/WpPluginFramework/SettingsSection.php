@@ -13,23 +13,27 @@ class SettingsSection
     private $title;
     /** @var View */
     private $view;
+    /** @var SettingsField|SettingsField[] */
+    private $settingsFields;
 
     /**
      * @since 2.0.0
      * @param string $title
      * @param View $view
+     * @param SettingsField|SettingsField[] $settingsFields
      * @param string $textDomain
      */
-    public function __construct($title, $view, $textDomain = '')
+    public function __construct($title, $view, $settingsFields, $textDomain = '')
     {
         if (empty($title)) {
             wp_die(__('You did not specify a title for your settings section.', $textDomain));
         } elseif (empty($view)) {
             wp_die(__('You did not specify a view for your settings section.', $textDomain));
         } else {
-            $this->title                    = $title;
-            $this->view                     = $view;
+            $this->title                   = $title;
+            $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
+            $this->settingsFields          = $settingsFields;
         }
     }
 
@@ -49,6 +53,15 @@ class SettingsSection
     public function getId()
     {
         return sanitize_title($this->title);
+    }
+
+    /**
+     * @since 3.0.0
+     * @return SettingsField|SettingsField[]
+     */
+    public function getSettingsFields()
+    {
+        return $this->settingsFields;
     }
 
     /**

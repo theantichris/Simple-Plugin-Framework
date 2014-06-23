@@ -13,8 +13,6 @@ class SettingsArg
     private $pageSlug;
     /** @var SettingsSection */
     private $settingsSection;
-    /** @var SettingsField|SettingsField[] */
-    private $settingsFields;
     /** @var string */
     private $textDomain;
 
@@ -23,10 +21,9 @@ class SettingsArg
      *
      * @param string $pageSlug
      * @param SettingsSection $settingsSection
-     * @param SettingsField|SettingsField[] $settingsFields
      * @param string $textDomain
      */
-    public function __construct($pageSlug, SettingsSection $settingsSection, $settingsFields, $textDomain = '')
+    public function __construct($pageSlug, SettingsSection $settingsSection, $textDomain = '')
     {
         $this->textDomain = $textDomain;
 
@@ -39,7 +36,6 @@ class SettingsArg
         } else {
             $this->pageSlug        = $pageSlug;
             $this->settingsSection = $settingsSection;
-            $this->settingsFields  = $settingsFields;
         }
     }
 
@@ -59,14 +55,5 @@ class SettingsArg
     public function getSettingsSection()
     {
         return $this->settingsSection;
-    }
-
-    /**
-     * @since 2.0.0
-     * @return SettingsField|SettingsField[]
-     */
-    public function getSettingsFields()
-    {
-        return $this->settingsFields;
     }
 }
