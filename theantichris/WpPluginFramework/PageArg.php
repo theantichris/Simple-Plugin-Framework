@@ -36,6 +36,7 @@ class PageArg
             $this->title                   = $title;
             $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
+            $this->view->viewData['slug']  = sanitize_title($this->title);
         }
     }
 
