@@ -57,37 +57,33 @@ class Settings
     /**
      * @since 2.0.0
      * @return void
-     * TODO: Refactor field loops into method.
      */
     private function registerFields()
     {
         if (is_array($this->settingsSections)) {
             /** @var SettingsSection $section */
             foreach ($this->settingsSections as $section) {
-                /** @var string $sectionId */
-                $sectionId = $section->getId();
-                /** @var SettingsField|SettingsField[] $fields */
-                $fields = $section->getSettingsFields();
-
-                if (is_array($fields)) {
-                    foreach ($fields as $field) {
-                        $this->registerField($sectionId, $field);
-                    }
-                } else {
-                    $this->registerField($sectionId, $fields);
-                }
+                $this->doFields($section->getId(), $section->getSettingsFields());
             }
         } else {
-            /** @var SettingsField|SettingsField[] $fields */
-            $fields = $this->settingsSections->getSettingsFields();
+            $this->doFields($this->settingsSections->getId(), $this->settingsSections->getSettingsFields());
+        }
+    }
 
-            if (is_array($fields)) {
-                foreach ($fields as $field) {
-                    $this->registerField($this->settingsSections->getId(), $field);
-                }
-            } else {
-                $this->registerField($this->settingsSections->getId(), $fields);
+    /**
+     * @since 3.0.0
+     * @param string $sectionId
+     * @param SettingsField|SettingsField[] $fields
+     * @return void
+     */
+    private function doFields($sectionId, $fields)
+    {
+        if (is_array($fields)) {
+            foreach ($fields as $field) {
+                $this->registerField($sectionId, $field);
             }
+        } else {
+            $this->registerField($sectionId, $fields);
         }
     }
 
