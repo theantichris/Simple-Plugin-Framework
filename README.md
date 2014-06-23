@@ -119,18 +119,18 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 The Settings class requires an instance of SettingsArg as a parameter.
 
-SettingsArg requires the page slug that the settings will appear on, and instance of SettingsSection and a single instance or array of SettingsField.
+SettingsArg requires the page slug that the settings will appear on, and instance or array of SettingsSection. Text domain is optional
 
-The SettingsSection class requires the title for the settings section and the instance of View that will render the section. Text domain is optional.
+The SettingsSection class requires the title for the settings section, the instance of View that will render the section, and an instance or array of SettingsField. Text domain is optional.
 
 The SettingsField class requires the title of the field and the instance of View that will render the field. Additional arguments, ID prefix, and text domain are optional. The prefix is set to 'lwppfw' by default.
 
-The Settings class constructor ties the [add_settings_section()](http://codex.wordpress.org/Function_Reference/add_settings_section) to the [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) hook then ties [add_settings_field()](http://codex.wordpress.org/Function_Reference/add_settings_field) and [register_setting()](http://codex.wordpress.org/Function_Reference/register_setting) to admin_init for each field in SettingsArg.
+The Settings class constructor ties the [add_settings_section()](http://codex.wordpress.org/Function_Reference/add_settings_section) to the [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) hook for each section then ties [add_settings_field()](http://codex.wordpress.org/Function_Reference/add_settings_field) and [register_setting()](http://codex.wordpress.org/Function_Reference/register_setting) to [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) for each field.
 
-    $section = new SettingsSection('My Settings', $sectionView);
     $field1 = new SettingsField('Field 1', $fieldView1);
     $field2 = new SettingsField('Field 2', $fieldView2);
-    $settingsArg = new SettingsArg($myPage->getSlug(), $section, array($field, $field2));
+    $section = new SettingsSection('My Settings', $sectionView, array($field1, $field2);
+    $settingsArg = new SettingsArg($myPage->getSlug(), $section);
     new Settings($settingsArg);
 
 ## View
