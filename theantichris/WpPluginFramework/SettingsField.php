@@ -33,12 +33,12 @@ class SettingsField
         } elseif (empty($view)) {
             wp_die(__('You did not specify a view for your settings field.', $textDomain));
         } else {
+            $this->prefix                  = $prefix;
             $this->title                   = $title;
             $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
             $this->view->viewData['id']    = $this->getID();
             $this->args                    = $args;
-            $this->prefix                  = $prefix;
         }
     }
 
