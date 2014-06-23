@@ -75,6 +75,7 @@ class Settings
      * @param string $sectionId
      * @param SettingsField|SettingsField[] $fields
      * @return void
+     * TODO: Rename this with something better.
      */
     private function doFields($sectionId, $fields)
     {
