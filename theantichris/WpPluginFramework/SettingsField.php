@@ -36,6 +36,7 @@ class SettingsField
             $this->title                   = $title;
             $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
+            $this->view->viewData['id']    = $this->getID();
             $this->args                    = $args;
             $this->prefix                  = $prefix;
         }
