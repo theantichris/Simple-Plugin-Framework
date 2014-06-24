@@ -11,7 +11,7 @@ namespace theantichris\WpPluginFramework;
  * @package theantichris\WpPluginFramework
  * @since 3.0.0
  */
-abstract class Capability
+class Capability
 {
     const switch_themes          = 'switch_themes';
     const edit_themes            = 'edit_themes';
