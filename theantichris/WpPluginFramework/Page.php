@@ -19,11 +19,11 @@ abstract class Page
     protected $view;
     /** @var string The capability required for this menu to be displayed to the user. */
     protected $capability = 'manage_options';
-    /** @var  string The icon for this page in the menu. */
+    /** @var string The icon for this page in the menu. */
     protected $menuIcon;
-    /** @var  int The position in the menu order this menu should appear. */
+    /** @var int The position in the menu order this menu should appear. */
     protected $position;
-    /** @var  string */
+    /** @var string */
     public $parentSlug;
     /** @var string */
     protected $textDomain;
