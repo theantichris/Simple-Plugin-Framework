@@ -73,7 +73,7 @@ Terms can be added to the taxonomy by using the addTerms() method. It requires a
 
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-The PageArg class requires the display title for the page and an instance of the View class. The View class is used by Page class' display() method to render the page. The text domain can be passed in optionally.
+All page classes require a title and View when instantiated. Text domain can be provided, optionally.
 
 Capabilities, menu icon, and position can be set using standard object notation but are not required. Parent slug is only required for the SubMenuPage object and can be set using object notation.
 
