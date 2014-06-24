@@ -18,13 +18,13 @@ abstract class Page
     /** @var  View */
     protected $view;
     /** @var  string */
-    protected $capability;
+    public $capability = 'manage_options';
     /** @var  string */
-    protected $menuIcon;
+    public $menuIcon;
     /** @var  int */
-    protected $position;
+    public $position;
     /** @var  string */
-    protected $parentSlug;
+    public $parentSlug;
     /** @var string */
     protected $textDomain;
 
@@ -33,17 +33,24 @@ abstract class Page
      *
      * @since 0.1.0
      *
-     * @param PageArg $pageArg
+     * @param string $title
+     * @param View $view
+     * @param string $textDomain
      */
-    public function __construct(PageArg $pageArg)
+    public function __construct($title, View $view, $textDomain = '')
     {
-        $this->title      = $pageArg->getTitle();
-        $this->view       = $pageArg->getView();
-        $this->capability = $pageArg->capability;
-        $this->menuIcon   = $pageArg->menuIcon;
-        $this->position   = $pageArg->position;
-        $this->parentSlug = $pageArg->parentSlug;
-        $this->textDomain = $pageArg->textDomain;
+        $this->textDomain = $textDomain;
+
+        if (empty($title)) {
+            wp_die(__('You did not specify a title for your page.', $this->textDomain));
+        } elseif (empty($view)) {
+            wp_die(__('You did not specify a view for your page.', $this->textDomain));
+        } else {
+            $this->title                   = $title;
+            $this->view                    = $view;
+            $this->view->viewData['title'] = $this->title;
+            $this->view->viewData['slug']  = sanitize_title($this->title);
+        }
 
         add_action('admin_menu', array($this, 'addPage'));
     }
