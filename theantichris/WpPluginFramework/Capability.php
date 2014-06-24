@@ -11,7 +11,7 @@ namespace theantichris\WpPluginFramework;
  * @package theantichris\WpPluginFramework
  * @since 3.0.0
  */
-class Capability
+abstract class Capability
 {
     const switch_themes          = 'switch_themes';
     const edit_themes            = 'edit_themes';
@@ -70,4 +70,9 @@ class Capability
     const manage_network_users   = 'manage_network_users';
     const manage_network_themes  = 'manage_network_themes';
     const manage_network_options = 'manage_network_options';
+
+    public static function isValid($value)
+    {
+        return defined("self::{$value}");
+    }
 }
