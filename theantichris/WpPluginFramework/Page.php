@@ -129,6 +129,7 @@ abstract class Page
 
     /**
      * Displays the HTML output of the page.
+     * @link http://codex.wordpress.org/Function_Reference/current_user_can
      *
      * @since 0.1.0
      *

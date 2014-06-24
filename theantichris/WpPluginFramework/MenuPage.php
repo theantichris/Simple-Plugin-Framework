@@ -14,7 +14,8 @@ namespace theantichris\WpPluginFramework;
 class MenuPage extends Page
 {
     /**
-     * Adds the page to WordPress.
+     * Calls the WordPress add_menu_page() function.
+     * @link http://codex.wordpress.org/Function_Reference/add_menu_page
      *
      * @since 0.1.0
      *

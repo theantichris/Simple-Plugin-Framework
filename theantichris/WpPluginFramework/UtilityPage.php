@@ -5,7 +5,8 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class UtilityPage
  *
- * A class for adding a top level page to the WordPress Dashboard at the utility level.
+ * A class for adding a top level menu page at the 'utility' level.
+ * This new menu will appear in the group including the default WordPress Appearance, Plugins, Users, Tools and Settings.
  *
  * @package theantichris\WpPluginFramework
  *
@@ -14,7 +15,8 @@ namespace theantichris\WpPluginFramework;
 class UtilityPage extends Page
 {
     /**
-     * Add the page to WordPress.
+     * Calls the WordPress add_utility_page() function.
+     * @link http://codex.wordpress.org/Function_Reference/add_utility_page
      *
      * @since 0.1.0
      *

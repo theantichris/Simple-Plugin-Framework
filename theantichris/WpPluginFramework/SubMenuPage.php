@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class SubMenuPage extends Page
 {
     /**
-     * Calls the WordPress add_submenu_page.
+     * Calls the WordPress add_submenu_page() function.
      * @link http://codex.wordpress.org/Function_Reference/add_submenu_page
      *
      * @since 0.1.0
