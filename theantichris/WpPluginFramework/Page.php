@@ -19,8 +19,8 @@ abstract class Page
     protected $view;
     /** @var string The capability required for this menu to be displayed to the user. */
     protected $capability = 'manage_options';
-    /** @var  string */
-    public $menuIcon;
+    /** @var  string The icon for this page in the menu. */
+    protected $menuIcon;
     /** @var  int */
     public $position;
     /** @var  string */
@@ -64,10 +64,27 @@ abstract class Page
      */
     public function setCapability($capability)
     {
-        if (Capability::isValid($capability)){
+        if (Capability::isValid($capability)) {
             $this->capability = $capability;
         } else {
             wp_die(__("The {$capability} capability set for the {$this->title} page is not a valid WordPress capability.", $this->textDomain));
+        }
+    }
+
+    /**
+     * Validates and sets the page's menu icon.
+     *
+     * @since 3.0.0
+     *
+     * @param string $icon
+     * @return void
+     */
+    public function setMenuIcon($icon)
+    {
+        if (filter_var($icon, FILTER_VALIDATE_URL)) {
+            $this->menuIcon = $icon;
+        } else {
+            wp_die(__("The URL specified for the {$this->title} page menu icon is not valid ({$icon}).", $this->textDomain));
         }
     }
 
