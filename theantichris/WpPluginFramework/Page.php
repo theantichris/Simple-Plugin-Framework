@@ -18,7 +18,7 @@ abstract class Page
     /** @var  View */
     protected $view;
     /** @var  string */
-    public $capability = 'manage_options';
+    protected $capability = 'manage_options';
     /** @var  string */
     public $menuIcon;
     /** @var  int */
@@ -53,6 +53,19 @@ abstract class Page
         }
 
         add_action('admin_menu', array($this, 'addPage'));
+    }
+
+    /**
+     * @since 3.0.0
+     * @param string $capability
+     */
+    public function setCapability($capability)
+    {
+        if (empty($capability)) {
+            wp_die(__("You must specify a valid capability for the {$this->title} page."), $this->textDomain);
+        } else {
+            $this->capability = $capability;
+        }
     }
 
     /**
