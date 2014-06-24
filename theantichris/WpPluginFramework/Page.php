@@ -21,8 +21,8 @@ abstract class Page
     protected $capability = 'manage_options';
     /** @var  string The icon for this page in the menu. */
     protected $menuIcon;
-    /** @var  int */
-    public $position;
+    /** @var  int The position in the menu order this menu should appear. */
+    protected $position;
     /** @var  string */
     public $parentSlug;
     /** @var string */
@@ -69,6 +69,23 @@ abstract class Page
             $this->capability = $capability;
         } else {
             wp_die(__("The capability set for the {$this->title} page is not a valid WordPress capability ({$capability}).", $this->textDomain));
+        }
+    }
+
+    /**
+     * Checks if $position is an integer and if it is sets the property.
+     *
+     * @since 3.0.0
+     *
+     * @param int|string $position
+     * @return void
+     */
+    public function setPosition($position)
+    {
+        if (is_numeric($position)) {
+            $this->position = intval($position);
+        } else {
+            wp_die(__("The menu position set for the {$this->title} page is not an integer ({$position}).", $this->textDomain));
         }
     }
 
