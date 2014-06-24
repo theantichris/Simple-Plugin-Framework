@@ -13,11 +13,11 @@ namespace theantichris\WpPluginFramework;
  */
 abstract class Page
 {
-    /** @var string User readable title for the page and menu item. */
+    /** @var string The text to be displayed in the title tags of the page when the menu is selected. */
     protected $title;
-    /** @var  View */
+    /** @var View The View object responsible for rendering the page. */
     protected $view;
-    /** @var  string */
+    /** @var string  The capability required for this menu to be displayed to the user. */
     protected $capability = 'manage_options';
     /** @var  string */
     public $menuIcon;
