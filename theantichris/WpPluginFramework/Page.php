@@ -59,6 +59,7 @@ abstract class Page
      * Checks if the given capability is a valid WordPress capability using the Capability enum.
      *
      * @since 3.0.0
+     *
      * @param string $capability
      */
     public function setCapability($capability)

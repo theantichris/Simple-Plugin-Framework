@@ -75,6 +75,7 @@ abstract class Capability
      * Checks if a given value is a valid member of the fake enum.
      *
      * @since 3.0.0
+     *
      * @param string $value
      * @return bool
      */
