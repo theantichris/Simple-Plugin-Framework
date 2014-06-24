@@ -49,7 +49,7 @@ abstract class Page
             $this->title                   = $title;
             $this->view                    = $view;
             $this->view->viewData['title'] = $this->title;
-            $this->view->viewData['slug']  = sanitize_title($this->title);
+            $this->view->viewData['slug']  = $this->getSlug();
         }
 
         add_action('admin_menu', array($this, 'addPage'));
