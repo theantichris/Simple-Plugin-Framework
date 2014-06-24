@@ -61,13 +61,14 @@ abstract class Page
      * @since 3.0.0
      *
      * @param string $capability
+     * @return void
      */
     public function setCapability($capability)
     {
         if (Capability::isValid($capability)) {
             $this->capability = $capability;
         } else {
-            wp_die(__("The {$capability} capability set for the {$this->title} page is not a valid WordPress capability.", $this->textDomain));
+            wp_die(__("The capability set for the {$this->title} page is not a valid WordPress capability ({$capability}).", $this->textDomain));
         }
     }
 
