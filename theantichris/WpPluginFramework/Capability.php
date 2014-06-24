@@ -2,7 +2,15 @@
 
 namespace theantichris\WpPluginFramework;
 
-
+/**
+ * Class Capability
+ *
+ * An enum of all valid WordPress capabilities.
+ * @link http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
+ *
+ * @package theantichris\WpPluginFramework
+ * @since 3.0.0
+ */
 abstract class Capability
 {
     const switch_themes          = 'switch_themes';
