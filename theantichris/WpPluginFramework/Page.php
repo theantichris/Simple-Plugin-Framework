@@ -17,7 +17,7 @@ abstract class Page
     protected $title;
     /** @var View The View object responsible for rendering the page. */
     protected $view;
-    /** @var string  The capability required for this menu to be displayed to the user. */
+    /** @var string The capability required for this menu to be displayed to the user. */
     protected $capability = 'manage_options';
     /** @var  string */
     public $menuIcon;
@@ -56,15 +56,17 @@ abstract class Page
     }
 
     /**
+     * Checks if the given capability is a valid WordPress capability using the Capability enum.
+     *
      * @since 3.0.0
      * @param string $capability
      */
     public function setCapability($capability)
     {
-        if (empty($capability)) {
-            wp_die(__("You must specify a valid capability for the {$this->title} page."), $this->textDomain);
-        } else {
+        if (Capability::isValid($capability)){
             $this->capability = $capability;
+        } else {
+            wp_die(__("The {$capability} capability set for the {$this->title} page is not a valid WordPress capability.", $this->textDomain));
         }
     }
 
