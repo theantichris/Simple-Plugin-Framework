@@ -32,7 +32,7 @@ class SubMenuPage extends Page
      * @since 3.0.0
      *
      * @param string $slug The slug name for the parent menu (or the file name of a standard WordPress admin page). Use NULL if you want to create a page that doesn't appear in any menu.
-     * @return void
+     * @return SubMenuPage
      */
     public function setParentSlug($slug)
     {
@@ -41,5 +41,7 @@ class SubMenuPage extends Page
         } else {
             $this->parentSlug = $slug;
         }
+
+        return $this;
     }
 }

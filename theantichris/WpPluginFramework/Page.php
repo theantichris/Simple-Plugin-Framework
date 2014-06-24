@@ -61,7 +61,7 @@ abstract class Page
      * @since 3.0.0
      *
      * @param string $capability
-     * @return void
+     * @return Page
      */
     public function setCapability($capability)
     {
@@ -70,6 +70,8 @@ abstract class Page
         } else {
             wp_die(__("The capability set for the {$this->title} page is not a valid WordPress capability ({$capability}).", $this->textDomain));
         }
+
+        return $this;
     }
 
     /**
@@ -78,7 +80,7 @@ abstract class Page
      * @since 3.0.0
      *
      * @param string $icon
-     * @return void
+     * @return Page
      */
     public function setMenuIcon($icon)
     {
@@ -87,6 +89,8 @@ abstract class Page
         } else {
             wp_die(__("The URL specified for the {$this->title} page menu icon is not valid ({$icon}).", $this->textDomain));
         }
+
+        return $this;
     }
 
     /**
@@ -95,7 +99,7 @@ abstract class Page
      * @since 3.0.0
      *
      * @param int|string $position
-     * @return void
+     * @return Page
      */
     public function setPosition($position)
     {
@@ -104,6 +108,8 @@ abstract class Page
         } else {
             wp_die(__("The menu position set for the {$this->title} page is not an integer ({$position}).", $this->textDomain));
         }
+
+        return $this;
     }
 
     /**
