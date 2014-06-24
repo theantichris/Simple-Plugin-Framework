@@ -75,45 +75,46 @@ You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPag
 
 All page classes require a title and View when instantiated. Text domain can be provided, optionally.
 
-Capabilities, menu icon, and position can be set using standard object notation but are not required. Parent slug is only required for the SubMenuPage object and can be set using object notation.
+Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage.
 
-The base constructor for all pages requires an instance of PageArg. The constructor sets the parameters up then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+Capability is set to 'manage_options' by default but can be changed to any valid WordPress capability. The setCapability() method accepts the capability as a string.
+
+An abstract class called Capability is included that can be used to easily pick a WordPress capability using code completion. Simply type `Capability::` and your IDE should give you a list of all valid capabilities.
+
+    $page->setCapability(Capability::manage_options);
+
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
 #### MenuPage
 
 To add a top-level menu page use the MenuPage class. Calls the [add_menu_page()](http://codex.wordpress.org/Function_Reference/add_menu_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $menuPage = new MenuPage($pageArg);
+    $menuPage = new MenuPage('My Page', $myView);
 
 #### ObjectPage
 
 ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.) Calls the [add_object_page()](http://codex.wordpress.org/Function_Reference/add_object_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $objectPage = new ObjectPage($pageArg);
+    $objectPage = new ObjectPage('My Page', $myView);
 
 #### UtilityPage
 
 UtilityPage adds a top-level page on the Utility level (Appearance, Plugins, Users, Tools, Settings, etc.) Calls the [add_utility_page()](http://codex.wordpress.org/Function_Reference/add_utility_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $utilityPage = new UtilityPage($pageArg);
+    $utilityPage = new UtilityPage('My Page', $myView);
 
 #### OptionsPage
 
 OptionsPage adds a sub-men page under Settings. Class the [add_options_page](http://codex.wordpress.org/Function_Reference/add_options_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $optionsPage = new OptionsPage($pageArg);
+    $optionsPage = new OptionsPage('My Page', $myView);
 
 #### SubMenuPage
 
 SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_submenu_page()](http://codex.wordpress.org/Function_Reference/add_submenu_page) function.
 
-    $pageArg = new PageArg('My Sub Page', $myView);
-    $pageArg->parentSlug = $myPage->getSlug();
-    $subPage = new SubMenuPage($pageArg);
+    $subPage = new SubMenuPage('My Sub Page', $myView);
+    $subPage->setParentSlug($myPage->getSlug());
 
 ### Settings
 
