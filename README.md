@@ -75,6 +75,8 @@ You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPag
 
 All page classes require a title and View when instantiated. Text domain can be provided, optionally.
 
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+
 Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage.
 
 Capability is set to 'manage_options' by default but can be changed to any valid WordPress capability. The setCapability() method accepts the capability as a string.
@@ -83,7 +85,18 @@ An abstract class called Capability is included that can be used to easily pick 
 
     $page->setCapability(Capability::manage_options);
 
-The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+The setMenuIcon() method accepts a URL as a string. The setter will check if it is given a valid URL but does not check if the file exists.
+
+    $page->setMenuIcon('http://placehold.it/15x15');
+
+The setPosition() method accepts either an integer or numeric string. Both of these examples will do the same thing.
+
+    $page->setPosition(100);
+    $page->setPosition('100');
+
+Setter methods can be chained.
+
+    $page->setPosition(5)->setMenuIcon($iconUrl);
 
 #### MenuPage
 
