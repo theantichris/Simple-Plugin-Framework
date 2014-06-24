@@ -73,23 +73,6 @@ abstract class Page
     }
 
     /**
-     * Checks if $position is an integer and if it is sets the property.
-     *
-     * @since 3.0.0
-     *
-     * @param int|string $position
-     * @return void
-     */
-    public function setPosition($position)
-    {
-        if (is_numeric($position)) {
-            $this->position = intval($position);
-        } else {
-            wp_die(__("The menu position set for the {$this->title} page is not an integer ({$position}).", $this->textDomain));
-        }
-    }
-
-    /**
      * Validates and sets the page's menu icon.
      *
      * @since 3.0.0
@@ -103,6 +86,23 @@ abstract class Page
             $this->menuIcon = $icon;
         } else {
             wp_die(__("The URL specified for the {$this->title} page menu icon is not valid ({$icon}).", $this->textDomain));
+        }
+    }
+
+    /**
+     * Checks if $position is an integer and if it is sets the property.
+     *
+     * @since 3.0.0
+     *
+     * @param int|string $position
+     * @return void
+     */
+    public function setPosition($position)
+    {
+        if (is_numeric($position)) {
+            $this->position = intval($position);
+        } else {
+            wp_die(__("The menu position set for the {$this->title} page is not an integer ({$position}).", $this->textDomain));
         }
     }
 
