@@ -84,7 +84,17 @@ class Settings
 
     public function registerFields2()
     {
+        foreach ($this->settingsSections as $section) {
+            /** @var SettingsField[] $fields */
+            $fields = $section->getFields();
 
+            /** @var SettingsField $field */
+            foreach ($fields as $field) {
+                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $this->pageSlug, $section->getId(), $field->getArgs());
+
+                register_setting($this->pageSlug, $field->getID());
+            }
+        }
     }
 
     /**
