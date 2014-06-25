@@ -22,11 +22,11 @@ class SettingsField
      * @since 2.0.0
      * @param string $title
      * @param View $view
-     * @param mixed[] $args
      * @param string $prefix
      * @param string $textDomain
+     * @param mixed[] $args
      */
-    public function __construct($title, View $view, $args = array(), $prefix = 'lwppfw', $textDomain = '')
+    public function __construct($title, View $view, $prefix = 'lwppfw', $textDomain = '', $args = array())
     {
         if (empty($title)) {
             wp_die(__('You did not specify a title for your settings field.', $textDomain));
