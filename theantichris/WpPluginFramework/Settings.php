@@ -39,14 +39,17 @@ class Settings
         }
 
         // TODO: Register sections.
-        // TODO: Register fields.
 
-        add_action('admin_init', array($this, 'registerSection'));
+        add_action('admin_init', array($this, 'registerSections'));
+
+        // TODO: Register fields.
 
         $this->registerFields();
     }
 
     /**
+     * Adds SettingsSection to this Setting.
+     *
      * @since 3.0.0
      *
      * @param SettingsSection $section
@@ -58,6 +61,20 @@ class Settings
             wp_die(__("A section with ID {$section->getId()} was already added to settings for the {$this->pageSlug} page.", $this->textDomain));
         } else {
             $this->settingsSections[$section->getId()] = $section;
+        }
+    }
+
+    /**
+     * Adds all SettingsSection attached to the Setting to WordPress.
+     *
+     * @since 3.0.0
+     *
+     * @return void
+     */
+    public function registerSections()
+    {
+        foreach ($this->settingsSections as $section) {
+            add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->pageSlug);
         }
     }
 
