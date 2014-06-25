@@ -42,8 +42,9 @@ class Settings
         add_action('admin_init', array($this, 'registerSections'));
 
         // TODO: Register fields.
+        add_action('admin_init', array($this, 'registerFields2'));
 
-        $this->registerFields();
+        //$this->registerFields();
     }
 
     /**
@@ -79,6 +80,11 @@ class Settings
         foreach ($this->settingsSections as $section) {
             add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->pageSlug);
         }
+    }
+
+    public function registerFields2()
+    {
+
     }
 
     /**
