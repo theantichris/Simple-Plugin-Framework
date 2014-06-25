@@ -64,6 +64,9 @@ class Settings
 
     /**
      * Calls the WordPress function add_settings_section() for each SettingSection attached to this Setting.
+     *
+     * Do not call this function directly, it is tied to the admin_init hook in WordPress.
+     *
      * @link http://codex.wordpress.org/Function_Reference/add_settings_section
      *
      * @since 3.0.0
@@ -80,10 +83,15 @@ class Settings
 
     /**
      * Calls the WordPress functions add_settings_field() and register_setting() for each SettingsField attached to each SettingsSection.
+     *
+     * Do not call this function directly, it is tied to the admin_init hook in WordPress.
+     *
      * @link http://codex.wordpress.org/Function_Reference/add_settings_field
      * @link http://codex.wordpress.org/Function_Reference/register_setting
      *
      * @since 3.0.0
+     *
+     * @return void
      */
     public function registerFields()
     {
