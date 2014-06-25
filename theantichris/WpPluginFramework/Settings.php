@@ -14,7 +14,10 @@ namespace theantichris\WpPluginFramework;
 class Settings
 {
     /** @var string The slug of the page the settings will appear on. */
-    private $page;
+    private $pageSlug;
+    /** @var string */
+    private $textDomain;
+
     /** @var SettingsSection|SettingsSection[] */
     private $settingsSections;
 
@@ -23,16 +26,25 @@ class Settings
      *
      * @since 0.1.0
      *
-     * @param SettingsArg $settingsArg
+     * @param $pageSlug
+     * @param string $textDomain
      */
-    public function __construct(SettingsArg $settingsArg)
+    public function __construct($pageSlug, $textDomain = '')
     {
-        $this->page             = $settingsArg->getPageSlug();
-        $this->settingsSections = $settingsArg->getSettingsSections();
+        $this->textDomain = $textDomain;
 
-        add_action('admin_init', array($this, 'registerSection'));
+        if (empty($slug)) {
+            wp_die(__('You did not specify a page slug for your settings.', $this->textDomain));
+        } else {
+            $this->pageSlug = $pageSlug;
 
-        $this->registerFields();
+            // TODO: Register sections.
+            // TODO: Register fields.
+
+            add_action('admin_init', array($this, 'registerSection'));
+
+            $this->registerFields();
+        }
     }
 
     /**
