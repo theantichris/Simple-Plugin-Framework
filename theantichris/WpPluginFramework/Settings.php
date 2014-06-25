@@ -47,7 +47,7 @@ class Settings
     }
 
     /**
-     * Adds SettingsSection to this Setting.
+     * Adds a SettingsSection to this Setting. Checks if it already exists.
      *
      * @since 3.0.0
      *
