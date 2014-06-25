@@ -26,7 +26,7 @@ class Settings
      *
      * @since 0.1.0
      *
-     * @param $pageSlug
+     * @param string $pageSlug
      * @param string $textDomain
      */
     public function __construct($pageSlug, $textDomain = '')
