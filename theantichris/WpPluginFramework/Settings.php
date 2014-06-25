@@ -52,7 +52,7 @@ class Settings
      * @since 3.0.0
      *
      * @param SettingsSection $section
-     * @return void
+     * @return Settings
      */
     public function addSection(SettingsSection $section)
     {
@@ -61,6 +61,8 @@ class Settings
         } else {
             $this->settingsSections[$section->getId()] = $section;
         }
+
+        return $this;
     }
 
     /**
