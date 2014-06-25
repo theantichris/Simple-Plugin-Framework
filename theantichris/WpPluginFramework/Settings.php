@@ -32,7 +32,7 @@ class Settings
     {
         $this->textDomain = $textDomain;
 
-        if (empty($slug)) {
+        if (empty($pageSlug)) {
             wp_die(__('You did not specify a page slug for your settings.', $this->textDomain));
         } else {
             $this->pageSlug = $pageSlug;
