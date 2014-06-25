@@ -79,25 +79,6 @@ class Settings
     }
 
     /**
-     * Registers the settings section with WordPress.
-     *
-     * @since 0.1.0
-     *
-     * @return void
-     */
-    public function registerSection()
-    {
-        if (is_array($this->settingsSections)) {
-            /** @var SettingsSection $section */
-            foreach ($this->settingsSections as $section) {
-                add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->page);
-            }
-        } else {
-            add_settings_section($this->settingsSections->getId(), $this->settingsSections->getTitle(), array($this->settingsSections, 'display'), $this->page);
-        }
-    }
-
-    /**
      * @since 2.0.0
      * @return void
      */
