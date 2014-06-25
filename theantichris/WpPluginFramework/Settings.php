@@ -22,7 +22,7 @@ class Settings
 
     /**
      * Sets page slug and text domain for the object.
-     * Adds the registerSection() method to the admin_init action hook in WordPress.
+     * Adds the registerSection() and registerFields() methods to the admin_init action hook in WordPress.
      *
      * @since 0.1.0
      *
@@ -40,11 +40,7 @@ class Settings
         }
 
         add_action('admin_init', array($this, 'registerSections'));
-
-        // TODO: Register fields.
-        add_action('admin_init', array($this, 'registerFields2'));
-
-        //$this->registerFields();
+        add_action('admin_init', array($this, 'registerFields'));
     }
 
     /**
@@ -82,8 +78,16 @@ class Settings
         }
     }
 
-    public function registerFields2()
+    /**
+     * Calls the WordPress functions add_settings_field() and register_setting() for each SettingsField attached to each SettingsSection.
+     * @link http://codex.wordpress.org/Function_Reference/add_settings_field
+     * @link http://codex.wordpress.org/Function_Reference/register_setting
+     *
+     * @since 3.0.0
+     */
+    public function registerFields()
     {
+        /** @var SettingsSection $section */
         foreach ($this->settingsSections as $section) {
             /** @var SettingsField[] $fields */
             $fields = $section->getFields();
@@ -95,59 +99,5 @@ class Settings
                 register_setting($this->pageSlug, $field->getID());
             }
         }
-    }
-
-    /**
-     * @since 2.0.0
-     * @return void
-     */
-    private function registerFields()
-    {
-        if (is_array($this->settingsSections)) {
-            /** @var SettingsSection $section */
-            foreach ($this->settingsSections as $section) {
-                $this->doFields($section->getId(), $section->getSettingsFields());
-            }
-        } else {
-            $this->doFields($this->settingsSections->getId(), $this->settingsSections->getSettingsFields());
-        }
-    }
-
-    /**
-     * @since 3.0.0
-     * @param string $sectionId
-     * @param SettingsField|SettingsField[] $fields
-     * @return void
-     * TODO: Rename this with something better.
-     */
-    private function doFields($sectionId, $fields)
-    {
-        if (is_array($fields)) {
-            foreach ($fields as $field) {
-                $this->registerField($sectionId, $field);
-            }
-        } else {
-            $this->registerField($sectionId, $fields);
-        }
-    }
-
-    /**
-     * @since 2.0.0
-     * @param string $sectionId
-     * @param SettingsField $field
-     * @return void
-     */
-    private function registerField($sectionId, $field)
-    {
-        $page = $this->page;
-
-        add_action(
-            'admin_init', function () use ($field, $page, $sectionId) {
-                /** @noinspection PhpVoidFunctionResultUsedInspection */
-                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $page, $sectionId, $field->getArgs());
-
-                register_setting($page, $field->getID());
-            }
-        );
     }
 }
