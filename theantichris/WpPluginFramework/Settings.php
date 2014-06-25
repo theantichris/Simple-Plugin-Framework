@@ -38,8 +38,6 @@ class Settings
             $this->pageSlug = $pageSlug;
         }
 
-        // TODO: Register sections.
-
         add_action('admin_init', array($this, 'registerSections'));
 
         // TODO: Register fields.
