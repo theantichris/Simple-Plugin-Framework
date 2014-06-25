@@ -65,7 +65,8 @@ class Settings
     }
 
     /**
-     * Adds all SettingsSection attached to the Setting to WordPress.
+     * Calls the WordPress function add_settings_section() for each SettingSection attached to this Setting.
+     * @link http://codex.wordpress.org/Function_Reference/add_settings_section
      *
      * @since 3.0.0
      *
@@ -73,6 +74,7 @@ class Settings
      */
     public function registerSections()
     {
+        /** @var SettingsSection $section */
         foreach ($this->settingsSections as $section) {
             add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->pageSlug);
         }
