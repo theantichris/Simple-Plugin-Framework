@@ -57,7 +57,7 @@ class Settings
     public function addSection(SettingsSection $section)
     {
         if (array_key_exists($section->getId(), $this->settingsSections)) {
-            wp_die(__("A section with ID {$section->getId()} was already added to settings for the {$this->pageSlug} page.", $this->textDomain));
+            wp_die(__("A section with ID {$section->getId()} was already added to the settings for the {$this->pageSlug} page.", $this->textDomain));
         } else {
             $this->settingsSections[$section->getId()] = $section;
         }
