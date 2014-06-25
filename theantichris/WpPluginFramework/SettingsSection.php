@@ -84,4 +84,13 @@ class SettingsSection
 
         return $this;
     }
+
+    /**
+     * @since 3.0.0
+     * @return SettingsField[]
+     */
+    public function getFields()
+    {
+        return $this->settingsFields;
+    }
 } 
