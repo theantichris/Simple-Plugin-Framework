@@ -13,7 +13,7 @@ namespace theantichris\WpPluginFramework;
  */
 class Settings
 {
-    /** @var string The WordPress page slug the settings will appear on. */
+    /** @var string The slug of the page the settings will appear on. */
     private $page;
     /** @var SettingsSection|SettingsSection[] */
     private $settingsSections;
