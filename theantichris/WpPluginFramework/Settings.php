@@ -21,7 +21,8 @@ class Settings
     private $settingsSections = array();
 
     /**
-     * Class constructor.
+     * Sets page slug and text domain for the object.
+     * Adds the registerSection() method to the admin_init action hook in WordPress.
      *
      * @since 0.1.0
      *
