@@ -17,9 +17,8 @@ class Settings
     private $pageSlug;
     /** @var string */
     private $textDomain;
-
-    /** @var SettingsSection|SettingsSection[] */
-    private $settingsSections;
+    /** @var SettingsSection[] */
+    private $settingsSections = array();
 
     /**
      * Class constructor.
@@ -37,13 +36,28 @@ class Settings
             wp_die(__('You did not specify a page slug for your settings.', $this->textDomain));
         } else {
             $this->pageSlug = $pageSlug;
+        }
 
-            // TODO: Register sections.
-            // TODO: Register fields.
+        // TODO: Register sections.
+        // TODO: Register fields.
 
-            add_action('admin_init', array($this, 'registerSection'));
+        add_action('admin_init', array($this, 'registerSection'));
 
-            $this->registerFields();
+        $this->registerFields();
+    }
+
+    /**
+     * @since 3.0.0
+     *
+     * @param SettingsSection $section
+     * @return void
+     */
+    public function addSection(SettingsSection $section)
+    {
+        if (array_key_exists($section->getId(), $this->settingsSections)) {
+            wp_die(__("A section with ID {$section->getId()} was already added to settings for the {$this->pageSlug} page.", $this->textDomain));
+        } else {
+            $this->settingsSections[$section->getId()] = $section;
         }
     }
 
