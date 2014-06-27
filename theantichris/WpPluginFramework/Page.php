@@ -19,7 +19,7 @@ abstract class Page
     protected $view;
     /** @var string The capability required for this menu to be displayed to the user. */
     protected $capability = 'manage_options';
-    /** @var string The icon for this page in the menu. */
+    /** @var string The url to the icon to be used for this menu or the name of the icon from the iconfont. */
     protected $menuIcon;
     /** @var int The position in the menu order this menu should appear. */
     protected $position;
@@ -69,20 +69,16 @@ abstract class Page
     }
 
     /**
-     * Validates and sets the page's menu icon.
+     * Sets the page's menu icon.
      *
      * @since 3.0.0
      *
-     * @param string $icon
+     * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
      * @return Page
      */
     public function setMenuIcon($icon)
     {
-        if (filter_var($icon, FILTER_VALIDATE_URL)) {
-            $this->menuIcon = $icon;
-        } else {
-            wp_die(__("The URL specified for the {$this->title} page menu icon is not valid ({$icon}).", $this->textDomain));
-        }
+        $this->menuIcon = $icon;
 
         return $this;
     }
