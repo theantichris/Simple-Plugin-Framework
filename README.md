@@ -97,6 +97,12 @@ Usage:
 
     $postType->setCapabilities($myCapabilitiesArray);
 
+#### setSupports()
+
+The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features. Default: title, editor.
+
+    $postType->setSupports('title', 'editor', 'thumbnail');
+
 ### Taxonomies
 
 The TaxonomyArg class requires the plural display name of the taxonomy upon construction. Optionally, you can pass in your text domain.
