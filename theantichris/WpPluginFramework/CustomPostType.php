@@ -16,7 +16,7 @@ class CustomPostType
     /** @var  string User readable name for the post type. Must be plural. */
     private $name;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
-    public $public = true;
+    private $public = true;
     /** @var string[] Labels for the post type. */
     private $labels;
     /** @var  string URL to the plugin icon file. */
