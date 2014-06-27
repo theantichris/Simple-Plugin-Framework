@@ -131,21 +131,16 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 ### Settings
 
-The Settings class requires an instance of SettingsArg as a parameter.
+The Settings part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
 
-SettingsArg requires the page slug that the settings will appear on, and instance or array of SettingsSection. Text domain is optional. Page slug can be a default WordPress dashboard page or a page you create.
+A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
 
-The SettingsSection class requires the title for the settings section, the instance of View that will render the section, and an instance or array of SettingsField. Text domain is optional.
+Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
 
-The SettingsField class requires the title of the field and the instance of View that will render the field. Additional arguments, ID prefix, and text domain are optional. The prefix is set to 'lwppfw' by default.
+Field title will be converted into an ID for the field in the WordPress database by being processed through sanitize_title() and being prepended by the value of prefix.
 
-The Settings class constructor ties the [add_settings_section()](http://codex.wordpress.org/Function_Reference/add_settings_section) to the [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) hook for each section then ties [add_settings_field()](http://codex.wordpress.org/Function_Reference/add_settings_field) and [register_setting()](http://codex.wordpress.org/Function_Reference/register_setting) to [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) for each field.
-
-    $field1 = new SettingsField('Field 1', $fieldView1);
-    $field2 = new SettingsField('Field 2', $fieldView2);
-    $section = new SettingsSection('My Settings', $sectionView, array($field1, $field2);
-    $settingsArg = new SettingsArg($myPage->getSlug(), $section);
-    new Settings($settingsArg);
+    $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
+    $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
 
 ## View
 
