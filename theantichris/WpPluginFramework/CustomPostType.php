@@ -156,7 +156,7 @@ class CustomPostType
     }
 
     /**
-     * Sets $capabilities.
+     * Sets $capabilities if all capabilities are valid.
      *
      * @since 3.0.0
      *
@@ -165,6 +165,12 @@ class CustomPostType
      */
     public function setCapabilities($capabilities)
     {
+        foreach ($capabilities as $capability) {
+            if (!Capability::isValid($capability)) {
+                wp_die(__("{$capability} is not a valid WordPress capability."), $this->textDomain);
+            }
+        }
+
         $this->capabilities = $capabilities;
 
         return $this;
