@@ -100,7 +100,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string $description A short descriptive summary of what the post type is.
-     * @return $this
+     * @return CustomPostType
      */
     public function setDescription($description)
     {
@@ -115,7 +115,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param bool $public Whether a post type is intended to be used publicly either via the admin interface or by front-end users.
-     * @return $this
+     * @return CustomPostType
      */
     public function setPublic($public)
     {
@@ -130,7 +130,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param int|string $position The position in the menu order the post type should appear.
-     * @return $this
+     * @return CustomPostType
      */
     public function setMenuPosition($position)
     {
@@ -145,7 +145,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
-     * @return $this
+     * @return CustomPostType
      */
     public function setMenuIcon($icon)
     {
@@ -160,7 +160,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string[] $capabilities An array of the capabilities for this post type.
-     * @return $this
+     * @return CustomPostType
      */
     public function setCapabilities($capabilities)
     {
@@ -181,7 +181,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string[]|bool $supports Registers support of certain feature for a given post type.
-     * @return $this
+     * @return CustomPostType
      */
     public function setSupports($supports)
     {
