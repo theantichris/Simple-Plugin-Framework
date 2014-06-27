@@ -16,7 +16,7 @@ class CustomPostType
     /** @var  string User readable name for the post type. Must be plural. */
     private $name;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
-    public $public;
+    public $public = true;
     /** @var string[] Labels for the post type. */
     private $labels;
     /** @var  string URL to the plugin icon file. */
@@ -27,6 +27,8 @@ class CustomPostType
     private $supports;
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments;
+    /** @var string */
+    private $textDomain;
 
     /**
      * Class constructor.
@@ -38,9 +40,14 @@ class CustomPostType
      */
     function __construct($name, $textDomain = '')
     {
-        $this->name = $name;
+        $this->textDomain = $textDomain;
 
-        $this->public       = $customPostTypeArgs->public;
+        if (empty($name)) {
+            wp_die(__('You did not specify a name for your post type.', $this->textDomain));
+        } else {
+            $this->name = $name;
+        }
+
         $this->labels       = $customPostTypeArgs->getLabels();
         $this->menuIcon     = $customPostTypeArgs->menuIcon;
         $this->capabilities = $customPostTypeArgs->capabilities;
@@ -49,6 +56,17 @@ class CustomPostType
         $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'registerCustomPostType'));
+    }
+
+    public function setPublic($public)
+    {
+        if (is_bool($public)) {
+            $this->public = $public;
+        } else {
+
+        }
+
+        return $this;
     }
 
     /**
