@@ -29,9 +29,10 @@ class Taxonomy
      *
      * @since 0.1.0
      *
-     * @param TaxonomyArg $taxonomyArg
+     * @param string $name
+     * @param string $textDomain
      */
-    public function __construct(TaxonomyArg $taxonomyArg)
+    public function __construct($name, $textDomain)
     {
         $this->name      = $taxonomyArg->getName();
         $this->slug      = $taxonomyArg->getSlug();
