@@ -45,7 +45,7 @@ class CustomPostType
     {
         $this->textDomain = $textDomain;
 
-        if (empty($name)) {
+        if (empty($name) && is_string($name)) {
             wp_die(__('You did not specify a name for your custom post type.', $this->textDomain));
         } else {
             $this->name = $name;
