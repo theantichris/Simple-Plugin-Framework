@@ -43,6 +43,29 @@ class Settings
         add_action('admin_init', array($this, 'registerFields'));
     }
 
+
+    /**
+     * Sends SettingsSection objects to addSection().
+     *
+     * @since 3.0.0
+     *
+     * @param SettingsSection|SettingsSection[] $sections
+     * @return $this
+     */
+    public function addSections($sections)
+    {
+        if (is_array($sections)) {
+            /** @var SettingsSection $section */
+            foreach ($sections as $section) {
+                $this->addSection($section);
+            }
+        } else {
+            $this->addSection($sections);
+        }
+
+        return $this;
+    }
+
     /**
      * Adds a SettingsSection to this Setting. Checks if it already exists.
      *
@@ -51,7 +74,7 @@ class Settings
      * @param SettingsSection $section
      * @return Settings
      */
-    public function addSection(SettingsSection $section)
+    private function addSection(SettingsSection $section)
     {
         if (array_key_exists($section->getId(), $this->settingsSections)) {
             wp_die(__("A section with ID {$section->getId()} was already added to the settings for the {$this->pageSlug} page.", $this->textDomain));
