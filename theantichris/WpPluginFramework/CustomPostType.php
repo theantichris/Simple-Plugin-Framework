@@ -186,7 +186,7 @@ class CustomPostType
     public function setSupports($supports)
     {
         if ($supports === true) {
-            wp_die(__("{$supports} is not a valid option for supports.", $this->textDomain));
+            wp_die(__("The supports option must be an array or false", $this->textDomain));
         }
 
         $this->supports = $supports;
