@@ -38,7 +38,8 @@ class CustomPostType
      */
     function __construct($name, $textDomain = '')
     {
-        $this->name         = $customPostTypeArgs->getName();
+        $this->name = $name;
+
         $this->public       = $customPostTypeArgs->public;
         $this->labels       = $customPostTypeArgs->getLabels();
         $this->menuIcon     = $customPostTypeArgs->menuIcon;
