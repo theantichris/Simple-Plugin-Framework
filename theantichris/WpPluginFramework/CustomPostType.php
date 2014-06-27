@@ -215,8 +215,8 @@ class CustomPostType
                 'labels'        => $this->labels,
                 'description'   => $this->description,
                 'public'        => $this->public,
-                'menu-position' => $this->menuPosition,
-                'menu-icon'     => $this->menuIcon,
+                'menu_position' => $this->menuPosition,
+                'menu_icon'     => $this->menuIcon,
                 'capabilities'  => $this->capabilities,
                 'supports'      => $this->supports,
             );
