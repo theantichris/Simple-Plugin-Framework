@@ -35,6 +35,7 @@ abstract class Capability
     const publish_posts          = 'publish_posts';
     const edit_pages             = 'edit_pages';
     const read                   = 'read';
+    const read_posts             = 'read_posts';
     const publish_pages          = 'publish_pages';
     const edit_others_pages      = 'edit_others_pages';
     const edit_published_pages   = 'edit_published_pages';
