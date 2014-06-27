@@ -27,7 +27,7 @@ class SubMenuPage extends Page
     }
 
     /**
-     * Validates and sets the page's parent slug.
+     * Sets the page's parent slug.
      *
      * @since 3.0.0
      *
@@ -36,11 +36,7 @@ class SubMenuPage extends Page
      */
     public function setParentSlug($slug)
     {
-        if (empty($slug)) {
-            wp_die(__("The parent menu for the {$this->title} page cannot be blank.", $this->textDomain));
-        } else {
-            $this->parentSlug = $slug;
-        }
+        $this->parentSlug = $slug;
 
         return $this;
     }

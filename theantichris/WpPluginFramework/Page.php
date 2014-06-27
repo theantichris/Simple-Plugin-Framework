@@ -39,18 +39,12 @@ abstract class Page
      */
     public function __construct($title, View $view, $textDomain = '')
     {
+        $this->title      = $title;
         $this->textDomain = $textDomain;
 
-        if (empty($title)) {
-            wp_die(__('You did not specify a title for your page.', $this->textDomain));
-        } elseif (empty($view)) {
-            wp_die(__('You did not specify a view for your page.', $this->textDomain));
-        } else {
-            $this->title                   = $title;
-            $this->view                    = $view;
-            $this->view->viewData['title'] = $this->title;
-            $this->view->viewData['slug']  = $this->getSlug();
-        }
+        $this->view                    = $view;
+        $this->view->viewData['title'] = $this->title;
+        $this->view->viewData['slug']  = $this->getSlug();
 
         add_action('admin_menu', array($this, 'addPage'));
     }
@@ -94,7 +88,7 @@ abstract class Page
     }
 
     /**
-     * Checks if $position is an integer and if it is sets the property.
+     * Sets $position.
      *
      * @since 3.0.0
      *
@@ -103,11 +97,7 @@ abstract class Page
      */
     public function setPosition($position)
     {
-        if (is_numeric($position)) {
-            $this->position = intval($position);
-        } else {
-            wp_die(__("The menu position set for the {$this->title} page is not an integer ({$position}).", $this->textDomain));
-        }
+        $this->position = intval($position);
 
         return $this;
     }

@@ -31,13 +31,8 @@ class Settings
      */
     public function __construct($pageSlug, $textDomain = '')
     {
+        $this->pageSlug = $pageSlug;
         $this->textDomain = $textDomain;
-
-        if (empty($pageSlug)) {
-            wp_die(__('You did not specify a page slug for your settings.', $this->textDomain));
-        } else {
-            $this->pageSlug = $pageSlug;
-        }
 
         add_action('admin_init', array($this, 'registerSections'));
         add_action('admin_init', array($this, 'registerFields'));
