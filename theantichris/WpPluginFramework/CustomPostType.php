@@ -213,6 +213,7 @@ class CustomPostType
         if (!post_type_exists($this->getSlug())) {
             $arguments = array(
                 'labels'        => $this->labels,
+                'description'   => $this->description,
                 'public'        => $this->public,
                 'menu-position' => $this->menuPosition,
                 'menu-icon'     => $this->menuIcon,
