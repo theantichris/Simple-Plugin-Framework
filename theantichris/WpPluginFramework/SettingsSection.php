@@ -96,7 +96,7 @@ class SettingsSection
      * @param SettingsField $field
      * @return void
      */
-    private function addField($field)
+    private function addField(SettingsField $field)
     {
         if (array_key_exists($field->getId(), $this->settingsFields)) {
             wp_die(__("A section with ID {$field->getId()} was already added to the settings section {$this->getId()} page.", $this->textDomain));
