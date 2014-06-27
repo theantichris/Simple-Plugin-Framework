@@ -205,7 +205,8 @@ class CustomPostType
         return array(
             'labels'       => $this->labels,
             'public'       => $this->public,
-            'menuIcon'     => $this->menuIcon,
+            'menu-position' => $this->menuPosition,
+            'menu-icon'     => $this->menuIcon,
             'capabilities' => $this->capabilities,
             'supports'     => $this->supports,
         );
