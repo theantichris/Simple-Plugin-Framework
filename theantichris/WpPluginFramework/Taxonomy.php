@@ -49,18 +49,6 @@ class Taxonomy
     }
 
     /**
-     * @since 2.0.0
-     *
-     * @return string[]
-     */
-    private function setArguments()
-    {
-        return array(
-            'labels' => $this->labels,
-        );
-    }
-
-    /**
      * Registers the taxonomy with WordPress.
      *
      * @since 0.1.0
