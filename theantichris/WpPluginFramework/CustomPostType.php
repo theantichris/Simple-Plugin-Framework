@@ -43,10 +43,9 @@ class CustomPostType
      */
     function __construct($name, $textDomain = '')
     {
+        $this->name       = $name;
         $this->textDomain = $textDomain;
-
-        $this->name   = $name;
-        $this->labels = $this->setLabels();
+        $this->labels     = $this->setLabels();
 
 //        $this->menuIcon     = $customPostTypeArgs->menuIcon;
 //        $this->capabilities = $customPostTypeArgs->capabilities;
