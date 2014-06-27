@@ -23,8 +23,6 @@ class Taxonomy
     private $postTypes;
     /** @var array UI labels for the taxonomy. */
     private $labels;
-    /** @var array Arguments to pass to register_taxonomy(). */
-    private $arguments;
 
     /**
      * Class constructor.
@@ -42,8 +40,6 @@ class Taxonomy
         $this->slug      = $taxonomyArg->getSlug();
         $this->postTypes = $taxonomyArg->postTypes;
         $this->labels    = $taxonomyArg->getLabels();
-
-        $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
     }
