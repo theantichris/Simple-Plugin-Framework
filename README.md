@@ -89,6 +89,10 @@ The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.
 
     $page->setMenuIcon('http://placehold.it/15x15');
 
+or...
+
+    $page->setMenuIcon('dashicons-admin-tools');
+
 The setPosition() method accepts either an integer or numeric string. Both of these examples will do the same thing.
 
     $page->setPosition(100);
