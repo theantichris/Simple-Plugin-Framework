@@ -13,9 +13,9 @@ namespace theantichris\WpPluginFramework;
  */
 class CustomPostType
 {
-    /** @var  string User readable name for the post type. Must be plural. */
+    /** @var  string General name for the post type, must be plural. */
     private $name;
-    /** @var bool If the post type is publicly accessible by admin and front-end. */
+    /** @var bool Whether a post type is intended to be used publicly either via the admin interface or by front-end users. */
     private $public = true;
     /** @var string[] Labels for the post type. */
     private $labels;
@@ -35,7 +35,7 @@ class CustomPostType
      *
      * @since 0.1.0
      *
-     * @param string $name
+     * @param string $name General name for the post type, must be plural.
      * @param string $textDomain
      */
     function __construct($name, $textDomain = '')
@@ -63,7 +63,7 @@ class CustomPostType
      *
      * @since 3.0.0
      *
-     * @param bool $public
+     * @param bool $public Whether a post type is intended to be used publicly either via the admin interface or by front-end users.
      * @return $this
      */
     public function setPublic($public)
