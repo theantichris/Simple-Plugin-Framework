@@ -54,7 +54,12 @@ class Taxonomy
     public function registerCustomTaxonomy()
     {
         if (!taxonomy_exists($this->slug)) {
-            register_taxonomy($this->slug, $this->postTypes, $this->arguments);
+            /** @var string[] $arguments */
+            $arguments = array(
+                'labels' => $this->labels,
+            );
+
+            register_taxonomy($this->slug, $this->postTypes, $arguments);
         }
     }
 
