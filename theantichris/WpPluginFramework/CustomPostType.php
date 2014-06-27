@@ -53,11 +53,9 @@ class CustomPostType
         $this->textDomain = $textDomain;
         $this->labels     = $this->setLabels();
 
-//        $this->supports     = $customPostTypeArgs->supports;
-//
-//        $this->arguments = $this->setArguments();
-//
-//        add_action('init', array($this, 'registerCustomPostType'));
+        $this->arguments = $this->setArguments();
+
+        add_action('init', array($this, 'registerCustomPostType'));
     }
 
     /**
@@ -186,24 +184,13 @@ class CustomPostType
      */
     public function setSupports($supports)
     {
-        if ($supports === true)
-        {
+        if ($supports === true) {
             wp_die(__("{$supports} is not a valid option for supports.", $this->textDomain));
         }
 
         $this->supports = $supports;
 
         return $this;
-    }
-
-    /**
-     * @since 3.0.0
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return sanitize_title($this->name);
     }
 
     /**
@@ -222,6 +209,16 @@ class CustomPostType
             'capabilities' => $this->capabilities,
             'supports'     => $this->supports,
         );
+    }
+
+    /**
+     * @since 3.0.0
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return sanitize_title($this->name);
     }
 
     /**
