@@ -25,13 +25,17 @@ class CustomPostType
     private $textDomain;
     /** @var int The position in the menu order the post type should appear. */
     private $menuPosition;
-    /** @var  string The url to the icon to be used for this menu or the name of the icon from the iconfont  */
+    /** @var  string The url to the icon to be used for this menu or the name of the icon from the iconfont */
     private $menuIcon;
-
     /** @var string[] Capabilities to set for the post type. */
-    private $capabilities;
-    /** @var string[] $supports What features the post type supports. */
-    private $supports;
+    private $capabilities = array(
+        'edit_posts'         => Capability::edit_posts,
+        'edit_others_posts'  => Capability::edit_others_posts,
+        'publish_posts'      => Capability::publish_posts,
+        'read_private_posts' => Capability::read_private_posts,
+    );
+    /** @var string[] $supports Registers support of certain features for a given post type. */
+    private $supports = array('title', 'editor');
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments;
 
@@ -49,8 +53,6 @@ class CustomPostType
         $this->textDomain = $textDomain;
         $this->labels     = $this->setLabels();
 
-//        $this->menuIcon     = $customPostTypeArgs->menuIcon;
-//        $this->capabilities = $customPostTypeArgs->capabilities;
 //        $this->supports     = $customPostTypeArgs->supports;
 //
 //        $this->arguments = $this->setArguments();
@@ -149,6 +151,36 @@ class CustomPostType
     public function setMenuIcon($icon)
     {
         $this->menuIcon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Sets $capabilities.
+     *
+     * @since 3.0.0
+     *
+     * @param string[] $capabilities An array of the capabilities for this post type.
+     * @return $this
+     */
+    public function setCapabilities($capabilities)
+    {
+        $this->capabilities = $capabilities;
+
+        return $this;
+    }
+
+    /**
+     * Sets $supports.
+     *
+     * @since 3.0.0
+     *
+     * @param string[] $supports Registers support of certain feature for a given post type.
+     * @return $this
+     */
+    public function setSupports($supports)
+    {
+        $this->supports = $supports;
 
         return $this;
     }
