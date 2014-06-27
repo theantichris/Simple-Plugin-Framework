@@ -33,22 +33,53 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-The framework contains classes for creating custom post types, taxonomies, pages, and settings. The basic flow for creating these objects is setting up the arguments class and instantiating the object.
+The framework contains classes for creating custom post types, taxonomies, pages, and settings.
 
 ### Custom Post Types
 
-The CustomPostTypeArg class requires the plural display name of the post type upon construction. Optionally, you can pass in your text domain.
+The CustomPostType class requires the name of the post type upon construction. Optionally, you can pass in your text domain. The name you pass in must be plural for the post type labels to be setup correctly.
 
-CustomPostTypeArg uses the name to automatically generate the slug and labels for the post type.
+The CustomPostType class constructor sets up the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
 
-The rest of the properties for CustomPostTypeArg are setup to create a publicly facing post type but can be overridden using standard object notation.
+    $postType = new CustomPostType('My Post Type');
 
-The CustomPostType class requires an instance of the CustomPostTypeArg class which passes in the needed information.
+The rest of the properties for CustomPostType have defaults set to create a basic publicly facing post type but can be overridden using their setters. All setters can be chained.
 
-The CustomPostType class constructor sets up the arguments for the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
+#### setDescription()
 
-    $postTypeArgs = new CustomPostTypeArg('My Posts');
-    $myPostType = new CustomPostType($postTypeArgs);
+The setDescription() method accepts a string. Default: null
+
+    $postType->setDescription('This is my custom post type.');
+
+#### setPublic()
+
+The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site. Default: true
+
+    $postType->setPublic(false);
+
+#### setMenuPosition()
+
+The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other. Default: null
+
+    $postType->setMenuPosition(85);
+
+or...
+
+    $postType->setMenuPosition('85');
+
+#### setMenuIcon()
+
+The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+
+    $postType->setMenuIcon('http://placehold.it/15x15');
+
+or...
+
+    $postType->setMenuIcon('dashicons-admin-tools');
+
+#### setCapabilities()
+
+The setCapabilities() method accepts a string array of the capabilities for managing the post type. The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
 ### Taxonomies
 
