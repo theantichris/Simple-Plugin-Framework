@@ -25,9 +25,9 @@ class CustomPostType
     private $textDomain;
     /** @var int The position in the menu order the post type should appear. */
     private $menuPosition;
-
-    /** @var  string URL to the plugin icon file. */
+    /** @var  string The url to the icon to be used for this menu or the name of the icon from the iconfont  */
     private $menuIcon;
+
     /** @var string[] Capabilities to set for the post type. */
     private $capabilities;
     /** @var string[] $supports What features the post type supports. */
@@ -139,10 +139,24 @@ class CustomPostType
     }
 
     /**
+     * Sets $menuIcon.
+     *
+     * @since 3.0.0
+     *
+     * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
+     * @return $this
+     */
+    public function setMenuIcon($icon)
+    {
+        $this->menuIcon = $icon;
+
+        return $this;
+    }
+
+    /**
      * @since 3.0.0
      *
      * @return string
-     * @return void
      */
     public function getSlug()
     {
