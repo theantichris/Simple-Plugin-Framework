@@ -40,7 +40,8 @@ class CustomPostType
     private $arguments;
 
     /**
-     * Class constructor.
+     * Sets up properties and ties the registerCustomPostType() method to the init WordPress action hook.
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0
      *
