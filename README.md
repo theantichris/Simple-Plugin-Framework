@@ -146,6 +146,12 @@ You can add anything you would like to the fields view but it is recommended to 
     $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
     $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
 
+#### SettingsSection
+
+After you have some fields defined you will want to create a section and add your fields to it.
+
+The SettingsSection constructor requires a title (string), view (View), and optionally takes a text domain (string).
+
 ## View
 
 The View class makes it simpler to display output from your plugin.
