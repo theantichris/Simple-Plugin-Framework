@@ -85,7 +85,7 @@ An abstract class called Capability is included that can be used to easily pick 
 
     $page->setCapability(Capability::manage_options);
 
-The setMenuIcon() method accepts a URL as a string. The setter will check if it is given a valid URL but does not check if the file exists.
+The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string.
 
     $page->setMenuIcon('http://placehold.it/15x15');
 
