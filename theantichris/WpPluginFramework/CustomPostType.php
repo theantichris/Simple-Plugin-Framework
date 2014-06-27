@@ -35,9 +35,10 @@ class CustomPostType
      *
      * @since 0.1.0
      *
-     * @param CustomPostTypeArg $customPostTypeArgs Object containing arguments for creating a custom post type.
+     * @param string $name
+     * @param string $textDomain
      */
-    function __construct(CustomPostTypeArg $customPostTypeArgs)
+    function __construct($name, $textDomain = '')
     {
         $this->name         = $customPostTypeArgs->getName();
         $this->slug         = $customPostTypeArgs->getSlug();
