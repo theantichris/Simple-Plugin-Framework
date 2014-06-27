@@ -15,10 +15,13 @@ class CustomPostType
 {
     /** @var  string General name for the post type, must be plural. */
     private $name;
+    /** @var string[] An array of labels for this post type. */
+    private $labels;
     /** @var bool Whether a post type is intended to be used publicly either via the admin interface or by front-end users. */
     private $public = true;
-    /** @var string[] Labels for the post type. */
-    private $labels;
+    /** @var string */
+    private $textDomain;
+
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
     /** @var string[] Capabilities to set for the post type. */
@@ -27,8 +30,6 @@ class CustomPostType
     private $supports;
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments;
-    /** @var string */
-    private $textDomain;
 
     /**
      * Class constructor.
