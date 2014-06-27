@@ -135,9 +135,13 @@ The Settings part of the framework consists of three classes. Settings, Settings
 
 A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
 
+#### SettingsFields
+
 Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
 
 Field title will be converted into an ID for the field in the WordPress database by being processed through sanitize_title() and being prepended by the value of prefix.
+
+You can add anything you would like to the fields view but it is recommended to only specify the form field tag and label.
 
     $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
     $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
