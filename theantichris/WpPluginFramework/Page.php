@@ -62,7 +62,7 @@ abstract class Page
         if (Capability::isValid($capability)) {
             $this->capability = $capability;
         } else {
-            wp_die(__("The capability set for the {$this->title} page is not a valid WordPress capability ({$capability}).", $this->textDomain));
+            wp_die(__("{$capability} is not a valid WordPress capability.", $this->textDomain));
         }
 
         return $this;
