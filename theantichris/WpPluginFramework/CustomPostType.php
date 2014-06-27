@@ -60,7 +60,7 @@ class CustomPostType
     }
 
     /**
-     * Setups the labels for the post type..
+     * Sets up the labels for the post type..
      *
      * @since 3.0.0
      *
