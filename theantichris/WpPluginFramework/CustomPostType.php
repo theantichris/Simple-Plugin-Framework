@@ -34,7 +34,7 @@ class CustomPostType
         'publish_posts'      => Capability::publish_posts,
         'read_private_posts' => Capability::read_private_posts,
     );
-    /** @var string[] $supports Registers support of certain features for a given post type. */
+    /** @var string[]|bool $supports Registers support of certain features for a given post type. */
     private $supports = array('title', 'editor');
     /** @var  mixed[] Arguments for the register_post_type() function. */
     private $arguments;
@@ -181,11 +181,16 @@ class CustomPostType
      *
      * @since 3.0.0
      *
-     * @param string[] $supports Registers support of certain feature for a given post type.
+     * @param string[]|bool $supports Registers support of certain feature for a given post type.
      * @return $this
      */
     public function setSupports($supports)
     {
+        if ($supports === true)
+        {
+            wp_die(__("{$supports} is not a valid option for supports.", $this->textDomain));
+        }
+
         $this->supports = $supports;
 
         return $this;
