@@ -79,7 +79,9 @@ or...
 
 #### setCapabilities()
 
-The setCapabilities() method accepts a string array of the capabilities for managing the post type. The included Capabilities class can be used to make sure valid WordPress capabilities are used.
+The setCapabilities() method accepts a string array of the capabilities for managing the post type.
+
+The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
 Default:
 
@@ -130,15 +132,19 @@ All page classes require a title and View when instantiated. Text domain can be 
 
 The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
-Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage.
+Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage. Setter methods can be chained.
 
-Capability is set to 'manage_options' by default but can be changed to any valid WordPress capability. The setCapability() method accepts the capability as a string.
+#### setCapability()
 
-An abstract class called Capability is included that can be used to easily pick a WordPress capability using code completion. Simply type `Capability::` and your IDE should give you a list of all valid capabilities.
+The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page. Default: manage_options
+
+The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
     $page->setCapability(Capability::manage_options);
 
-The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string.
+#### setMenuIcon
+
+The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
 
     $page->setMenuIcon('http://placehold.it/15x15');
 
@@ -146,14 +152,15 @@ or...
 
     $page->setMenuIcon('dashicons-admin-tools');
 
-The setPosition() method accepts either an integer or numeric string. Both of these examples will do the same thing.
+#### setPosition
+
+The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other. Default: null
 
     $page->setPosition(100);
+
+or...
+
     $page->setPosition('100');
-
-Setter methods can be chained.
-
-    $page->setPosition(5)->setMenuIcon($iconUrl);
 
 #### MenuPage
 
