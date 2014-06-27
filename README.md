@@ -135,6 +135,10 @@ The Settings part of the framework consists of three classes. Settings, Settings
 
 A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
 
+The Settings constructor requires the page slug (string) for the page the settings will be displayed on. Text domain (string) can be passed in optionally.
+
+    $settings = new Settings($myPage->getSlug());
+
 #### SettingsFields
 
 Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
@@ -151,6 +155,26 @@ You can add anything you would like to the fields view but it is recommended to 
 After you have some fields defined you will want to create a section and add your fields to it.
 
 The SettingsSection constructor requires a title (string), view (View), and optionally takes a text domain (string).
+
+The title will be displays as the section header on the settings page automatically, you do not need to include it in the view.
+
+    $section = new SettingsSection('Section One', $sectionView);
+
+A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method. The addFields() method is chainable.
+
+    $section->addFields($field1)->addFields($field2);
+
+or...
+
+    $section->addFields(array($field1, $field2));
+
+Once your SettingSection objects are defined you can add them to your Settings by using the Settings addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection and is chainable.
+
+    $settings->addSections($section1)->addSection($section2);
+
+or...
+
+    $settings->addSections(array($section1, $section2));
 
 ## View
 
