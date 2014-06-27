@@ -23,6 +23,8 @@ class CustomPostType
     private $public = true;
     /** @var string */
     private $textDomain;
+    /** @var int The position in the menu order the post type should appear. */
+    private $menuPosition;
 
     /** @var  string URL to the plugin icon file. */
     private $menuIcon;
@@ -117,6 +119,21 @@ class CustomPostType
     public function setPublic($public)
     {
         $this->public = $public;
+
+        return $this;
+    }
+
+    /**
+     * Set's $menuPosition.
+     *
+     * @since 3.0.0
+     *
+     * @param int|string $position The position in the menu order the post type should appear.
+     * @return $this
+     */
+    public function setMenuPosition($position)
+    {
+        $this->menuPosition = intval($position);
 
         return $this;
     }
