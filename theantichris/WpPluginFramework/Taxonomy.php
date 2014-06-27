@@ -15,6 +15,8 @@ class Taxonomy
 {
     /** @var string User readable name for the taxonomy. */
     private $name;
+    /** @var string */
+    private $textDomain;
     /** @var string WordPress ID for the taxonomy. */
     private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
@@ -34,7 +36,9 @@ class Taxonomy
      */
     public function __construct($name, $textDomain)
     {
-        $this->name      = $taxonomyArg->getName();
+        $this->name       = $name;
+        $this->textDomain = $textDomain;
+
         $this->slug      = $taxonomyArg->getSlug();
         $this->postTypes = $taxonomyArg->postTypes;
         $this->labels    = $taxonomyArg->getLabels();
