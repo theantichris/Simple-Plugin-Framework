@@ -15,8 +15,6 @@ class CustomPostType
 {
     /** @var  string User readable name for the post type. Must be plural. */
     private $name;
-    /** @var  string WordPress slug for the post type. */
-    private $slug;
     /** @var bool If the post type is publicly accessible by admin and front-end. */
     public $public;
     /** @var string[] Labels for the post type. */
@@ -41,7 +39,6 @@ class CustomPostType
     function __construct($name, $textDomain = '')
     {
         $this->name         = $customPostTypeArgs->getName();
-        $this->slug         = $customPostTypeArgs->getSlug();
         $this->public       = $customPostTypeArgs->public;
         $this->labels       = $customPostTypeArgs->getLabels();
         $this->menuIcon     = $customPostTypeArgs->menuIcon;
@@ -91,20 +88,8 @@ class CustomPostType
      */
     public function registerCustomPostType()
     {
-        if (!post_type_exists($this->slug)) {
-            register_post_type($this->slug, $this->arguments);
+        if (!post_type_exists($this->getSlug())) {
+            register_post_type($this->getSlug(), $this->arguments);
         }
-    }
-
-    /**
-     * Returns $slug.
-     *
-     * @since 0.1.0
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 }
