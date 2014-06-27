@@ -67,22 +67,42 @@ class SettingsSection
     }
 
     /**
+     * Sends SettingsField objects to addField().
+     *
+     * @since 3.0.0
+     *
+     * @param SettingsField|SettingsField[] $fields
+     * @return $this
+     */
+    public function addFields($fields)
+    {
+        if (is_array($fields)) {
+            /** @var SettingsField $field */
+            foreach ($fields as $field) {
+                $this->addField($field);
+            }
+        } else {
+            $this->addField($fields);
+        }
+
+        return $this;
+    }
+
+    /**
      * Adds a SettingsField to this SettingsSection if it does not already exist.
      *
      * @since 3.0.0
      *
      * @param SettingsField $field
-     * @return $this
+     * @return void
      */
-    public function addField(SettingsField $field)
+    private function addField($field)
     {
         if (array_key_exists($field->getId(), $this->settingsFields)) {
             wp_die(__("A section with ID {$field->getId()} was already added to the settings section {$this->getId()} page.", $this->textDomain));
         } else {
             $this->settingsFields[$field->getId()] = $field;
         }
-
-        return $this;
     }
 
     /**
