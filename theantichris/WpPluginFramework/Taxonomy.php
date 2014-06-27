@@ -17,8 +17,6 @@ class Taxonomy
     private $name;
     /** @var string */
     private $textDomain;
-    /** @var string WordPress ID for the taxonomy. */
-    private $slug;
     /** @var array|string What post types the taxonomy will be registered to. */
     private $postTypes;
     /** @var array UI labels for the taxonomy. */
@@ -37,11 +35,22 @@ class Taxonomy
         $this->name       = $name;
         $this->textDomain = $textDomain;
 
-        $this->slug      = $taxonomyArg->getSlug();
         $this->postTypes = $taxonomyArg->postTypes;
         $this->labels    = $taxonomyArg->getLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
+    }
+
+    /**
+     * Returns the taxonomies slug by sanitizing the name.
+     *
+     * @since 3.0.0
+     *
+     * @return string
+     */
+    public function getSlug()
+    {
+        return sanitize_title($this->name);
     }
 
     /**
