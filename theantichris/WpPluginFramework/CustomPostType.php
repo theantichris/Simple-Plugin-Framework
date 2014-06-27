@@ -45,12 +45,8 @@ class CustomPostType
     {
         $this->textDomain = $textDomain;
 
-        if (empty($name) && is_string($name)) {
-            wp_die(__('You did not specify a name for your custom post type.', $this->textDomain));
-        } else {
-            $this->name = $name;
-            $this->labels = $this->setLabels();
-        }
+        $this->name   = $name;
+        $this->labels = $this->setLabels();
 
 //        $this->menuIcon     = $customPostTypeArgs->menuIcon;
 //        $this->capabilities = $customPostTypeArgs->capabilities;
@@ -97,7 +93,7 @@ class CustomPostType
     }
 
     /**
-     * Validates and assigns $description.
+     * Sets the $description property.
      *
      * @since 3.0.0
      *
@@ -106,17 +102,13 @@ class CustomPostType
      */
     public function setDescription($description)
     {
-        if (is_string($description)) {
-            $this->description = $description;
-        } else {
-            wp_die(__("The description for the {$this->name} post type must be a string.", $this->textDomain));
-        }
+        $this->description = $description;
 
         return $this;
     }
 
     /**
-     * Checks if $public is a bool and if so sets the property.
+     * Sets the $public property.
      *
      * @since 3.0.0
      *
@@ -125,11 +117,7 @@ class CustomPostType
      */
     public function setPublic($public)
     {
-        if (is_bool($public)) {
-            $this->public = $public;
-        } else {
-            wp_die(__("The public option for the {$this->name} post type must be a boolean.", $this->textDomain));
-        }
+        $this->public = $public;
 
         return $this;
     }
