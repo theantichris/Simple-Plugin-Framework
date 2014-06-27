@@ -48,22 +48,30 @@ class CustomPostType
             $this->name = $name;
         }
 
-        $this->labels       = $customPostTypeArgs->getLabels();
-        $this->menuIcon     = $customPostTypeArgs->menuIcon;
-        $this->capabilities = $customPostTypeArgs->capabilities;
-        $this->supports     = $customPostTypeArgs->supports;
-
-        $this->arguments = $this->setArguments();
-
-        add_action('init', array($this, 'registerCustomPostType'));
+//        $this->labels       = $customPostTypeArgs->getLabels();
+//        $this->menuIcon     = $customPostTypeArgs->menuIcon;
+//        $this->capabilities = $customPostTypeArgs->capabilities;
+//        $this->supports     = $customPostTypeArgs->supports;
+//
+//        $this->arguments = $this->setArguments();
+//
+//        add_action('init', array($this, 'registerCustomPostType'));
     }
 
+    /**
+     * Checks if $public is a bool and if so sets the property.
+     *
+     * @since 3.0.0
+     *
+     * @param bool $public
+     * @return $this
+     */
     public function setPublic($public)
     {
         if (is_bool($public)) {
             $this->public = $public;
         } else {
-
+            wp_die(__("The public option for the {$this->name} post type must be a boolean.", $this->textDomain));
         }
 
         return $this;
