@@ -29,6 +29,9 @@ class CustomPostType
     private $menuIcon;
     /** @var string[] Capabilities to set for the post type. */
     private $capabilities = array(
+        'edit_post'          => Capability::edit_posts,
+        'read_post'          => Capability::read_posts,
+        'delete_post'        => Capability::delete_posts,
         'edit_posts'         => Capability::edit_posts,
         'edit_others_posts'  => Capability::edit_others_posts,
         'publish_posts'      => Capability::publish_posts,
