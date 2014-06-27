@@ -160,6 +160,8 @@ The title will be displays as the section header on the settings page automatica
 
     $section = new SettingsSection('Section One', $sectionView);
 
+#### Adding SettingsField to SettingsSection
+
 A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method. The addFields() method is chainable.
 
     $section->addFields($field1)->addFields($field2);
@@ -167,6 +169,8 @@ A single SettingsField or an array of SettingsField objects can be assigned to t
 or...
 
     $section->addFields(array($field1, $field2));
+
+#### Adding SettingsSection to Settings
 
 Once your SettingSection objects are defined you can add them to your Settings by using the Settings addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection and is chainable.
 
