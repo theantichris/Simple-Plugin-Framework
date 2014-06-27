@@ -81,6 +81,22 @@ or...
 
 The setCapabilities() method accepts a string array of the capabilities for managing the post type. The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
+Default:
+
+    array(
+        'edit_post'          => Capability::edit_posts,
+        'read_post'          => Capability::read_posts,
+        'delete_post'        => Capability::delete_posts,
+        'edit_posts'         => Capability::edit_posts,
+        'edit_others_posts'  => Capability::edit_others_posts,
+        'publish_posts'      => Capability::publish_posts,
+        'read_private_posts' => Capability::read_private_posts,
+    )
+
+Usage:
+
+    $postType->setCapabilities($myCapabilitiesArray);
+
 ### Taxonomies
 
 The TaxonomyArg class requires the plural display name of the taxonomy upon construction. Optionally, you can pass in your text domain.
