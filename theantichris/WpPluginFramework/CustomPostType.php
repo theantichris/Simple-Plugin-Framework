@@ -54,6 +54,17 @@ class CustomPostType
     }
 
     /**
+     * @since 3.0.0
+     *
+     * @return string
+     * @return void
+     */
+    public function getSlug()
+    {
+        return sanitize_title($this->name);
+    }
+
+    /**
      * Sets the $arguments properties.
      *
      * @since 2.0.0
