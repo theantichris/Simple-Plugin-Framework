@@ -223,7 +223,8 @@ class CustomPostType
     }
 
     /**
-     * Registers the custom post type with WordPress if it does not already exists.
+     * Calls the WordPress function register_post_type() if the post type does not already exist.
+     * @link http://codex.wordpress.org/Function_Reference/register_post_type
      *
      * @since 0.1.0
      *
