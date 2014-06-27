@@ -144,7 +144,7 @@ The included Capabilities class can be used to make sure valid WordPress capabil
 
     $page->setCapability(Capability::manage_options);
 
-##### setMenuIcon
+##### setMenuIcon()
 
 The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
 
@@ -154,7 +154,7 @@ or...
 
     $page->setMenuIcon('dashicons-admin-tools');
 
-##### setPosition
+##### setPosition()
 
 The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other. Default: null
 
@@ -163,6 +163,12 @@ The setPosition() method accepts either an integer or numeric string. If you spe
 or...
 
     $page->setPosition('100');
+
+##### setParentSlug()
+
+The setParentSlug() method is only valid for the SubMenuPage class. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Default: null
+
+    $subMenuPage->setParentSlug($parentPage->getSlug());
 
 #### Page Types
 
