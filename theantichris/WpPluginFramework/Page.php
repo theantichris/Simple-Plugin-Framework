@@ -70,6 +70,7 @@ abstract class Page
 
     /**
      * Sets the page's menu icon.
+     * @link http://melchoyce.github.io/dashicons/
      *
      * @since 3.0.0
      *

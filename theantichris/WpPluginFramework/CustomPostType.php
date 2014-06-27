@@ -137,6 +137,7 @@ class CustomPostType
 
     /**
      * Sets $menuIcon.
+     * @link http://melchoyce.github.io/dashicons/
      *
      * @since 3.0.0
      *
