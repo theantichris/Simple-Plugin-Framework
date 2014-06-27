@@ -17,6 +17,8 @@ class CustomPostType
     private $name;
     /** @var string[] An array of labels for this post type. */
     private $labels;
+    /** @var string A short descriptive summary of what the post type is. */
+    private $description;
     /** @var bool Whether a post type is intended to be used publicly either via the admin interface or by front-end users. */
     private $public = true;
     /** @var string */
@@ -92,6 +94,25 @@ class CustomPostType
         );
 
         return $labels;
+    }
+
+    /**
+     * Validates and assigns $description.
+     *
+     * @since 3.0.0
+     *
+     * @param string $description A short descriptive summary of what the post type is.
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        if (is_string($description)) {
+            $this->description = $description;
+        } else {
+            wp_die(__("The description for the {$this->name} post type must be a string.", $this->textDomain));
+        }
+
+        return $this;
     }
 
     /**
