@@ -36,8 +36,6 @@ class CustomPostType
     );
     /** @var string[]|bool $supports Registers support of certain features for a given post type. */
     private $supports = array('title', 'editor');
-    /** @var  mixed[] Arguments for the register_post_type() function. */
-    private $arguments;
 
     /**
      * Sets up properties and ties the registerCustomPostType() method to the init WordPress action hook.
@@ -53,8 +51,6 @@ class CustomPostType
         $this->name       = $name;
         $this->textDomain = $textDomain;
         $this->labels     = $this->setLabels();
-
-        $this->arguments = $this->setArguments();
 
         add_action('init', array($this, 'registerCustomPostType'));
     }
@@ -195,25 +191,6 @@ class CustomPostType
     }
 
     /**
-     * Sets the $arguments properties.
-     *
-     * @since 2.0.0
-     *
-     * @return mixed[]
-     */
-    private function setArguments()
-    {
-        return array(
-            'labels'       => $this->labels,
-            'public'       => $this->public,
-            'menu-position' => $this->menuPosition,
-            'menu-icon'     => $this->menuIcon,
-            'capabilities' => $this->capabilities,
-            'supports'     => $this->supports,
-        );
-    }
-
-    /**
      * @since 3.0.0
      *
      * @return string
@@ -234,7 +211,16 @@ class CustomPostType
     public function registerCustomPostType()
     {
         if (!post_type_exists($this->getSlug())) {
-            register_post_type($this->getSlug(), $this->arguments);
+            $arguments = array(
+                'labels'        => $this->labels,
+                'public'        => $this->public,
+                'menu-position' => $this->menuPosition,
+                'menu-icon'     => $this->menuIcon,
+                'capabilities'  => $this->capabilities,
+                'supports'      => $this->supports,
+            );
+
+            register_post_type($this->getSlug(), $arguments);
         }
     }
 }
