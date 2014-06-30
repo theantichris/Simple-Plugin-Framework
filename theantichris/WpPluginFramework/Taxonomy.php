@@ -108,7 +108,7 @@ class Taxonomy
     }
 
     /**
-     * Checks to see if a term has already been added to the taxonomy then adds it if it has not.
+     * Passes terms to the validateTerm() method.
      *
      * @since 0.1.0
      *
@@ -120,17 +120,30 @@ class Taxonomy
         if (is_array($terms)) {
             /** @var string $term */
             foreach ($terms as $term) {
-                if (!in_array($term, $this->terms)) {
-                    $this->labels[] = $term;
-                }
+                $this->validateTerm($term);
             }
         } else {
-            if (!in_array($terms, $this->terms)) {
-                $this->labels[] = $terms;
-            }
+            $this->validateTerm($terms);
         }
 
         return $this;
+    }
+
+    /**
+     * Checks if a term exists with the taxonomy and adds it if it has not.
+     *
+     * @since 3.0.0
+     *
+     * @param $term
+     * @return void
+     */
+    private function validateTerm($term)
+    {
+        if (empty($this->terms)) {
+            $this->terms[] = $term;
+        } elseif (!in_array($term, $this->terms)) {
+            $this->terms[] = $term;
+        }
     }
 
     /**
