@@ -106,24 +106,18 @@ class Taxonomy
      *
      * @since 0.1.0
      *
-     * @param string|array $terms Terms to add to the taxonomy.
-     * @param string $textDomain
+     * @param string|string[] $terms Terms to add to the taxonomy.
      * @return void
      */
-    public function addTerms($terms, $textDomain = '')
+    public function addTerms($terms)
     {
         if (is_array($terms)) {
-            if (!empty($terms)) {
-                foreach ($terms as $term) {
-                    if ('' != trim($term)) {
-                        $this->insertTerm(trim($term), $textDomain);
-                    }
-                }
+            /** @var string $term */
+            foreach ($terms as $term) {
+                $this->insertTerm(trim($term), $this->textDomain);
             }
         } else {
-            if ('' != trim($terms)) {
-                $this->insertTerm(trim($terms), $textDomain);
-            }
+            $this->insertTerm(trim($terms), $this->textDomain);
         }
     }
 
