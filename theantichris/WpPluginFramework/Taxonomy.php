@@ -21,7 +21,7 @@ class Taxonomy
     private $postTypes;
     /** @var array An array of labels for this taxonomy. */
     private $labels;
-    /** @var string[] An array of terms registered to the taxonomy. */
+    /** @var string[] An associative array of terms registered to the taxonomy. The term name is the key and the value is the description. */
     private $terms;
 
     /**
@@ -115,9 +115,14 @@ class Taxonomy
      */
     public function addTerm($term, $description = '')
     {
-        $this->terms[$term] = $description;
-
-        add_action('init', array($this, 'insertTerms'));
+        if (is_array($this->terms)) {
+            if (!array_key_exists($term, $this->terms)) {
+                $this->terms[$term] = $description;
+                add_action('init', array($this, 'insertTerms'));
+            }
+        } else {
+            $this->terms[$term] = $description;
+        }
 
         return $this;
     }
