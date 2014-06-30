@@ -118,11 +118,12 @@ class Taxonomy
         if (is_array($this->terms)) {
             if (!array_key_exists($term, $this->terms)) {
                 $this->terms[$term] = $description;
-                add_action('init', array($this, 'insertTerms'));
             }
         } else {
             $this->terms[$term] = $description;
         }
+
+        add_action('init', array($this, 'insertTerms'));
 
         return $this;
     }
