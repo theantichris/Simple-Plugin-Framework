@@ -140,6 +140,7 @@ class Taxonomy
     public function insertTerms()
     {
         /** @var string $term */
+        /** @var string $description */
         foreach ($this->terms as $term => $description) {
             if (!term_exists($term['name'])) {
                 wp_insert_term(__($term, $this->textDomain), $this->getSlug(), array('description' => $description));
