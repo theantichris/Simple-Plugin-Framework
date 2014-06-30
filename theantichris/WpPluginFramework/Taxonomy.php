@@ -104,9 +104,8 @@ class Taxonomy
     }
 
     /**
-     * Passes terms to the validateTerm() method. Registers the insertTerms() method to the init action hook
+     * Adds a term to the $terms property. Registers the insertTerms() method to the init action hook
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
-     * @link
      *
      * @since 0.1.0
      *
@@ -116,10 +115,7 @@ class Taxonomy
      */
     public function addTerm($term, $description = '')
     {
-        $this->terms[] = array(
-            'name'        => $term,
-            'description' => $description,
-        );
+        $this->terms[$term] = $description;
 
         add_action('init', array($this, 'insertTerms'));
 
@@ -138,8 +134,10 @@ class Taxonomy
     public function insertTerms()
     {
         /** @var string $term */
-        foreach ($this->terms as $term) {
-            wp_insert_term(__($term['name'], $this->textDomain), $this->getSlug(), array('description' => $term['description']));
+        foreach ($this->terms as $term => $description) {
+            if (!term_exists($term['name'])) {
+                wp_insert_term(__($term, $this->textDomain), $this->getSlug(), array('description' => $description));
+            }
         }
     }
 } 
