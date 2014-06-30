@@ -21,6 +21,8 @@ class Taxonomy
     private $postTypes;
     /** @var array An array of labels for this taxonomy. */
     private $labels;
+    /** @var string[] An array of terms registered to the taxonomy. */
+    private $terms;
 
     /**
      * Sets properties and ties the registerCustomTaxonomy() method to the init action hook.
@@ -40,6 +42,7 @@ class Taxonomy
         $this->labels     = $this->setLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
+        add_action('init', array($this, 'insertTerms'));
     }
 
     /**
@@ -102,11 +105,11 @@ class Taxonomy
     }
 
     /**
-     * Validates a term or list of terms to add to the taxonomy then calls insertTerm() to add it to the database.
+     * Checks to see if a term has already been added to the taxonomy then adds it if it has not.
      *
      * @since 0.1.0
      *
-     * @param string|string[] $terms Terms to add to the taxonomy.
+     * @param string|string[] $terms Term(s) to add to the taxonomy.
      * @return void
      */
     public function addTerms($terms)
@@ -114,33 +117,31 @@ class Taxonomy
         if (is_array($terms)) {
             /** @var string $term */
             foreach ($terms as $term) {
-                $this->insertTerm(trim($term), $this->textDomain);
+                if (!in_array($term, $this->terms)) {
+                    $this->labels[] = $term;
+                }
             }
         } else {
-            $this->insertTerm(trim($terms), $this->textDomain);
+            if (!in_array($terms, $this->terms)) {
+                $this->labels[] = $terms;
+            }
         }
     }
 
     /**
-     * Adds a term to the WordPress database after being validated by addTerms().
+     * Calls the WordPress function wp_insert_term for each term in the $terms array. Tied to the init hook.
+     * Should not be called directly. It is only public so WordPress can call it.
+     * @link http://codex.wordpress.org/Function_Reference/wp_insert_term
      *
      * @since 0.1.0
      *
-     * @param string $term Validated term to add to the taxonomy.
-     * @param $textDomain
      * @return void
      */
-    private function insertTerm($term, $textDomain)
+    public function insertTerms()
     {
-        /** @var string $taxonomySlug Used to bring the property into the scope of the anonymous function. */
-        $taxonomySlug = $this->slug;
-
-        add_action(
-            'init',
-            function () use ($term, $taxonomySlug, $textDomain) {
-                $args = array('slug' => sanitize_title($term));
-                wp_insert_term(__($term, $textDomain), $taxonomySlug, $args);
-            }
-        );
+        /** @var string $term */
+        foreach ($this->terms as $term) {
+            wp_insert_term(__($term, $this->textDomain), $this->getSlug());
+        }
     }
 } 
