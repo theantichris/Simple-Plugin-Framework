@@ -115,7 +115,7 @@ The frameworks checks if the taxonomy exists before adding it.
 
     $taxonomy = new Taxonomy('Custom Tags', $postType->getSlug);
 
-Terms can be added to the taxonomy by using the addTerm() method. It requires the term to be added and can optionally take the term description. This method can be chained.
+Terms can be added to the taxonomy by using the addTerm() method. It requires the term to be added and can optionally take the term description. This method checks if the term has already been added and only adds it if it has not. It ties the WordPress function [wp_insert_term](http://codex.wordpress.org/Function_Reference/wp_insert_term) to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. This method can be chained.
 
     $taxonomy->addTerm('Tag One', 'This is the first tag.');
 
