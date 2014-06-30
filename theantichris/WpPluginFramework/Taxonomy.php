@@ -113,7 +113,7 @@ class Taxonomy
      * @since 0.1.0
      *
      * @param string|string[] $terms Term(s) to add to the taxonomy.
-     * @return void
+     * @return Taxonomy
      */
     public function addTerms($terms)
     {
@@ -129,6 +129,8 @@ class Taxonomy
                 $this->labels[] = $terms;
             }
         }
+
+        return $this;
     }
 
     /**
