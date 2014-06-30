@@ -30,7 +30,7 @@ class Taxonomy
      * @param string $name
      * @param string $textDomain
      */
-    public function __construct($name, $textDomain)
+    public function __construct($name, $textDomain = '')
     {
         $this->name       = $name;
         $this->textDomain = $textDomain;
