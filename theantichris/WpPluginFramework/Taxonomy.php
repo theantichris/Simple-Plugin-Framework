@@ -81,7 +81,9 @@ class Taxonomy
     }
 
     /**
-     * Registers the taxonomy with WordPress.
+     * Registers the taxonomy with WordPress if it has not already been registered. Called during the init action hook.
+     * Should not be called directly. It is only public so WordPress can call it.
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0
      *
@@ -89,13 +91,13 @@ class Taxonomy
      */
     public function registerCustomTaxonomy()
     {
-        if (!taxonomy_exists($this->slug)) {
+        if (!taxonomy_exists($this->getSlug())) {
             /** @var string[] $arguments */
             $arguments = array(
                 'labels' => $this->labels,
             );
 
-            register_taxonomy($this->slug, $this->postTypes, $arguments);
+            register_taxonomy($this->getSlug(), $this->postTypes, $arguments);
         }
     }
 
