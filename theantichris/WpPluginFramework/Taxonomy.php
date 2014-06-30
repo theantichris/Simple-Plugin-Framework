@@ -110,40 +110,16 @@ class Taxonomy
      *
      * @since 0.1.0
      *
-     * @param string|string[] $terms Term(s) to add to the taxonomy.
+     * @param string $term The term to add to the taxonomy.
      * @return Taxonomy
      */
-    public function addTerms($terms)
+    public function addTerm($term)
     {
-        if (is_array($terms)) {
-            /** @var string $term */
-            foreach ($terms as $term) {
-                $this->validateTerm($term);
-            }
-        } else {
-            $this->validateTerm($terms);
-        }
+        $this->terms[] = $term;
 
         add_action('init', array($this, 'insertTerms'));
 
         return $this;
-    }
-
-    /**
-     * Checks if a term exists with the taxonomy and adds it if it has not.
-     *
-     * @since 3.0.0
-     *
-     * @param string $term Term(s) to validate.
-     * @return void
-     */
-    private function validateTerm($term)
-    {
-        if (empty($this->terms)) {
-            $this->terms[] = $term;
-        } elseif (!in_array($term, $this->terms)) {
-            $this->terms[] = $term;
-        }
     }
 
     /**
