@@ -42,7 +42,10 @@ class Taxonomy
         $this->labels     = $this->setLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
-        add_action('init', array($this, 'insertTerms'));
+
+        if (!empty($this->terms)) {
+            add_action('init', array($this, 'insertTerms'));
+        }
     }
 
     /**
