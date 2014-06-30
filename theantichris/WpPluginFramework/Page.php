@@ -13,17 +13,17 @@ namespace theantichris\WpPluginFramework;
  */
 abstract class Page
 {
-    /** @var string User readable title for the page and menu item. */
+    /** @var string The text to be displayed in the title tags of the page when the menu is selected. */
     protected $title;
-    /** @var  View */
+    /** @var View The View object responsible for rendering the page. */
     protected $view;
-    /** @var  string */
-    protected $capability;
-    /** @var  string */
+    /** @var string The capability required for this menu to be displayed to the user. */
+    protected $capability = 'manage_options';
+    /** @var string The url to the icon to be used for this menu or the name of the icon from the iconfont. */
     protected $menuIcon;
-    /** @var  int */
+    /** @var int The position in the menu order this menu should appear. */
     protected $position;
-    /** @var  string */
+    /** @var string The slug name for the parent menu (or the file name of a standard WordPress admin page). Use NULL if you want to create a page that doesn't appear in any menu. */
     protected $parentSlug;
     /** @var string */
     protected $textDomain;
@@ -33,19 +33,70 @@ abstract class Page
      *
      * @since 0.1.0
      *
-     * @param PageArg $pageArg
+     * @param string $title
+     * @param View $view
+     * @param string $textDomain
      */
-    public function __construct(PageArg $pageArg)
+    public function __construct($title, View $view, $textDomain = '')
     {
-        $this->title      = $pageArg->getTitle();
-        $this->view       = $pageArg->getView();
-        $this->capability = $pageArg->capability;
-        $this->menuIcon   = $pageArg->menuIcon;
-        $this->position   = $pageArg->position;
-        $this->parentSlug = $pageArg->parentSlug;
-        $this->textDomain = $pageArg->textDomain;
+        $this->title      = $title;
+        $this->textDomain = $textDomain;
+
+        $this->view                    = $view;
+        $this->view->viewData['title'] = $this->title;
+        $this->view->viewData['slug']  = $this->getSlug();
 
         add_action('admin_menu', array($this, 'addPage'));
+    }
+
+    /**
+     * Checks if the given capability is a valid WordPress capability using the Capability enum.
+     *
+     * @since 3.0.0
+     *
+     * @param string $capability
+     * @return Page
+     */
+    public function setCapability($capability)
+    {
+        if (Capability::isValid($capability)) {
+            $this->capability = $capability;
+        } else {
+            wp_die(__("{$capability} is not a valid WordPress capability.", $this->textDomain));
+        }
+
+        return $this;
+    }
+
+    /**
+     * Sets the page's menu icon.
+     * @link http://melchoyce.github.io/dashicons/
+     *
+     * @since 3.0.0
+     *
+     * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
+     * @return Page
+     */
+    public function setMenuIcon($icon)
+    {
+        $this->menuIcon = $icon;
+
+        return $this;
+    }
+
+    /**
+     * Sets $position.
+     *
+     * @since 3.0.0
+     *
+     * @param int|string $position
+     * @return Page
+     */
+    public function setPosition($position)
+    {
+        $this->position = intval($position);
+
+        return $this;
     }
 
     /**
@@ -71,6 +122,7 @@ abstract class Page
 
     /**
      * Displays the HTML output of the page.
+     * @link http://codex.wordpress.org/Function_Reference/current_user_can
      *
      * @since 0.1.0
      *

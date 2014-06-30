@@ -33,105 +33,221 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-The framework contains classes for creating custom post types, taxonomies, pages, and settings. The basic flow for creating these objects is setting up the arguments class and instantiating the object.
+The framework contains classes for creating custom post types, taxonomies, pages, and settings.
 
 ### Custom Post Types
 
-The CustomPostTypeArg class requires the plural display name of the post type upon construction. Optionally, you can pass in your text domain.
+The CustomPostType class requires the name of the post type upon construction. Optionally, you can pass in your text domain. The name you pass in must be plural for the post type labels to be setup correctly.
 
-CustomPostTypeArg uses the name to automatically generate the slug and labels for the post type.
+The CustomPostType class constructor sets up the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
 
-The rest of the properties for CustomPostTypeArg are setup to create a publicly facing post type but can be overridden using standard object notation.
+    $postType = new CustomPostType('My Post Type');
 
-The CustomPostType class requires an instance of the CustomPostTypeArg class which passes in the needed information.
+The rest of the properties for CustomPostType have defaults set to create a basic publicly facing post type but can be overridden using their setters. All setters can be chained.
 
-The CustomPostType class constructor sets up the arguments for the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
+#### setDescription()
 
-    $postTypeArgs = new CustomPostTypeArg('My Posts');
-    $myPostType = new CustomPostType($postTypeArgs);
+The setDescription() method accepts a string. Default: null
+
+    $postType->setDescription('This is my custom post type.');
+
+#### setPublic()
+
+The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site. Default: true
+
+    $postType->setPublic(false);
+
+#### setMenuPosition()
+
+The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other. Default: null
+
+    $postType->setMenuPosition(85);
+
+or...
+
+    $postType->setMenuPosition('85');
+
+#### setMenuIcon()
+
+The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+
+    $postType->setMenuIcon('http://placehold.it/15x15');
+
+or...
+
+    $postType->setMenuIcon('dashicons-admin-tools');
+
+#### setCapabilities()
+
+The setCapabilities() method accepts a string array of the capabilities for managing the post type.
+
+The included Capabilities class can be used to make sure valid WordPress capabilities are used.
+
+Default:
+
+    array(
+        'edit_post'          => Capability::edit_posts,
+        'read_post'          => Capability::read_posts,
+        'delete_post'        => Capability::delete_posts,
+        'edit_posts'         => Capability::edit_posts,
+        'edit_others_posts'  => Capability::edit_others_posts,
+        'publish_posts'      => Capability::publish_posts,
+        'read_private_posts' => Capability::read_private_posts,
+    )
+
+Usage:
+
+    $postType->setCapabilities($myCapabilitiesArray);
+
+#### setSupports()
+
+The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features. Default: title, editor.
+
+    $postType->setSupports('title', 'editor', 'thumbnail');
 
 ### Taxonomies
 
-The TaxonomyArg class requires the plural display name of the taxonomy upon construction. Optionally, you can pass in your text domain.
+The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with(defaults to post) and the text domain.
 
-TaxonomyArg uses the name to automatically generate the slug and labels for the taxonomy.
+The constructor sets up the properties, generates the labels, and ties the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
 
-The rest of the TaxonomyArg properties are setup to create a taxonomy for the post post type but can be overridden using the $postTypes property.
+The frameworks checks if the taxonomy exists before adding it.
 
-The Taxonomy class requires an instance of the TaxonomyArg class in order to be created.
+    $taxonomy = new Taxonomy('Custom Tags', $postType->getSlug);
 
-The Taxonomy class constructor sets up the arguments for the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the taxonomy exists before adding it.
+Terms can be added to the taxonomy by using the addTerm() method. It requires the term to be added and can optionally take the term description. This method checks if the term has already been added and only adds it if it has not. It ties the WordPress function [wp_insert_term](http://codex.wordpress.org/Function_Reference/wp_insert_term) to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. This method can be chained.
 
-Terms can be added to the taxonomy by using the addTerms() method. It requires a single string or array of strings to be used as the terms. You can optionally supply the text domain.
-
-    $taxonomyArgs = new TaxonomyArgs('Genre');
-    $taxonomyArgs->postTypes = $myPostType->getSlug();
-    $myTaxonomy = new Taxonomy($taxonomyArgs);
-    $myTaxonomy->addTerms('punk');
+    $taxonomy->addTerm('Tag One', 'This is the first tag.');
 
 ### Pages
 
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-The PageArg class requires the display title for the page and an instance of the View class. The View class is used by Page class' display() method to render the page. The text domain can be passed in optionally.
+All page classes require a title and View when instantiated. Text domain can be provided, optionally.
 
-Capabilities, menu icon, and position can be set using standard object notation but are not required. Parent slug is only required for the SubMenuPage object and can be set using object notation.
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
-The base constructor for all pages requires an instance of PageArg. The constructor sets the parameters up then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+#### Setters
 
-#### MenuPage
+Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage. Setter methods can be chained.
+
+##### setCapability()
+
+The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page. Default: manage_options
+
+The included Capabilities class can be used to make sure valid WordPress capabilities are used.
+
+    $page->setCapability(Capability::manage_options);
+
+##### setMenuIcon()
+
+The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+
+    $page->setMenuIcon('http://placehold.it/15x15');
+
+or...
+
+    $page->setMenuIcon('dashicons-admin-tools');
+
+##### setPosition()
+
+The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other. Default: null
+
+    $page->setPosition(100);
+
+or...
+
+    $page->setPosition('100');
+
+##### setParentSlug()
+
+The setParentSlug() method is only valid for the SubMenuPage class and is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Default: null
+
+    $subMenuPage->setParentSlug($parentPage->getSlug());
+
+#### Page Types
+
+##### MenuPage
 
 To add a top-level menu page use the MenuPage class. Calls the [add_menu_page()](http://codex.wordpress.org/Function_Reference/add_menu_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $menuPage = new MenuPage($pageArg);
+    $menuPage = new MenuPage('My Page', $myView);
 
-#### ObjectPage
+##### ObjectPage
 
 ObjectPage adds a top-level page on the Object level (Posts, Media, Links, Pages, Comments, etc.) Calls the [add_object_page()](http://codex.wordpress.org/Function_Reference/add_object_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $objectPage = new ObjectPage($pageArg);
+    $objectPage = new ObjectPage('My Page', $myView);
 
-#### UtilityPage
+##### UtilityPage
 
 UtilityPage adds a top-level page on the Utility level (Appearance, Plugins, Users, Tools, Settings, etc.) Calls the [add_utility_page()](http://codex.wordpress.org/Function_Reference/add_utility_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $utilityPage = new UtilityPage($pageArg);
+    $utilityPage = new UtilityPage('My Page', $myView);
 
-#### OptionsPage
+##### OptionsPage
 
 OptionsPage adds a sub-men page under Settings. Class the [add_options_page](http://codex.wordpress.org/Function_Reference/add_options_page) function.
 
-    $pageArg = new PageArg('My Page', $myView);
-    $optionsPage = new OptionsPage($pageArg);
+    $optionsPage = new OptionsPage('My Page', $myView);
 
-#### SubMenuPage
+##### SubMenuPage
 
 SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_submenu_page()](http://codex.wordpress.org/Function_Reference/add_submenu_page) function.
 
-    $pageArg = new PageArg('My Sub Page', $myView);
-    $pageArg->parentSlug = $myPage->getSlug();
-    $subPage = new SubMenuPage($pageArg);
+    $subPage = new SubMenuPage('My Sub Page', $myView);
+    $subPage->setParentSlug($myPage->getSlug());
 
 ### Settings
 
-The Settings class requires an instance of SettingsArg as a parameter.
+The Settings part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
 
-SettingsArg requires the page slug that the settings will appear on, and instance or array of SettingsSection. Text domain is optional. Page slug can be a default WordPress dashboard page or a page you create.
+A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
 
-The SettingsSection class requires the title for the settings section, the instance of View that will render the section, and an instance or array of SettingsField. Text domain is optional.
+The Settings constructor requires the page slug (string) for the page the settings will be displayed on. Text domain (string) can be passed in optionally.
 
-The SettingsField class requires the title of the field and the instance of View that will render the field. Additional arguments, ID prefix, and text domain are optional. The prefix is set to 'lwppfw' by default.
+    $settings = new Settings($myPage->getSlug());
 
-The Settings class constructor ties the [add_settings_section()](http://codex.wordpress.org/Function_Reference/add_settings_section) to the [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) hook for each section then ties [add_settings_field()](http://codex.wordpress.org/Function_Reference/add_settings_field) and [register_setting()](http://codex.wordpress.org/Function_Reference/register_setting) to [admin_init](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_init) for each field.
+#### SettingsFields
 
-    $field1 = new SettingsField('Field 1', $fieldView1);
-    $field2 = new SettingsField('Field 2', $fieldView2);
-    $section = new SettingsSection('My Settings', $sectionView, array($field1, $field2);
-    $settingsArg = new SettingsArg($myPage->getSlug(), $section);
-    new Settings($settingsArg);
+Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
+
+Field title will be converted into an ID for the field in the WordPress database by being processed through sanitize_title() and being prepended by the value of prefix.
+
+You can add anything you would like to the fields view but it is recommended to only specify the form field tag and label.
+
+    $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
+    $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
+
+#### SettingsSection
+
+After you have some fields defined you will want to create a section and add your fields to it.
+
+The SettingsSection constructor requires a title (string), view (View), and optionally takes a text domain (string).
+
+The title will be displays as the section header on the settings page automatically, you do not need to include it in the view.
+
+    $section = new SettingsSection('Section One', $sectionView);
+
+#### Adding SettingsField to SettingsSection
+
+A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method. The addFields() method is chainable.
+
+    $section->addFields($field1)->addFields($field2);
+
+or...
+
+    $section->addFields(array($field1, $field2));
+
+#### Adding SettingsSection to Settings
+
+Once your SettingSection objects are defined you can add them to your Settings by using the Settings addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection and is chainable.
+
+    $settings->addSections($section1)->addSection($section2);
+
+or...
+
+    $settings->addSections(array($section1, $section2));
 
 ## View
 

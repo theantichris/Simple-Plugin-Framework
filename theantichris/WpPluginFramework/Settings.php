@@ -13,98 +13,117 @@ namespace theantichris\WpPluginFramework;
  */
 class Settings
 {
-    /** @var string The WordPress page slug the settings will appear on. */
-    private $page;
-    /** @var SettingsSection|SettingsSection[] */
-    private $settingsSections;
+    /** @var string The slug of the page the settings will appear on. */
+    private $pageSlug;
+    /** @var string */
+    private $textDomain;
+    /** @var SettingsSection[] */
+    private $settingsSections = array();
 
     /**
-     * Class constructor.
+     * Sets page slug and text domain for the object.
+     * Adds the registerSection() and registerFields() methods to the admin_init action hook in WordPress.
      *
      * @since 0.1.0
      *
-     * @param SettingsArg $settingsArg
+     * @param string $pageSlug
+     * @param string $textDomain
      */
-    public function __construct(SettingsArg $settingsArg)
+    public function __construct($pageSlug, $textDomain = '')
     {
-        $this->page             = $settingsArg->getPageSlug();
-        $this->settingsSections = $settingsArg->getSettingsSections();
+        $this->pageSlug = $pageSlug;
+        $this->textDomain = $textDomain;
 
-        add_action('admin_init', array($this, 'registerSection'));
-
-        $this->registerFields();
+        add_action('admin_init', array($this, 'registerSections'));
+        add_action('admin_init', array($this, 'registerFields'));
     }
 
+
     /**
-     * Registers the settings section with WordPress.
+     * Sends SettingsSection objects to addSection().
      *
-     * @since 0.1.0
-     *
-     * @return void
-     */
-    public function registerSection()
-    {
-        if (is_array($this->settingsSections)) {
-            /** @var SettingsSection $section */
-            foreach ($this->settingsSections as $section) {
-                add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->page);
-            }
-        } else {
-            add_settings_section($this->settingsSections->getId(), $this->settingsSections->getTitle(), array($this->settingsSections, 'display'), $this->page);
-        }
-    }
-
-    /**
-     * @since 2.0.0
-     * @return void
-     */
-    private function registerFields()
-    {
-        if (is_array($this->settingsSections)) {
-            /** @var SettingsSection $section */
-            foreach ($this->settingsSections as $section) {
-                $this->doFields($section->getId(), $section->getSettingsFields());
-            }
-        } else {
-            $this->doFields($this->settingsSections->getId(), $this->settingsSections->getSettingsFields());
-        }
-    }
-
-    /**
      * @since 3.0.0
-     * @param string $sectionId
-     * @param SettingsField|SettingsField[] $fields
-     * @return void
-     * TODO: Rename this with something better.
+     *
+     * @param SettingsSection|SettingsSection[] $sections
+     * @return $this
      */
-    private function doFields($sectionId, $fields)
+    public function addSections($sections)
     {
-        if (is_array($fields)) {
-            foreach ($fields as $field) {
-                $this->registerField($sectionId, $field);
+        if (is_array($sections)) {
+            /** @var SettingsSection $section */
+            foreach ($sections as $section) {
+                $this->addSection($section);
             }
         } else {
-            $this->registerField($sectionId, $fields);
+            $this->addSection($sections);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Adds a SettingsSection to this Setting. Checks if it already exists.
+     *
+     * @since 3.0.0
+     *
+     * @param SettingsSection $section
+     * @return Settings
+     */
+    private function addSection(SettingsSection $section)
+    {
+        if (array_key_exists($section->getId(), $this->settingsSections)) {
+            wp_die(__("A section with ID {$section->getId()} was already added to the settings for the {$this->pageSlug} page.", $this->textDomain));
+        } else {
+            $this->settingsSections[$section->getId()] = $section;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Calls the WordPress function add_settings_section() for each SettingSection attached to this Setting.
+     *
+     * Do not call this function directly, it is tied to the admin_init hook in WordPress.
+     *
+     * @link http://codex.wordpress.org/Function_Reference/add_settings_section
+     *
+     * @since 3.0.0
+     *
+     * @return void
+     */
+    public function registerSections()
+    {
+        /** @var SettingsSection $section */
+        foreach ($this->settingsSections as $section) {
+            add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->pageSlug);
         }
     }
 
     /**
-     * @since 2.0.0
-     * @param string $sectionId
-     * @param SettingsField $field
+     * Calls the WordPress functions add_settings_field() and register_setting() for each SettingsField attached to each SettingsSection.
+     *
+     * Do not call this function directly, it is tied to the admin_init hook in WordPress.
+     *
+     * @link http://codex.wordpress.org/Function_Reference/add_settings_field
+     * @link http://codex.wordpress.org/Function_Reference/register_setting
+     *
+     * @since 3.0.0
+     *
      * @return void
      */
-    private function registerField($sectionId, $field)
+    public function registerFields()
     {
-        $page = $this->page;
+        /** @var SettingsSection $section */
+        foreach ($this->settingsSections as $section) {
+            /** @var SettingsField[] $fields */
+            $fields = $section->getFields();
 
-        add_action(
-            'admin_init', function () use ($field, $page, $sectionId) {
-                /** @noinspection PhpVoidFunctionResultUsedInspection */
-                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $page, $sectionId, $field->getArgs());
+            /** @var SettingsField $field */
+            foreach ($fields as $field) {
+                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $this->pageSlug, $section->getId(), $field->getArgs());
 
-                register_setting($page, $field->getID());
+                register_setting($this->pageSlug, $field->getID());
             }
-        );
+        }
     }
 }

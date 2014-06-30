@@ -5,7 +5,7 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class OptionsPage
  *
- * A class for adding an options page to the WordPress Dashboard. Extends Page.
+ * A class for adding a sub menu page to the Settings menu.
  *
  * @package theantichris\WpPluginFramework
  *
@@ -14,7 +14,8 @@ namespace theantichris\WpPluginFramework;
 class OptionsPage extends Page
 {
     /**
-     * Add the page to WordPress.
+     * Calls the WordPress add_options_page() function.
+     * @link http://codex.wordpress.org/Function_Reference/add_options_page
      *
      * @since 0.1.0
      *

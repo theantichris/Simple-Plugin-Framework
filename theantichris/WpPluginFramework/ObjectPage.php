@@ -5,7 +5,8 @@ namespace theantichris\WpPluginFramework;
 /**
  * Class ObjectPage
  *
- * A class for adding a top level WordPress page and adding it to the menu on the object level.
+ * A class for adding a top level menu page at the 'object' level.
+ * This new menu will appear in the group including the default WordPress Posts, Media, Links, Pages and Comments.
  *
  * @package theantichris\WpPluginFramework
  *
@@ -14,7 +15,8 @@ namespace theantichris\WpPluginFramework;
 class ObjectPage extends Page
 {
     /**
-     * Add the page to WordPress.
+     * Calls the WordPress add_object_page() function.
+     * @link http://codex.wordpress.org/Function_Reference/add_object_page
      *
      * @since 0.1.0
      *
