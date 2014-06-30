@@ -111,11 +111,15 @@ class Taxonomy
      * @since 0.1.0
      *
      * @param string $term The term to add to the taxonomy.
+     * @param string $description The term's description.
      * @return Taxonomy
      */
-    public function addTerm($term)
+    public function addTerm($term, $description = '')
     {
-        $this->terms[] = $term;
+        $this->terms[] = array(
+            'name'        => $term,
+            'description' => $description,
+        );
 
         add_action('init', array($this, 'insertTerms'));
 
@@ -135,7 +139,7 @@ class Taxonomy
     {
         /** @var string $term */
         foreach ($this->terms as $term) {
-            wp_insert_term(__($term, $this->textDomain), $this->getSlug());
+            wp_insert_term(__($term['name'], $this->textDomain), $this->getSlug(), array('description' => $term['description']));
         }
     }
 } 
