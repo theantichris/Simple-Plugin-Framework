@@ -34,11 +34,37 @@ class Taxonomy
     {
         $this->name       = $name;
         $this->textDomain = $textDomain;
+        $this->labels     = $this->setLabels();
 
         $this->postTypes = $taxonomyArg->postTypes;
-        $this->labels    = $taxonomyArg->getLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
+    }
+
+    /**
+     * Sets up the label array based on $name.
+     *
+     * @since 2.0.0
+     * @return string[]
+     */
+    private function setLabels()
+    {
+        /** @var string $singular Singular version of the taxonomy name. */
+        $singular = Utilities::makeSingular($this->name);
+
+        return array(
+            'name'              => __($this->name, $this->textDomain),
+            'singular_name'     => __($singular, $this->textDomain),
+            'search_items'      => __('Search ' . $this->name, $this->textDomain),
+            'all_items'         => __('All ' . $this->name, $this->textDomain),
+            'parent_item'       => __('Parent ' . $singular, $this->textDomain),
+            'parent_item_colon' => __('Parent ' . $singular . ':', $this->textDomain),
+            'edit_item'         => __('Edit ' . $singular, $this->textDomain),
+            'update_item'       => __('Update ' . $singular, $this->textDomain),
+            'add_new_item'      => __('Add New ' . $singular, $this->textDomain),
+            'new_item_name'     => __('New ' . $singular . ' Name', $this->textDomain),
+            'menu_name'         => __($singular, $this->textDomain),
+        );
     }
 
     /**
