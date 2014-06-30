@@ -42,10 +42,6 @@ class Taxonomy
         $this->labels     = $this->setLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
-
-        if (!empty($this->terms)) {
-            add_action('init', array($this, 'insertTerms'));
-        }
     }
 
     /**
@@ -108,7 +104,9 @@ class Taxonomy
     }
 
     /**
-     * Passes terms to the validateTerm() method.
+     * Passes terms to the validateTerm() method. Registers the insertTerms() method to the init action hook
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
+     * @link
      *
      * @since 0.1.0
      *
@@ -125,6 +123,8 @@ class Taxonomy
         } else {
             $this->validateTerm($terms);
         }
+
+        add_action('init', array($this, 'insertTerms'));
 
         return $this;
     }
