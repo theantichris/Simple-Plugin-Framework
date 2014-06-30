@@ -85,6 +85,7 @@ class Taxonomy
     /**
      * Registers the taxonomy with WordPress if it has not already been registered. Called during the init action hook.
      * Should not be called directly. It is only public so WordPress can call it.
+     * @link http://codex.wordpress.org/Function_Reference/register_taxonomy
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0

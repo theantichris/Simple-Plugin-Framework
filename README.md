@@ -107,22 +107,17 @@ The setSupports() method accepts a string array of the WordPress features the po
 
 ### Taxonomies
 
-The TaxonomyArg class requires the plural display name of the taxonomy upon construction. Optionally, you can pass in your text domain.
+The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with(defaults to post) and the text domain.
 
-TaxonomyArg uses the name to automatically generate the slug and labels for the taxonomy.
+The constructor sets up the properties, generates the labels, and ties the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
 
-The rest of the TaxonomyArg properties are setup to create a taxonomy for the post post type but can be overridden using the $postTypes property.
+The frameworks checks if the taxonomy exists before adding it.
 
-The Taxonomy class requires an instance of the TaxonomyArg class in order to be created.
+    $taxonomy = new Taxonomy('Custom Tags', $postType->getSlug);
 
-The Taxonomy class constructor sets up the arguments for the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the taxonomy exists before adding it.
+Terms can be added to the taxonomy by using the addTerm() method. It requires the term to be added and can optionally take the term description. This method can be chained.
 
-Terms can be added to the taxonomy by using the addTerms() method. It requires a single string or array of strings to be used as the terms. You can optionally supply the text domain.
-
-    $taxonomyArgs = new TaxonomyArgs('Genre');
-    $taxonomyArgs->postTypes = $myPostType->getSlug();
-    $myTaxonomy = new Taxonomy($taxonomyArgs);
-    $myTaxonomy->addTerms('punk');
+    $taxonomy->addTerm('Tag One', 'This is the first tag.');
 
 ### Pages
 
