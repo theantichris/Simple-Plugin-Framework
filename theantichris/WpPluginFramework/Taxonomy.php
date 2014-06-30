@@ -134,7 +134,7 @@ class Taxonomy
      *
      * @since 3.0.0
      *
-     * @param $term
+     * @param string $term Term(s) to validate.
      * @return void
      */
     private function validateTerm($term)
