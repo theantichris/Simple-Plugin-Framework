@@ -13,30 +13,31 @@ namespace theantichris\WpPluginFramework;
  */
 class Taxonomy
 {
-    /** @var string User readable name for the taxonomy. */
+    /** @var string The name of the taxonomy. Must be plural. */
     private $name;
-    /** @var string */
+    /** @var string Text domain used for translation. */
     private $textDomain;
-    /** @var array|string What post types the taxonomy will be registered to. */
+    /** @var string|string[] Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered. */
     private $postTypes;
-    /** @var array UI labels for the taxonomy. */
+    /** @var array An array of labels for this taxonomy. */
     private $labels;
 
     /**
-     * Class constructor.
+     * Sets properties and ties the registerCustomTaxonomy() method to the init action hook.
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0
      *
-     * @param string $name
-     * @param string $textDomain
+     * @param string $name The name of the taxonomy. Must be plural.
+     * @param string|string[] $postTypes Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered.
+     * @param string $textDomain Text domain used for translation.
      */
-    public function __construct($name, $textDomain = '')
+    public function __construct($name, $postTypes = 'post', $textDomain = '')
     {
         $this->name       = $name;
         $this->textDomain = $textDomain;
+        $this->postTypes  = $postTypes;
         $this->labels     = $this->setLabels();
-
-        $this->postTypes = $taxonomyArg->postTypes;
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
     }
