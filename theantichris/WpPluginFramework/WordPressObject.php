@@ -9,7 +9,7 @@ namespace theantichris\WpPluginFramework;
  *
  * TODO: Change name.
  */
-class WordPressObject
+abstract class WordPressObject
 {
     /** @var string The text domain used for i18n. */
     public static $textDomain;
