@@ -91,14 +91,12 @@ class CustomPostType extends WordPressObject
      *
      * @since 3.0.0
      *
-     * TODO: i18n
-     *
      * @param string $description A short descriptive summary of what the post type is.
      * @return CustomPostType
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = __($description, parent::$textDomain);
 
         return $this;
     }
