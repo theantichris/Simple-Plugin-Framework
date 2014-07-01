@@ -11,18 +11,16 @@ namespace theantichris\WpPluginFramework;
  *
  * @since 0.1.0
  */
-class CustomPostType
+class CustomPostType extends WordPressObject
 {
-    /** @var  string General name for the post type, must be plural. */
-    private $name;
+    /** @var string General name for the post type, must be plural. */
+    protected $name;
     /** @var string[] An array of labels for this post type. */
     private $labels;
     /** @var string A short descriptive summary of what the post type is. */
     private $description;
     /** @var bool Whether a post type is intended to be used publicly either via the admin interface or by front-end users. */
     private $public = true;
-    /** @var string */
-    private $textDomain;
     /** @var int The position in the menu order the post type should appear. */
     private $menuPosition;
     /** @var  string The url to the icon to be used for this menu or the name of the icon from the iconfont */
@@ -47,13 +45,11 @@ class CustomPostType
      * @since 0.1.0
      *
      * @param string $name General name for the post type, must be plural.
-     * @param string $textDomain
      */
-    function __construct($name, $textDomain = '')
+    function __construct($name)
     {
-        $this->name       = $name;
-        $this->textDomain = $textDomain;
-        $this->labels     = $this->setLabels();
+        $this->name   = $name;
+        $this->labels = $this->setLabels();
 
         add_action('init', array($this, 'registerCustomPostType'));
     }
@@ -68,26 +64,23 @@ class CustomPostType
     private function setLabels()
     {
         /** @var string $singular Singular version of $name. */
-        $singular = Utilities::makeSingular($this->name);
+        $singular = $this->makeSingular($this->name);
 
         /** @var string[] $labels */
         $labels = array(
-            'name'               => __($this->name, $this->textDomain),
-            'singular_name'      => __($singular, $this->textDomain),
-            'add_new'            => __('Add New', $this->textDomain),
-            'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
-            'edit_item'          => __('Edit ' . $singular, $this->textDomain),
-            'new_item'           => __('New ' . $singular, $this->textDomain),
-            'all_items'          => __('All ' . $this->name, $this->textDomain),
-            'view_item'          => __('View ' . $singular, $this->textDomain),
-            'search_items'       => __('Search ' . $this->name, $this->textDomain),
-            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
-            'not_found_in_trash' => __(
-                'No ' . strtolower($this->name) . ' found in Trash.',
-                $this->textDomain
-            ),
+            'name'               => __($this->name, parent::$textDomain),
+            'singular_name'      => __($singular, parent::$textDomain),
+            'add_new'            => __('Add New', parent::$textDomain),
+            'add_new_item'       => __('Add New ' . $singular, parent::$textDomain),
+            'edit_item'          => __('Edit ' . $singular, parent::$textDomain),
+            'new_item'           => __('New ' . $singular, parent::$textDomain),
+            'all_items'          => __('All ' . $this->name, parent::$textDomain),
+            'view_item'          => __('View ' . $singular, parent::$textDomain),
+            'search_items'       => __('Search ' . $this->name, parent::$textDomain),
+            'not_found'          => __('No ' . strtolower($this->name) . ' found.', parent::$textDomain),
+            'not_found_in_trash' => __('No ' . strtolower($this->name) . ' found in Trash.', parent::$textDomain),
             'parent_item_colon'  => '',
-            'menu_name'          => __($this->name, $this->textDomain)
+            'menu_name'          => __($this->name, parent::$textDomain)
         );
 
         return $labels;
@@ -97,6 +90,8 @@ class CustomPostType
      * Sets the $description property.
      *
      * @since 3.0.0
+     *
+     * TODO: i18n
      *
      * @param string $description A short descriptive summary of what the post type is.
      * @return CustomPostType
@@ -166,7 +161,7 @@ class CustomPostType
     {
         foreach ($capabilities as $capability) {
             if (!Capability::isValid($capability)) {
-                wp_die(__("{$capability} is not a valid WordPress capability."), $this->textDomain);
+                wp_die(__("{$capability} is not a valid WordPress capability."), parent::$textDomain);
             }
         }
 
@@ -186,22 +181,12 @@ class CustomPostType
     public function setSupports($supports)
     {
         if ($supports === true) {
-            wp_die(__("The supports option must be an array or false", $this->textDomain));
+            wp_die(__("The supports option must be an array or false", parent::$textDomain));
         }
 
         $this->supports = $supports;
 
         return $this;
-    }
-
-    /**
-     * @since 3.0.0
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return sanitize_title($this->name);
     }
 
     /**
