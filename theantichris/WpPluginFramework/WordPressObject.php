@@ -17,9 +17,8 @@ abstract class WordPressObject
     protected $name;
 
     /**
-     * Takes a plural string and returns the singular version.
-     *
-     * Solution found at https://sites.google.com/site/chrelad/notes-1/pluraltosingularwithphp.
+     * Takes a plural string and returns the singular version.     *
+     * @link https://sites.google.com/site/chrelad/notes-1/pluraltosingularwithphp
      *
      * @since 3.0.0
      *
