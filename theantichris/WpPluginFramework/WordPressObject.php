@@ -12,7 +12,7 @@ namespace theantichris\WpPluginFramework;
 abstract class WordPressObject
 {
     /** @var string The text domain used for i18n. */
-    public static $textDomain;
+    public static $textDomain = 'default';
     /** @var string Name or title of the WordPress object. */
     protected $name;
 
