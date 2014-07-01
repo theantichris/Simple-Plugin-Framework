@@ -11,11 +11,16 @@ namespace theantichris\WpPluginFramework;
  */
 class WordPressObject
 {
-    /** @var string string The prefix to append before slugs and IDs. */
+    /** @var string The prefix to append before slugs and IDs. */
     protected $prefix;
     /** @var string The text domain used for i18n. */
     protected $textDomain;
 
+    /**
+     * @param string $prefix The prefix to append before slugs and IDs.
+     * @param string $textDomain The text domain used for i18n.
+     * @since 3.0.0
+     */
     public function __construct($prefix, $textDomain = '')
     {
         $this->prefix     = $prefix;
