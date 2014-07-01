@@ -3,15 +3,15 @@
 namespace theantichris\WpPluginFramework;
 
 /**
- * Class CustomPostType
+ * Class PostType
  *
- * A class for creating and managing a custom post type in WordPress.
+ * A class for creating and managing post types in WordPress.
  *
  * @package theantichris\WpPluginFramework
  *
  * @since 0.1.0
  */
-class CustomPostType extends WordPressObject
+class PostType extends WordPressObject
 {
     /** @var string General name for the post type, must be plural. */
     protected $name;
@@ -39,7 +39,7 @@ class CustomPostType extends WordPressObject
     private $supports = array('title', 'editor');
 
     /**
-     * Sets up properties and ties the registerCustomPostType() method to the init WordPress action hook.
+     * Sets up properties and ties the registerPostType() method to the init WordPress action hook.
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0
@@ -51,7 +51,7 @@ class CustomPostType extends WordPressObject
         $this->name   = $name;
         $this->labels = $this->setLabels();
 
-        add_action('init', array($this, 'registerCustomPostType'));
+        add_action('init', array($this, 'registerPostType'));
     }
 
     /**
@@ -92,7 +92,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param string $description A short descriptive summary of what the post type is.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setDescription($description)
     {
@@ -107,7 +107,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param bool $public Whether a post type is intended to be used publicly either via the admin interface or by front-end users.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setPublic($public)
     {
@@ -122,7 +122,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param int|string $position The position in the menu order the post type should appear.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setMenuPosition($position)
     {
@@ -138,7 +138,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setMenuIcon($icon)
     {
@@ -153,7 +153,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param string[] $capabilities An array of the capabilities for this post type.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setCapabilities($capabilities)
     {
@@ -174,7 +174,7 @@ class CustomPostType extends WordPressObject
      * @since 3.0.0
      *
      * @param string[]|bool $supports Registers support of certain feature for a given post type.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setSupports($supports)
     {
@@ -195,7 +195,7 @@ class CustomPostType extends WordPressObject
      *
      * @return void
      */
-    public function registerCustomPostType()
+    public function registerPostType()
     {
         if (!post_type_exists($this->getSlug())) {
             $arguments = array(
