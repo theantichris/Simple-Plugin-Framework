@@ -13,6 +13,8 @@ abstract class WordPressObject
 {
     /** @var string The text domain used for i18n. */
     public static $textDomain;
+    /** @var string Name or title of the WordPress object. */
+    protected $name;
 
     /**
      * Takes a plural string and returns the singular version.
@@ -55,16 +57,15 @@ abstract class WordPressObject
     }
 
     /**
-     * Passes a name through WordPress' sanitize_title() method to create a slug.
+     * Passes a $name through WordPress' sanitize_title() method to create a slug.
      * @link http://codex.wordpress.org/Function_Reference/sanitize_title
      *
      * @since 3.0.0
      *
-     * @param string $name
      * @return string
      */
-    protected function getSlug($name)
+    public function getSlug()
     {
-        return sanitize_title($name);
+        return sanitize_title($this->name);
     }
 }
