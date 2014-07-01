@@ -11,8 +11,6 @@ namespace theantichris\WpPluginFramework;
  */
 class WordPressObject
 {
-    /** @var string The prefix to append before slugs and IDs. */
-    public static $prefix;
     /** @var string The text domain used for i18n. */
     public static $textDomain;
 
