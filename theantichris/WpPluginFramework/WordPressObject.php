@@ -6,6 +6,8 @@ namespace theantichris\WpPluginFramework;
  * Class WordPressObject
  * @package theantichris\WpPluginFramework
  * @since 3.0.0
+ *
+ * TODO: Change name.
  */
 class WordPressObject
 {
@@ -14,9 +16,9 @@ class WordPressObject
     /** @var string The text domain used for i18n. */
     protected $textDomain;
 
-    public function __construct($prefix = 'lwppfw', $textDomain = '')
+    public function __construct($prefix, $textDomain = '')
     {
-        $this->prefix = $prefix;
+        $this->prefix     = $prefix;
         $this->textDomain = $textDomain;
     }
 
@@ -59,4 +61,6 @@ class WordPressObject
 
         return $word;
     }
+
+    // TODO: getSlug()
 }
