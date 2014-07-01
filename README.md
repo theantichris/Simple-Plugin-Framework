@@ -33,17 +33,37 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-The framework contains classes for creating custom post types, taxonomies, pages, and settings.
+The framework contains classes for creating post types, taxonomies, pages, and settings. These classes inherit from the WordPressObject class.
 
-### Custom Post Types
+### WordPressObject
 
-The CustomPostType class requires the name of the post type upon construction. Optionally, you can pass in your text domain. The name you pass in must be plural for the post type labels to be setup correctly.
+The WordPressObject class provides some common methods the other classes use and a static property for defining your text domain. This is an abstract class and cannot be instantiated.
 
-The CustomPostType class constructor sets up the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
+#### Text Domain
 
-    $postType = new CustomPostType('My Post Type');
+To specify the text domain for your plugin set the static property $textDomain on the WordPressObject class. This is optional and the framework will work fine without this being set.
 
-The rest of the properties for CustomPostType have defaults set to create a basic publicly facing post type but can be overridden using their setters. All setters can be chained.
+    WordPressObject::$textDomain = 'my-text-domain';
+
+#### makeSingular()
+
+The makeSingular() method takes a word as a string and returns the singular version of the word. The PostType and Taxonomy classes use this to generate labels. This is a protected method and gets called automatically where it is needed.
+
+#### getSlug()
+
+This public method passes an object's $name property through the WordPress [sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value.
+
+    echo $someObject->getSlug();
+
+### Post Types
+
+The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels to be generated correctly.
+
+The PostType class constructor generates the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
+
+    $postType = new PostType('My Post Type');
+
+The rest of the properties for PostType have defaults set to create a basic, publicly facing post type but can be overridden using setters.
 
 #### setDescription()
 

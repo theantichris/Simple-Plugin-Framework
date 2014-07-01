@@ -189,6 +189,7 @@ class PostType extends WordPressObject
 
     /**
      * Calls the WordPress function register_post_type() if the post type does not already exist.
+     * This function should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/register_post_type
      *
      * @since 0.1.0
