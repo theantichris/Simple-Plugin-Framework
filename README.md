@@ -41,7 +41,7 @@ The WordPressObject class provides some common methods the other classes use and
 
 #### Text Domain
 
-To specify the text domain for your plugin set the static property $textDomain on the WordPressObject class. This is optional and the framework will work fine without this being set.
+To specify the text domain for your plugin set the static property $textDomain on the WordPressObject class. This is optional, the text domain has a default value of 'default'.
 
     WordPressObject::$textDomain = 'my-text-domain';
 
