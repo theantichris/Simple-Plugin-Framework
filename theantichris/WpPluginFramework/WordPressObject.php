@@ -9,8 +9,16 @@ namespace theantichris\WpPluginFramework;
  */
 class WordPressObject
 {
-    protected $textDomain;
+    /** @var string string The prefix to append before slugs and IDs. */
     protected $prefix;
+    /** @var string The text domain used for i18n. */
+    protected $textDomain;
+
+    public function __construct($prefix = 'lwppfw', $textDomain = '')
+    {
+        $this->prefix = $prefix;
+        $this->textDomain = $textDomain;
+    }
 
     /**
      * Takes a plural string and returns the singular version.
