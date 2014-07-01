@@ -54,5 +54,17 @@ abstract class WordPressObject
         return $word;
     }
 
-    // TODO: getSlug()
+    /**
+     * Passes a name through WordPress' sanitize_title() method to create a slug.
+     * @link http://codex.wordpress.org/Function_Reference/sanitize_title
+     *
+     * @since 3.0.0
+     *
+     * @param string $name
+     * @return string
+     */
+    protected function getSlug($name)
+    {
+        return sanitize_title($name);
+    }
 }
