@@ -38,7 +38,7 @@ class WordPressObject
      *
      * @return string
      */
-    public static function makeSingular($word)
+    protected function makeSingular($word)
     {
         /** @var mixed[] $rules Rules for making a string singular. The key is the plural ending, the value is the singular ending. */
         $rules = array(
