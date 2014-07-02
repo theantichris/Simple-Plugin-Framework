@@ -187,7 +187,7 @@ or...
 
 ##### setParentSlug()
 
-The setParentSlug() method is only valid for the SubMenuPage class and is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Default: null
+The setParentSlug() method is only available to the SubMenuPage class. Setting the parent slug is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Set $parentSlug to null to create a page that does not appear in the menu. Default: null
 
     $subMenuPage->setParentSlug($parentPage->getSlug());
 
