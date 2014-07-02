@@ -83,19 +83,19 @@ The rest of the properties for PostType have defaults set to create a basic, pub
 
 #### setDescription()
 
-The setDescription() method accepts a string. Default: null
+The setDescription() method accepts a string.
 
     $postType->setDescription('This is my custom post type.');
 
 #### setPublic()
 
-The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site. Default: true
+The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site.
 
     $postType->setPublic(false);
 
 #### setMenuPosition()
 
-The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other. Default: null
+The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other.
 
     $postType->setMenuPosition(85);
 
@@ -105,7 +105,7 @@ or...
 
 #### setMenuIcon()
 
-The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string.
 
     $postType->setMenuIcon('http://placehold.it/15x15');
 
@@ -137,13 +137,13 @@ Usage:
 
 #### setSupports()
 
-The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features. Default: title, editor.
+The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features.
 
     $postType->setSupports('title', 'editor', 'thumbnail');
 
 ### Taxonomies
 
-The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with(defaults to post) and the text domain.
+The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with (defaults to post) and the text domain.
 
 The constructor sets up the properties, generates the labels, and ties the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
 
@@ -159,9 +159,11 @@ Terms can be added to the taxonomy by using the addTerm() method. It requires th
 
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-All page classes require a title and View when instantiated.
+All page classes require a name and View when instantiated. The slug and name are added to the View's $viewData array automatically.
 
-The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is overridden in the child classes to use the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is overridden in the child classes to use the correct WordPress function to add that type of page.
+
+The display() method in the Page class is used as the display call back for all pages and will run the page object's View's render() method.
 
 #### Setters
 
@@ -169,7 +171,7 @@ Setters are available for capability, menu icon, position. A setter for parent s
 
 ##### setCapability()
 
-The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page. Default: manage_options
+The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page.
 
 The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
@@ -177,7 +179,7 @@ The included Capabilities class can be used to make sure valid WordPress capabil
 
 ##### setMenuIcon()
 
-The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string.
 
     $page->setMenuIcon('http://placehold.it/15x15');
 
@@ -187,7 +189,7 @@ or...
 
 ##### setPosition()
 
-The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other. Default: null
+The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other.
 
     $page->setPosition(100);
 
@@ -197,7 +199,7 @@ or...
 
 ##### setParentSlug()
 
-The setParentSlug() method is only available to the SubMenuPage class. Setting the parent slug is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Set $parentSlug to null to create a page that does not appear in the menu. Default: null
+The setParentSlug() method is only available to the SubMenuPage class. Setting the parent slug is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Set $parentSlug to null to create a page that does not appear in the menu.
 
     $subMenuPage->setParentSlug($parentPage->getSlug());
 
@@ -248,7 +250,9 @@ The Settings constructor requires the slug for the page the settings will be dis
 
 #### SettingsFields
 
-The SettingsField constructor requires a title and View to be passed in. The View file should only contain the HTML needed to render the input field.
+The SettingsField constructor requires a name and View to be passed in.
+
+The View file should only contain the HTML needed to render the input field. The name and slug are added to the View's $viewData property automatically.
 
 You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix parameter. This defaults to 'lwppfw'.
 
@@ -258,7 +262,9 @@ The $args parameter can be used to pass in additional arguments for the field in
 
 #### SettingsSection
 
-The SettingsSection constructor requires a title and View to be specified. Normally you can leave the view file for the section blank since WordPress will automatically display the section's title on the page.
+The SettingsSection constructor requires a name and View to be specified.
+
+Unless you need to specify something specific you can leave the view file for the section blank since WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property automatically.
 
     $section = new SettingsSection('Section One', $sectionView);
 
@@ -286,7 +292,7 @@ or...
 
 The View class makes it simpler to display output from your plugin.
 
-It allows you to take the code that displays the output and gives it its own file (the view). The view is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
+It allows you to take the code responsible for displaying the output and put it in its own (the view file). The view file is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
 
 Create a directory in your project to hold all your view files is a good practice.
 
@@ -295,6 +301,8 @@ Use the View class' render() function to display the view and send any data the 
     $view = new View($viewFile, $viewData = null);
     $view->render();
 
-$viewFile should contain the full path and file name of the view file to render.
+The $viewFile property should contain the full path and name of the view file.
 
-$viewData is used to pass data to the view if needed. It is an associated array. To use the data in the view file use a variable with the name of the data's key in the array. For example `$viewData['example']` will be `$example` in the view.
+The property $viewData is used to pass data to the view if needed. This property is an associated array. To use the data in the view file use a variable with the name of the array's key in the array.
+
+For example `$viewData['example']` will be `$example` in the view.
