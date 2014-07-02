@@ -33,7 +33,7 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-The framework contains classes for creating post types, taxonomies, pages, and settings. These classes inherit from the WordPressObject class.
+This framework contains classes for creating post types, taxonomies, pages, and settings. These classes all inherit from the WordPressObject class.
 
 ### WordPressObject
 
