@@ -33,6 +33,7 @@ class SettingsField extends WordPressObject
         $this->prefix                 = $prefix;
         $this->name                   = $name;
         $this->args                   = $args;
+        $this->args['label_for']      = $this->getSlug(); // Automatically adds a <label> to the field.
         $this->view                   = $view;
         $this->view->viewData['name'] = $this->name;
         $this->view->viewData['slug'] = $this->getSlug();
