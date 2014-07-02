@@ -13,10 +13,10 @@ class SettingsField extends WordPressObject
     protected $name;
     /** @var View The View object responsible for rendering the field's HTML. */
     private $view;
-    /** @var mixed[] Additional arguments that are passed to the $callback function. */
-    private $args;
     /** @var string An identifier that will be prefixed to the ID to prevent naming conflicts in the database. */
     private $prefix;
+    /** @var mixed[] Additional arguments that are passed to the $callback function. */
+    private $args;
 
     /**
      * Assigns properties and sets up the view.
