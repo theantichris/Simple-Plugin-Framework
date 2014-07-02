@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class SubMenuPage extends Page
 {
     /** @var string|null The slug name for the parent menu (or the file name of a standard WordPress admin page). Use NULL if you want to create a page that doesn't appear in any menu. */
-    private $parentSlug;
+    private $parentSlug = null;
 
     /**
      * Calls the WordPress add_submenu_page() function.
