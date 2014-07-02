@@ -33,33 +33,69 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-The framework contains classes for creating custom post types, taxonomies, pages, and settings.
+This framework contains classes for creating post types, taxonomies, pages, and settings. These classes all inherit from the WordPressObject class.
 
-### Custom Post Types
+### WordPressObject
 
-The CustomPostType class requires the name of the post type upon construction. Optionally, you can pass in your text domain. The name you pass in must be plural for the post type labels to be setup correctly.
+The WordPressObject class provides some common methods the other classes use and a static property for defining your text domain. This is an abstract class and cannot be instantiated.
 
-The CustomPostType class constructor sets up the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function and adds the function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. The frameworks checks if the post type exists before adding it.
+#### Text Domain
 
-    $postType = new CustomPostType('My Post Type');
+To specify a custom text domain for all the WordPressObject classes set the static property $textDomain on the WordPressObject parent class. This is optional, the text domain has a default value of 'default'.
 
-The rest of the properties for CustomPostType have defaults set to create a basic publicly facing post type but can be overridden using their setters. All setters can be chained.
+    WordPressObject::$textDomain = 'my-text-domain';
+
+#### makeSingular()
+
+The makeSingular() method takes a word as a string and returns the singular version of the word. The PostType and Taxonomy classes use this to generate labels. This is a protected method and gets called automatically where it is needed.
+
+#### getSlug()
+
+Slugs are automatically generated for all objects other than Settings.
+
+The public method getSlug() returns an object's $name property after passing it through the WordPress [sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value. In the case of SettingsField getSlug() will also append the prefix.
+
+This is useful for anytime you need to get the slug or ID of an object to use later in the code.
+
+Getting an option value:
+
+    get_option($field->getSlug());
+
+Setting a parent page for a sub page:
+
+    $subPage->setParentSlug($parentPage->getSlug());
+
+#### getName()
+
+Use this public method to get the object's user-readable display name.
+
+    echo $someObject->getName();
+
+### Post Types
+
+The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels to be generated correctly.
+
+The PostType class constructor generates the labels for the post type and then ties the [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
+
+    $postType = new PostType('My Post Type');
+
+The rest of the properties for PostType have defaults set to create a basic, publicly facing post type but can be overridden using setters.
 
 #### setDescription()
 
-The setDescription() method accepts a string. Default: null
+The setDescription() method accepts a string.
 
     $postType->setDescription('This is my custom post type.');
 
 #### setPublic()
 
-The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site. Default: true
+The setPublic() method accepts a bool. This determines if the post type shows in the Dashboard and front end of the site.
 
     $postType->setPublic(false);
 
 #### setMenuPosition()
 
-The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other. Default: null
+The setMenuPosition() method accepts an integer or numeric string. The higher the number, the higher the post type's menu item is in the Dashboard. If you specify a value taken by another menu item one might override the other.
 
     $postType->setMenuPosition(85);
 
@@ -69,7 +105,7 @@ or...
 
 #### setMenuIcon()
 
-The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+The setMenuIcon() method accepts an image URL or [dashicon](http://melchoyce.github.io/dashicons/) as a string.
 
     $postType->setMenuIcon('http://placehold.it/15x15');
 
@@ -101,13 +137,13 @@ Usage:
 
 #### setSupports()
 
-The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features. Default: title, editor.
+The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in __false__ to disable all features.
 
     $postType->setSupports('title', 'editor', 'thumbnail');
 
 ### Taxonomies
 
-The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with(defaults to post) and the text domain.
+The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to register the taxonomy with (defaults to post) and the text domain.
 
 The constructor sets up the properties, generates the labels, and ties the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
 
@@ -123,17 +159,19 @@ Terms can be added to the taxonomy by using the addTerm() method. It requires th
 
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-All page classes require a title and View when instantiated. Text domain can be provided, optionally.
+All page classes require a name and View when instantiated. The slug and name are added to the View's $viewData array automatically.
 
-The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is overridden in the child classes to use the correct WordPress function to add that type of page.
+
+The display() method in the Page class is used as the display call back for all pages and will run the page object's View's render() method.
 
 #### Setters
 
-Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage. Setter methods can be chained.
+Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage.
 
 ##### setCapability()
 
-The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page. Default: manage_options
+The setCapability() method accepts a string that specifies the level of permissions a user needs to access the page.
 
 The included Capabilities class can be used to make sure valid WordPress capabilities are used.
 
@@ -141,7 +179,7 @@ The included Capabilities class can be used to make sure valid WordPress capabil
 
 ##### setMenuIcon()
 
-The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string. Default: null
+The setMenuIcon() method accepts a URL or name of a [dashicon](http://melchoyce.github.io/dashicons/) as a string.
 
     $page->setMenuIcon('http://placehold.it/15x15');
 
@@ -151,7 +189,7 @@ or...
 
 ##### setPosition()
 
-The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other. Default: null
+The setPosition() method accepts either an integer or numeric string. If you specify a position already taken by another menu icon them might override each other.
 
     $page->setPosition(100);
 
@@ -161,7 +199,7 @@ or...
 
 ##### setParentSlug()
 
-The setParentSlug() method is only valid for the SubMenuPage class and is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Default: null
+The setParentSlug() method is only available to the SubMenuPage class. Setting the parent slug is required. It sets the SubMenuPage's parent page. It accepts a string value, the easiest way is to use the parent page object's getSlug() method. Set $parentSlug to null to create a page that does not appear in the menu.
 
     $subMenuPage->setParentSlug($parentPage->getSlug());
 
@@ -200,38 +238,39 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 ### Settings
 
-The Settings part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
+The Settings API part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
 
-A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
+A SettingsField object represents a single settings field and a SettingsSection object represents a section of SettingsField objects.
 
-The Settings constructor requires the page slug (string) for the page the settings will be displayed on. Text domain (string) can be passed in optionally.
+The Settings object manages the WordPress interactions and what page the settings will be displayed displayed on.
+
+The Settings constructor requires the slug for the page the settings will be displayed on.
 
     $settings = new Settings($myPage->getSlug());
 
 #### SettingsFields
 
-Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
+The SettingsField constructor requires a name and View to be passed in.
 
-Field title will be converted into an ID for the field in the WordPress database by being processed through sanitize_title() and being prepended by the value of prefix.
+The View file should only contain the HTML needed to render the input field. The name and slug are added to the View's $viewData property automatically.
 
-You can add anything you would like to the fields view but it is recommended to only specify the form field tag and label.
+You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix parameter. This defaults to 'lwppfw'.
 
-    $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
-    $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
+The $args parameter can be used to pass in additional arguments for the field in WordPress. A __label_for__ argument is generated automatically to create a <label> tag for the field.
+
+    $field = new SettingsField('My Field', $viewView);
 
 #### SettingsSection
 
-After you have some fields defined you will want to create a section and add your fields to it.
+The SettingsSection constructor requires a name and View to be specified.
 
-The SettingsSection constructor requires a title (string), view (View), and optionally takes a text domain (string).
-
-The title will be displays as the section header on the settings page automatically, you do not need to include it in the view.
+Unless you need to specify something specific you can leave the view file for the section blank since WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property automatically.
 
     $section = new SettingsSection('Section One', $sectionView);
 
 #### Adding SettingsField to SettingsSection
 
-A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method. The addFields() method is chainable.
+A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method.
 
     $section->addFields($field1)->addFields($field2);
 
@@ -241,7 +280,7 @@ or...
 
 #### Adding SettingsSection to Settings
 
-Once your SettingSection objects are defined you can add them to your Settings by using the Settings addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection and is chainable.
+SettingSection objects are added Settings objects by using the Settings' addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection.
 
     $settings->addSections($section1)->addSection($section2);
 
@@ -253,7 +292,7 @@ or...
 
 The View class makes it simpler to display output from your plugin.
 
-It allows you to take the code that displays the output and gives it its own file (the view). The view is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
+It allows you to take the code responsible for displaying the output and put it in its own (the view file). The view file is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
 
 Create a directory in your project to hold all your view files is a good practice.
 
@@ -262,6 +301,8 @@ Use the View class' render() function to display the view and send any data the 
     $view = new View($viewFile, $viewData = null);
     $view->render();
 
-$viewFile should contain the full path and file name of the view file to render.
+The $viewFile property should contain the full path and name of the view file.
 
-$viewData is used to pass data to the view if needed. It is an associated array. To use the data in the view file use a variable with the name of the data's key in the array. For example `$viewData['example']` will be `$example` in the view.
+The property $viewData is used to pass data to the view if needed. This property is an associated array. To use the data in the view file use a variable with the name of the array's key in the array.
+
+For example `$viewData['example']` will be `$example` in the view.

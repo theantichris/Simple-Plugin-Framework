@@ -15,6 +15,7 @@ class OptionsPage extends Page
 {
     /**
      * Calls the WordPress add_options_page() function.
+     * Should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/add_options_page
      *
      * @since 0.1.0
@@ -23,6 +24,6 @@ class OptionsPage extends Page
      */
     public function addPage()
     {
-        add_options_page($this->title, $this->title, $this->capability, $this->getSlug(), array($this, 'display'));
+        add_options_page($this->name, $this->name, $this->capability, $this->getSlug(), array($this, 'display'));
     }
 }

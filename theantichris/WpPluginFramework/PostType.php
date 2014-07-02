@@ -3,26 +3,24 @@
 namespace theantichris\WpPluginFramework;
 
 /**
- * Class CustomPostType
+ * Class PostType
  *
- * A class for creating and managing a custom post type in WordPress.
+ * A class for creating and managing post types in WordPress.
  *
  * @package theantichris\WpPluginFramework
  *
  * @since 0.1.0
  */
-class CustomPostType
+class PostType extends WordPressObject
 {
-    /** @var  string General name for the post type, must be plural. */
-    private $name;
+    /** @var string General name for the post type, must be plural. */
+    protected $name;
     /** @var string[] An array of labels for this post type. */
     private $labels;
     /** @var string A short descriptive summary of what the post type is. */
     private $description;
     /** @var bool Whether a post type is intended to be used publicly either via the admin interface or by front-end users. */
     private $public = true;
-    /** @var string */
-    private $textDomain;
     /** @var int The position in the menu order the post type should appear. */
     private $menuPosition;
     /** @var  string The url to the icon to be used for this menu or the name of the icon from the iconfont */
@@ -41,21 +39,19 @@ class CustomPostType
     private $supports = array('title', 'editor');
 
     /**
-     * Sets up properties and ties the registerCustomPostType() method to the init WordPress action hook.
+     * Sets up properties and ties the registerPostType() method to the init WordPress action hook.
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/init
      *
      * @since 0.1.0
      *
      * @param string $name General name for the post type, must be plural.
-     * @param string $textDomain
      */
-    function __construct($name, $textDomain = '')
+    function __construct($name)
     {
-        $this->name       = $name;
-        $this->textDomain = $textDomain;
-        $this->labels     = $this->setLabels();
+        $this->name   = $name;
+        $this->labels = $this->setLabels();
 
-        add_action('init', array($this, 'registerCustomPostType'));
+        add_action('init', array($this, 'registerPostType'));
     }
 
     /**
@@ -68,26 +64,23 @@ class CustomPostType
     private function setLabels()
     {
         /** @var string $singular Singular version of $name. */
-        $singular = Utilities::makeSingular($this->name);
+        $singular = $this->makeSingular($this->name);
 
         /** @var string[] $labels */
         $labels = array(
-            'name'               => __($this->name, $this->textDomain),
-            'singular_name'      => __($singular, $this->textDomain),
-            'add_new'            => __('Add New', $this->textDomain),
-            'add_new_item'       => __('Add New ' . $singular, $this->textDomain),
-            'edit_item'          => __('Edit ' . $singular, $this->textDomain),
-            'new_item'           => __('New ' . $singular, $this->textDomain),
-            'all_items'          => __('All ' . $this->name, $this->textDomain),
-            'view_item'          => __('View ' . $singular, $this->textDomain),
-            'search_items'       => __('Search ' . $this->name, $this->textDomain),
-            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $this->textDomain),
-            'not_found_in_trash' => __(
-                'No ' . strtolower($this->name) . ' found in Trash.',
-                $this->textDomain
-            ),
+            'name'               => __($this->name, parent::$textDomain),
+            'singular_name'      => __($singular, parent::$textDomain),
+            'add_new'            => __('Add New', parent::$textDomain),
+            'add_new_item'       => __('Add New ' . $singular, parent::$textDomain),
+            'edit_item'          => __('Edit ' . $singular, parent::$textDomain),
+            'new_item'           => __('New ' . $singular, parent::$textDomain),
+            'all_items'          => __('All ' . $this->name, parent::$textDomain),
+            'view_item'          => __('View ' . $singular, parent::$textDomain),
+            'search_items'       => __('Search ' . $this->name, parent::$textDomain),
+            'not_found'          => __('No ' . strtolower($this->name) . ' found.', parent::$textDomain),
+            'not_found_in_trash' => __('No ' . strtolower($this->name) . ' found in Trash.', parent::$textDomain),
             'parent_item_colon'  => '',
-            'menu_name'          => __($this->name, $this->textDomain)
+            'menu_name'          => __($this->name, parent::$textDomain)
         );
 
         return $labels;
@@ -99,11 +92,11 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string $description A short descriptive summary of what the post type is.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setDescription($description)
     {
-        $this->description = $description;
+        $this->description = __($description, parent::$textDomain);
 
         return $this;
     }
@@ -114,7 +107,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param bool $public Whether a post type is intended to be used publicly either via the admin interface or by front-end users.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setPublic($public)
     {
@@ -129,7 +122,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param int|string $position The position in the menu order the post type should appear.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setMenuPosition($position)
     {
@@ -145,7 +138,7 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string $icon The url to the icon to be used for this menu or the name of the icon from the iconfont.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setMenuIcon($icon)
     {
@@ -160,13 +153,13 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string[] $capabilities An array of the capabilities for this post type.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setCapabilities($capabilities)
     {
         foreach ($capabilities as $capability) {
             if (!Capability::isValid($capability)) {
-                wp_die(__("{$capability} is not a valid WordPress capability."), $this->textDomain);
+                wp_die(__("{$capability} is not a valid WordPress capability."), parent::$textDomain);
             }
         }
 
@@ -181,12 +174,12 @@ class CustomPostType
      * @since 3.0.0
      *
      * @param string[]|bool $supports Registers support of certain feature for a given post type.
-     * @return CustomPostType
+     * @return PostType
      */
     public function setSupports($supports)
     {
         if ($supports === true) {
-            wp_die(__("The supports option must be an array or false", $this->textDomain));
+            wp_die(__("The supports option must be an array or false", parent::$textDomain));
         }
 
         $this->supports = $supports;
@@ -195,24 +188,15 @@ class CustomPostType
     }
 
     /**
-     * @since 3.0.0
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return sanitize_title($this->name);
-    }
-
-    /**
      * Calls the WordPress function register_post_type() if the post type does not already exist.
+     * This function should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/register_post_type
      *
      * @since 0.1.0
      *
      * @return void
      */
-    public function registerCustomPostType()
+    public function registerPostType()
     {
         if (!post_type_exists($this->getSlug())) {
             $arguments = array(

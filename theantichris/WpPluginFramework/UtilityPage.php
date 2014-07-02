@@ -16,6 +16,7 @@ class UtilityPage extends Page
 {
     /**
      * Calls the WordPress add_utility_page() function.
+     * Should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/add_utility_page
      *
      * @since 0.1.0
@@ -24,6 +25,6 @@ class UtilityPage extends Page
      */
     public function addPage()
     {
-        add_utility_page($this->title, $this->title, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
+        add_utility_page($this->name, $this->name, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
     }
 }

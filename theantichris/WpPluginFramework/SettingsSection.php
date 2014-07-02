@@ -7,58 +7,35 @@ namespace theantichris\WpPluginFramework;
  * @package theantichris\WpPluginFramework
  * @since 2.0.0
  */
-class SettingsSection
+class SettingsSection extends WordPressObject
 {
-    /** @var string */
-    private $title;
-    /** @var View */
+    /** @var string Title of the section. Used to generate the slug. */
+    protected $name;
+    /** @var View The View object responsible for rendering the field's HTML. */
     private $view;
-    /** @var string */
-    private $textDomain;
-    /** @var SettingsField[] */
+    /** @var SettingsField[] An array of settings fields added to the section. */
     private $settingsFields = array();
 
     /**
+     * Assigns properties and sets up the view.
+     *
      * @since 2.0.0
-     * @param string $title
-     * @param View $view
-     * @param string $textDomain
+     *
+     * @param string $name Title of the section. Used to generate the slug.
+     * @param View $view The View object responsible for rendering the field's HTML.
      */
-    public function __construct($title, $view, $textDomain = '')
+    public function __construct($name, $view)
     {
-        $this->textDomain = $textDomain;
-
-        if (empty($title)) {
-            wp_die(__('You did not specify a title for your settings section.', $this->textDomain));
-        } elseif (empty($view)) {
-            wp_die(__("You did not specify a view for settings section {$title}.", $this->textDomain));
-        } else {
-            $this->title                   = $title;
-            $this->view                    = $view;
-            $this->view->viewData['title'] = $this->title;
-        }
+        $this->name                   = $name;
+        $this->view                   = $view;
+        $this->view->viewData['name'] = $this->name;
     }
 
     /**
+     * Renders the sections HTML.
+     *
      * @since 2.0.0
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * @since 2.0.0
-     * @return string
-     */
-    public function getId()
-    {
-        return sanitize_title($this->title);
-    }
-
-    /**
-     * @since 2.0.0
+     *
      * @return void
      */
     public function display()
@@ -71,7 +48,7 @@ class SettingsSection
      *
      * @since 3.0.0
      *
-     * @param SettingsField|SettingsField[] $fields
+     * @param SettingsField|SettingsField[] $fields SettingsField objects to add to the section.
      * @return $this
      */
     public function addFields($fields)
@@ -93,20 +70,23 @@ class SettingsSection
      *
      * @since 3.0.0
      *
-     * @param SettingsField $field
+     * @param SettingsField $field The SettingsField object to add to the section.
      * @return void
      */
     private function addField(SettingsField $field)
     {
-        if (array_key_exists($field->getId(), $this->settingsFields)) {
-            wp_die(__("A section with ID {$field->getId()} was already added to the settings section {$this->getId()} page.", $this->textDomain));
+        if (array_key_exists($field->getSlug(), $this->settingsFields)) {
+            wp_die(__("A field with ID {$field->getSlug()} was already added to the settings section {$this->getSlug()} page.", parent::$textDomain));
         } else {
-            $this->settingsFields[$field->getId()] = $field;
+            $this->settingsFields[$field->getSlug()] = $field;
         }
     }
 
     /**
+     * Returns $fields.
+     *
      * @since 3.0.0
+     *
      * @return SettingsField[]
      */
     public function getFields()
