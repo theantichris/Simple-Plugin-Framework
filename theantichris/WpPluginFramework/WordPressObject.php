@@ -8,6 +8,7 @@ namespace theantichris\WpPluginFramework;
  * @since 3.0.0
  *
  * TODO: Change name.
+ * TODO: Refactor Settings classes.
  */
 abstract class WordPressObject
 {
