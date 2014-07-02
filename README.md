@@ -2,9 +2,9 @@
 
 ## Introduction
 
-This is an OOP framework for making the development of WordPress plugins easier and more strongly typed.
+This is an OOP framework for making the development of WordPress plugins easier.
 
-Each WordPress Object in the framework handles the WordPress specific registration functions and ties those functions to the right hooks automatically so a use only needs to set up properties and create the object.
+Each WordPress Object in the framework handles the WordPress specific registration functions and ties those functions to the right hooks automatically so a user only needs to set up properties and create the object.
 
 ## Getting Started
 
