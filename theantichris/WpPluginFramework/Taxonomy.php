@@ -11,12 +11,10 @@ namespace theantichris\WpPluginFramework;
  *
  * @since 0.1.0
  */
-class Taxonomy
+class Taxonomy extends WordPressObject
 {
     /** @var string The name of the taxonomy. Must be plural. */
-    private $name;
-    /** @var string Text domain used for translation. */
-    private $textDomain;
+    protected  $name;
     /** @var string|string[] Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered. */
     private $postTypes;
     /** @var array An array of labels for this taxonomy. */
@@ -32,14 +30,12 @@ class Taxonomy
      *
      * @param string $name The name of the taxonomy. Must be plural.
      * @param string|string[] $postTypes Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered.
-     * @param string $textDomain Text domain used for translation.
      */
-    public function __construct($name, $postTypes = 'post', $textDomain = '')
+    public function __construct($name, $postTypes = 'post')
     {
-        $this->name       = $name;
-        $this->textDomain = $textDomain;
-        $this->postTypes  = $postTypes;
-        $this->labels     = $this->setLabels();
+        $this->name      = $name;
+        $this->postTypes = $postTypes;
+        $this->labels    = $this->setLabels();
 
         add_action('init', array($this, 'registerCustomTaxonomy'));
     }
@@ -53,33 +49,21 @@ class Taxonomy
     private function setLabels()
     {
         /** @var string $singular Singular version of the taxonomy name. */
-        $singular = Utilities::makeSingular($this->name);
+        $singular = $this->makeSingular($this->name);
 
         return array(
-            'name'              => __($this->name, $this->textDomain),
-            'singular_name'     => __($singular, $this->textDomain),
-            'search_items'      => __('Search ' . $this->name, $this->textDomain),
-            'all_items'         => __('All ' . $this->name, $this->textDomain),
-            'parent_item'       => __('Parent ' . $singular, $this->textDomain),
-            'parent_item_colon' => __('Parent ' . $singular . ':', $this->textDomain),
-            'edit_item'         => __('Edit ' . $singular, $this->textDomain),
-            'update_item'       => __('Update ' . $singular, $this->textDomain),
-            'add_new_item'      => __('Add New ' . $singular, $this->textDomain),
-            'new_item_name'     => __('New ' . $singular . ' Name', $this->textDomain),
-            'menu_name'         => __($singular, $this->textDomain),
+            'name'              => __($this->name, parent::$textDomain),
+            'singular_name'     => __($singular, parent::$textDomain),
+            'search_items'      => __('Search ' . $this->name, parent::$textDomain),
+            'all_items'         => __('All ' . $this->name, parent::$textDomain),
+            'parent_item'       => __('Parent ' . $singular, parent::$textDomain),
+            'parent_item_colon' => __('Parent ' . $singular . ':', parent::$textDomain),
+            'edit_item'         => __('Edit ' . $singular, parent::$textDomain),
+            'update_item'       => __('Update ' . $singular, parent::$textDomain),
+            'add_new_item'      => __('Add New ' . $singular, parent::$textDomain),
+            'new_item_name'     => __('New ' . $singular . ' Name', parent::$textDomain),
+            'menu_name'         => __($singular, parent::$textDomain),
         );
-    }
-
-    /**
-     * Returns the taxonomies slug by sanitizing the name.
-     *
-     * @since 3.0.0
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return sanitize_title($this->name);
     }
 
     /**
@@ -144,7 +128,7 @@ class Taxonomy
         /** @var string $description */
         foreach ($this->terms as $term => $description) {
             if (!term_exists($term['name'])) {
-                wp_insert_term(__($term, $this->textDomain), $this->getSlug(), array('description' => $description));
+                wp_insert_term(__($term, parent::$textDomain), $this->getSlug(), array('description' => $description));
             }
         }
     }
