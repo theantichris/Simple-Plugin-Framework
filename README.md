@@ -41,7 +41,7 @@ The WordPressObject class provides some common methods the other classes use and
 
 #### Text Domain
 
-To specify the text domain for your plugin set the static property $textDomain on the WordPressObject class. This is optional, the text domain has a default value of 'default'.
+To specify a custom text domain for all the WordPressObject classes set the static property $textDomain on the WordPressObject parent class. This is optional, the text domain has a default value of 'default'.
 
     WordPressObject::$textDomain = 'my-text-domain';
 
@@ -54,6 +54,12 @@ The makeSingular() method takes a word as a string and returns the singular vers
 This public method passes an object's $name property through the WordPress [sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value.
 
     echo $someObject->getSlug();
+
+#### getName()
+
+Use this public method to get the object's user-readable display name.
+
+    echo $someObject->getName();
 
 ### Post Types
 
@@ -143,7 +149,7 @@ Terms can be added to the taxonomy by using the addTerm() method. It requires th
 
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes. All page classes inherit from the Page abstract class.
 
-All page classes require a title and View when instantiated. Text domain can be provided, optionally.
+All page classes require a title and View when instantiated.
 
 The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
