@@ -68,10 +68,10 @@ class Settings extends WordPressObject
      */
     private function addSection(SettingsSection $section)
     {
-        if (array_key_exists($section->getId(), $this->settingsSections)) {
-            wp_die(__("A section with ID {$section->getId()} was already added to the settings for the {$this->pageSlug} page.", parent::$textDomain));
+        if (array_key_exists($section->getSlug(), $this->settingsSections)) {
+            wp_die(__("A section with ID {$section->getSlug()} was already added to the settings for the {$this->pageSlug} page.", parent::$textDomain));
         } else {
-            $this->settingsSections[$section->getId()] = $section;
+            $this->settingsSections[$section->getSlug()] = $section;
         }
 
         return $this;
@@ -90,7 +90,7 @@ class Settings extends WordPressObject
     {
         /** @var SettingsSection $section */
         foreach ($this->settingsSections as $section) {
-            add_settings_section($section->getId(), $section->getTitle(), array($section, 'display'), $this->pageSlug);
+            add_settings_section($section->getSlug(), $section->getName(), array($section, 'display'), $this->pageSlug);
         }
     }
 
@@ -113,9 +113,9 @@ class Settings extends WordPressObject
 
             /** @var SettingsField $field */
             foreach ($fields as $field) {
-                add_settings_field($field->getID(), $field->getTitle(), array($field, 'display'), $this->pageSlug, $section->getId(), $field->getArgs());
+                add_settings_field($field->getSlug(), $field->getName(), array($field, 'display'), $this->pageSlug, $section->getSlug(), $field->getArgs());
 
-                register_setting($this->pageSlug, $field->getID());
+                register_setting($this->pageSlug, $field->getSlug());
             }
         }
     }
