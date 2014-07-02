@@ -56,6 +56,17 @@ abstract class WordPressObject
     }
 
     /**
+     * Returns the object's $name property.
+     *
+     * @since 3.0.0
+     *
+     * @return string
+     */
+    public function getName(){
+        return $this->name;
+    }
+
+    /**
      * Passes a $name through WordPress' sanitize_title() method to create a slug.
      * @link http://codex.wordpress.org/Function_Reference/sanitize_title
      *
