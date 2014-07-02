@@ -35,10 +35,10 @@ abstract class Page extends WordPressObject
      */
     public function __construct($name, View $view)
     {
-        $this->name                    = $name;
-        $this->view                    = $view;
-        $this->view->viewData['title'] = $this->name;
-        $this->view->viewData['slug']  = $this->getSlug();
+        $this->name                   = $name;
+        $this->view                   = $view;
+        $this->view->viewData['name'] = $this->name;
+        $this->view->viewData['slug'] = $this->getSlug();
 
         add_action('admin_menu', array($this, 'addPage'));
     }
