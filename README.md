@@ -51,9 +51,19 @@ The makeSingular() method takes a word as a string and returns the singular vers
 
 #### getSlug()
 
-This public method passes an object's $name property through the WordPress [sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value.
+Slugs are automatically generated for all objects other than Settings.
 
-    echo $someObject->getSlug();
+The public method getSlug() returns an object's $name property after passing it through the WordPress [sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value. In the case of SettingsField getSlug() will also append the prefix.
+
+This is useful for anytime you need to get the slug or ID of an object to use later in the code.
+
+Getting an option value:
+
+    get_option($field->getSlug());
+
+Setting a parent page for a sub page:
+
+    $subPage->setParentSlug($parentPage->getSlug());
 
 #### getName()
 
@@ -226,38 +236,35 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 ### Settings
 
-The Settings part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
+The Settings API part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
 
-A SettingsField object represents a single settings field on the page. A SettingsSection object represents a section of SettingsField objects grouped together on the page. The Settings object manages the WordPress interactions and what page the settings are displayed on.
+A SettingsField object represents a single settings field and a SettingsSection object represents a section of SettingsField objects.
 
-The Settings constructor requires the page slug (string) for the page the settings will be displayed on. Text domain (string) can be passed in optionally.
+The Settings object manages the WordPress interactions and what page the settings will be displayed displayed on.
+
+The Settings constructor requires the slug for the page the settings will be displayed on.
 
     $settings = new Settings($myPage->getSlug());
 
 #### SettingsFields
 
-Start by creating your fields. The SettingsField constructor requires the field title (string) and view (View). Prefix (string), text domain (string), and additional arguments (array) can be provided but are optional. Prefix is set to 'lwppfw' by default.
+The SettingsField constructor requires a title and View to be passed in. The View file should only contain the HTML needed to render the input field.
 
-Field title will be converted into an ID for the field in the WordPress database by being processed through sanitize_title() and being prepended by the value of prefix.
+You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix parameter. This defaults to 'lwppfw'.
 
-You can add anything you would like to the fields view but it is recommended to only specify the form field tag and label.
+The $args parameter can be used to pass in additional arguments for the field in WordPress. A __label_for__ argument is generated automatically to create a <label> tag for the field.
 
-    $field1 = new SettingsField('Field One', $viewView); // ID is lwppfw-field-one.
-    $field2 = new SettingsField('Field Two', $viewView); // ID is lwppfw-field-two.
+    $field = new SettingsField('My Field', $viewView);
 
 #### SettingsSection
 
-After you have some fields defined you will want to create a section and add your fields to it.
-
-The SettingsSection constructor requires a title (string), view (View), and optionally takes a text domain (string).
-
-The title will be displays as the section header on the settings page automatically, you do not need to include it in the view.
+The SettingsSection constructor requires a title and View to be specified. Normally you can leave the view file for the section blank since WordPress will automatically display the section's title on the page.
 
     $section = new SettingsSection('Section One', $sectionView);
 
 #### Adding SettingsField to SettingsSection
 
-A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method. The addFields() method is chainable.
+A single SettingsField or an array of SettingsField objects can be assigned to the SettingsSection by using the addFields() method.
 
     $section->addFields($field1)->addFields($field2);
 
@@ -267,7 +274,7 @@ or...
 
 #### Adding SettingsSection to Settings
 
-Once your SettingSection objects are defined you can add them to your Settings by using the Settings addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection and is chainable.
+SettingSection objects are added Settings objects by using the Settings' addSections() method. Like addFields(), this method accepts a single SettingsSection or an array of SettingsSection.
 
     $settings->addSections($section1)->addSection($section2);
 

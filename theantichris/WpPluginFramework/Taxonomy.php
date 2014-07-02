@@ -14,7 +14,7 @@ namespace theantichris\WpPluginFramework;
 class Taxonomy extends WordPressObject
 {
     /** @var string The name of the taxonomy. Must be plural. */
-    protected  $name;
+    protected $name;
     /** @var string|string[] Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered. */
     private $postTypes;
     /** @var array An array of labels for this taxonomy. */
