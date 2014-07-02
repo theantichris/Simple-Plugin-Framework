@@ -151,11 +151,11 @@ You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPag
 
 All page classes require a title and View when instantiated.
 
-The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method class the correct WordPress function to add that type of page. The base display() method is used as the display call back.
+The base constructor sets the parameters then ties the abstract addPage() method to the [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is overridden in the child classes to use the correct WordPress function to add that type of page. The base display() method is used as the display call back.
 
 #### Setters
 
-Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage. Setter methods can be chained.
+Setters are available for capability, menu icon, position. A setter for parent slug is available for SubMenuPage.
 
 ##### setCapability()
 
