@@ -23,8 +23,6 @@ abstract class Page extends WordPressObject
     protected $menuIcon;
     /** @var int The position in the menu order this menu should appear. */
     protected $position;
-    /** @var string|null The slug name for the parent menu (or the file name of a standard WordPress admin page). Use NULL if you want to create a page that doesn't appear in any menu. */
-    protected $parentSlug; // TODO: Move to SubMenuPage
 
     /**
      * Sets properties and ties the addPage() method to the admin_menu hook.
