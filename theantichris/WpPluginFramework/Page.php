@@ -105,6 +105,7 @@ abstract class Page extends WordPressObject
 
     /**
      * Displays the HTML output of the page if the user has the correct capability.
+     * Should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/current_user_can
      *
      * @since 0.1.0

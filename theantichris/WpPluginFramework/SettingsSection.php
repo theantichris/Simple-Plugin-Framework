@@ -33,6 +33,7 @@ class SettingsSection extends WordPressObject
 
     /**
      * Renders the sections HTML.
+     * Should not be called directly. It is only public so WordPress can call it.
      *
      * @since 2.0.0
      *
