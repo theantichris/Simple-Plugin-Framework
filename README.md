@@ -297,22 +297,7 @@ The class takes a name and View object when instantiated. The constructor assign
 The addWidget() method calls the WordPress function [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
 
     $myWidget = new DashboardWidget('My Widget', $widgetView);
+    
+## Contributing
 
-## View
-
-The View class makes it simpler to display output from your plugin.
-
-It allows you to take the code responsible for displaying the output and put it in its own (the view file). The view file is separated from your logic keeping your code cleaner, easier to read, and easier to manage.
-
-Create a directory in your project to hold all your view files is a good practice.
-
-Use the View class' render() function to display the view and send any data the view needs to know about.
-
-    $view = new View($viewFile, $viewData = null);
-    $view->render();
-
-The $viewFile property should contain the full path and name of the view file.
-
-The property $viewData is used to pass data to the view if needed. This property is an associated array. To use the data in the view file use a variable with the name of the array's key in the array.
-
-For example `$viewData['example']` will be `$example` in the view.
+Bug reports, feature requests, and contributions are welcomed though GitHub issues and pull requests.
