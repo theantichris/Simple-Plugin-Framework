@@ -65,6 +65,7 @@ class SettingsField extends WordPressObject
 
     /**
      * Renders the fields' view.
+     * Should not be called directly. It is only public so WordPress can call it.
      *
      * @since 2.0.0
      *

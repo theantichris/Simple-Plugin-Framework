@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is an OOP framework for making the development of WordPress plugins easier.
+This is an OOP framework for making the development of WordPress plugins easier and faster.
 
 Each WordPress Object in the framework handles the WordPress specific registration functions and ties those functions to the right hooks automatically so a user only needs to set up properties and create the object.
 
@@ -33,7 +33,7 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-This framework contains classes for creating post types, taxonomies, pages, and settings. These classes all inherit from the WordPressObject class.
+This framework contains classes for creating post types, taxonomies, pages, settings, and Dashboard widgets. These classes all inherit from the WordPressObject class.
 
 ### WordPressObject
 
@@ -287,6 +287,16 @@ SettingSection objects are added Settings objects by using the Settings' addSect
 or...
 
     $settings->addSections(array($section1, $section2));
+
+### DashboardWidget
+
+You can use the DashboardWidget class to add a new widget to the WordPress dashboard.
+
+The class takes a name and View object when instantiated. The constructor assigns the properties, adds the name and slug to the View's data, then ties the addWidget() method to the [wp_dashboard_setup](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup) hook.
+
+The addWidget() method calls the WordPress function [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
+
+    $myWidget = new DashboardWidget('My Widget', $widgetView);
 
 ## View
 
