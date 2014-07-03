@@ -294,6 +294,8 @@ You can use the DashboardWidget class to add a new widget to the WordPress dashb
 
 The class takes a name and View object when instantiated. The constructor assigns the properties, adds the name and slug to the View's data, then ties the addWidget() method to the [wp_dashboard_setup](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup) hook.
 
+The addWidget() method calls the WordPress function [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
+
     $myWidget = new DashboardWidget('My Widget', $widgetView);
 
 ## View
