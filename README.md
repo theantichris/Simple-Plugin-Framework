@@ -288,6 +288,14 @@ or...
 
     $settings->addSections(array($section1, $section2));
 
+### DashboardWidget
+
+You can use the DashboardWidget class to add a new widget to the WordPress dashboard.
+
+The class takes a name and View object when instantiated. The constructor assigns the properties, adds the name and slug to the View's data, then ties the addWidget() method to the [wp_dashboard_setup](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup) hook.
+
+    $myWidget = new DashboardWidget('My Widget', $widgetView);
+
 ## View
 
 The View class makes it simpler to display output from your plugin.
