@@ -10,7 +10,7 @@ namespace theantichris\WpPluginFramework;
 class DashboardWidget extends WordPressObject
 {
     /** @var string The name your widget will display in its heading. */
-    private $name;
+    protected $name;
     /** @var View The View object responsible for displaying the widget. */
     private $view;
 
