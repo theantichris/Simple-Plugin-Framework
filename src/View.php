@@ -1,10 +1,10 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class View
- * @package theantichris\spf
+ * @package theantichris\SPF
  * @since 0.1.0
  */
 class View

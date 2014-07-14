@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class PostType
  *
  * A class for creating and managing post types in WordPress.
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  *
  * @since 0.1.0
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class UtilityPage
@@ -8,7 +8,7 @@ namespace theantichris\spf;
  * A class for adding a top level menu page at the 'utility' level.
  * This new menu will appear in the group including the default WordPress Appearance, Plugins, Users, Tools and Settings.
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  *
  * @since 0.1.0
  */

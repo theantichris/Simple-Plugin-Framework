@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class MenuPage
  *
  * A class for adding a top level menu page to the WordPress Dashboard. Extends Page.
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  *
  * @since 0.1.0
  */

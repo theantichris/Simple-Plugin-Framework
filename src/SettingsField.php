@@ -1,10 +1,10 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class SettingsField
- * @package theantichris\spf
+ * @package theantichris\SPF
  * @since 2.0.0
  */
 class SettingsField extends WordPressObject

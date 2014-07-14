@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class Settings
  *
  * A class for creating and managing settings in WordPress.
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  *
  * @since 0.1.0
  */

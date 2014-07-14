@@ -1,10 +1,10 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class WordPressObject
- * @package theantichris\spf
+ * @package theantichris\SPF
  * @since 3.0.0
  */
 abstract class WordPressObject

@@ -1,6 +1,6 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class Capability
@@ -8,7 +8,7 @@ namespace theantichris\spf;
  * An enum of all valid WordPress capabilities.
  * @link http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  * @since 3.0.0
  */
 abstract class Capability

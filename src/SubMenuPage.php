@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\spf;
+namespace theantichris\SPF;
 
 /**
  * Class SubMenuPage
  *
  * A class for adding a sub menu page from the WordPress Dashboard. Extends Page.
  *
- * @package theantichris\spf
+ * @package theantichris\SPF
  *
  * @since 0.1.0
  */
