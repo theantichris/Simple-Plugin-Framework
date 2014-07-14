@@ -1,10 +1,10 @@
-# WordPress Plugin Framework
+# SPF: Simple Plugin Framework
 
 ## Introduction
 
-This is an OOP framework for making the development of WordPress plugins easier and faster.
+This is a simple framework for creating WordPress plugins.
 
-Each WordPress Object in the framework handles the WordPress specific registration functions and ties those functions to the right hooks automatically so a user only needs to set up properties and create the object.
+Entities in WordPress (post types, taxonomies, etc.) are treated as objects so creating a new entity and setting it's properties are the same as any object in PHP. Each object handles tying itself to the appropriate WordPress action hook when it is instantiated.
 
 ## Getting Started
 
@@ -12,13 +12,9 @@ Each WordPress Object in the framework handles the WordPress specific registrati
 
 The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be using with [Composer](https://getcomposer.org/). Just add package to your composer.json.
 
-### Drop In
-
-Move the files from the __theantichris/WpPluginFramework__ directory into your plugin and include them using `include` statements.
-
 ### Using the Framework in Your Plugin
 
-The easiest way to start using the frame work is to create a class for your plugin and place the framework code in the classes constructor.
+The easiest way to start using the framework is to create a class for your plugin and place the framework code in the classes constructor.
 
 
     class myPlugin
@@ -33,7 +29,7 @@ The easiest way to start using the frame work is to create a class for your plug
 
 ## Creating WordPress Objects
 
-This framework contains classes for creating post types, taxonomies, pages, settings, and Dashboard widgets. These classes all inherit from the WordPressObject class.
+SPF contains classes for creating post types, taxonomies, pages, settings, and Dashboard widgets. These classes all inherit from the WordPressObject class.
 
 ### WordPressObject
 
