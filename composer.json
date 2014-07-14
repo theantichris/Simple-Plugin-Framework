@@ -1,9 +1,9 @@
 {
-    "name": "theantichris/wp-plugin-framework",
+    "name": "theantichris/spf",
     "type": "library",
-    "description": "A framework for building WordPress plugins.",
+    "description": "A simple framework for creating WordPress plugins.",
     "keywords": ["wordpress", "plugin", "framework"],
-    "homepage": "https://github.com/theantichris/wp-plugin-framework",
+    "homepage": "http://theantichris.com/projects/wordpress-plugin-framework/",
     "license": "GNU3",
     "authors": [
         {
@@ -18,7 +18,7 @@
     },
     "autoload": {
         "psr-4" : {
-            "theantichris\\WpPluginFramework\\": "src/"
+            "theantichris\\spf\\": "src/"
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class SettingsField
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  * @since 2.0.0
  */
 class SettingsField extends WordPressObject
@@ -28,7 +28,7 @@ class SettingsField extends WordPressObject
      * @param string $prefix An identifier that will be prefixed to the ID to prevent naming conflicts in the database.
      * @param mixed[] $args Additional arguments that are passed to the $callback function.
      */
-    public function __construct($name, View $view, $prefix = 'lwppfw', $args = array())
+    public function __construct($name, View $view, $prefix = 'spf', $args = array())
     {
         $this->prefix                 = $prefix;
         $this->name                   = $name;

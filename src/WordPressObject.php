@@ -1,13 +1,11 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class WordPressObject
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  * @since 3.0.0
- *
- * TODO: Change name.
  */
 abstract class WordPressObject
 {

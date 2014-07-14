@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class Taxonomy
  *
  * A class for creating and managing WordPress taxonomies.
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  *
  * @since 0.1.0
  */

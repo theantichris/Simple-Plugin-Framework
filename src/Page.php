@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class Page
  *
  * A base class for creating and managing WordPress Dashboard pages.
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  *
  * @since 0.1.0
  */

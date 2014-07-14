@@ -1,10 +1,10 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class SettingsSection
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  * @since 2.0.0
  */
 class SettingsSection extends WordPressObject

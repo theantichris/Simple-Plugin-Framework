@@ -1,12 +1,12 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class DashboardWidget
  * @link http://codex.wordpress.org/Dashboard_Widgets_API
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  * @since 3.0.0
  */
 class DashboardWidget extends WordPressObject

@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class OptionsPage
  *
  * A class for adding a sub menu page to the Settings menu.
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  *
  * @since 0.1.0
  */

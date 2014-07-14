@@ -1,13 +1,13 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class SubMenuPage
  *
  * A class for adding a sub menu page from the WordPress Dashboard. Extends Page.
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  *
  * @since 0.1.0
  */

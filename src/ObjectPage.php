@@ -1,6 +1,6 @@
 <?php
 
-namespace theantichris\WpPluginFramework;
+namespace theantichris\spf;
 
 /**
  * Class ObjectPage
@@ -8,7 +8,7 @@ namespace theantichris\WpPluginFramework;
  * A class for adding a top level menu page at the 'object' level.
  * This new menu will appear in the group including the default WordPress Posts, Media, Links, Pages and Comments.
  *
- * @package theantichris\WpPluginFramework
+ * @package theantichris\spf
  *
  * @since 0.1.0
  */

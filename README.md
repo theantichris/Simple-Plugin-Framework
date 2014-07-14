@@ -250,7 +250,7 @@ The SettingsField constructor requires a name and View to be passed in.
 
 The View file should only contain the HTML needed to render the input field. The name and slug are added to the View's $viewData property automatically.
 
-You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix parameter. This defaults to 'lwppfw'.
+You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix parameter. This defaults to 'spf'.
 
 The $args parameter can be used to pass in additional arguments for the field in WordPress. A __label_for__ argument is generated automatically to create a <label> tag for the field.
 
