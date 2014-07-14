@@ -12,16 +12,16 @@ Entities in WordPress (post types, taxonomies, etc.) are treated as objects so c
 
 The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be using with [Composer](https://getcomposer.org/). Just add package to your composer.json.
 
-### Using the Framework in Your Plugin
+### Using SPF in Your Plugin
 
-The easiest way to start using the framework is to create a class for your plugin and place the framework code in the classes constructor.
+The easiest way to start using SPF is to create a class for your plugin and place the framework code in the classes constructor.
 
 
     class myPlugin
     {
         public function __construct()
         {
-            // Place framework code in there.
+            // Place SPF code in there.
         }
     }
 
@@ -143,7 +143,7 @@ The Taxonomy class requires the plural display name of the taxonomy when instant
 
 The constructor sets up the properties, generates the labels, and ties the [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook.
 
-The frameworks checks if the taxonomy exists before adding it.
+SPF checks if the taxonomy exists before adding it.
 
     $taxonomy = new Taxonomy('Custom Tags', $postType->getSlug);
 
@@ -234,7 +234,7 @@ SubMenuPage adds a page as a sub-menu item for another page. Calls the [add_subm
 
 ### Settings
 
-The Settings API part of the framework consists of three classes. Settings, SettingsSection, and SettingsField.
+The Settings API part of SPF consists of three classes. Settings, SettingsSection, and SettingsField.
 
 A SettingsField object represents a single settings field and a SettingsSection object represents a section of SettingsField objects.
 
