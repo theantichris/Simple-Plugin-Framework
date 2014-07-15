@@ -293,7 +293,3 @@ The class takes a name and View object when instantiated. The constructor assign
 The addWidget() method calls the WordPress function [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
 
     $myWidget = new DashboardWidget('My Widget', $widgetView);
-    
-## Contributing
-
-Bug reports, feature requests, and contributions are welcomed though GitHub issues and pull requests.
