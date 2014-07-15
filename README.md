@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This is a simple framework for creating WordPress plugins.
+This is a simple framework for developing WordPress plugins.
 
 Entities in WordPress (post types, taxonomies, etc.) are treated as objects so creating a new entity and setting it's properties are the same as any object in PHP. Each object handles tying itself to the appropriate WordPress action hook when it is instantiated.
 
