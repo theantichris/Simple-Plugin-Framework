@@ -19,7 +19,6 @@ class View
      * @param string $viewFile
      * @param mixed[]|null $viewData
      * @param string $textDomain
-     * @throws \Exception
      */
     public function __construct($viewFile, $viewData = null, $textDomain = '')
     {
