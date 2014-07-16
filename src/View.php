@@ -19,15 +19,12 @@ class View
      * @param string $viewFile
      * @param mixed[]|null $viewData
      * @param string $textDomain
+     * @throws \Exception
      */
     public function __construct($viewFile, $viewData = null, $textDomain = '')
     {
-        if (file_exists($viewFile)) {
-            $this->viewFile = $viewFile;
-            $this->viewData = $viewData;
-        } else {
-            wp_die(__('Cannot find the view file:' . $viewFile, $textDomain));
-        }
+        $this->viewFile = $viewFile;
+        $this->viewData = $viewData;
     }
 
     /**
