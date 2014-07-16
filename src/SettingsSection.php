@@ -11,7 +11,7 @@ class SettingsSection extends WordPressObject
 {
     /** @var string Title of the section. Used to generate the slug. */
     protected $name;
-    /** @var View The View object responsible for rendering the field's HTML. */
+    /** @var View|null The View object responsible for rendering the field's HTML. */
     private $view;
     /** @var SettingsField[] An array of settings fields added to the section. */
     private $settingsFields = array();
@@ -22,13 +22,16 @@ class SettingsSection extends WordPressObject
      * @since 2.0.0
      *
      * @param string $name Title of the section. Used to generate the slug.
-     * @param View $view The View object responsible for rendering the field's HTML.
+     * @param View|null $view The View object responsible for rendering the field's HTML.
      */
-    public function __construct($name, $view)
+    public function __construct($name, $view = null)
     {
-        $this->name                   = $name;
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->name;
+        $this->name = $name;
+
+        if (!empty($view)) {
+            $this->view                   = $view;
+            $this->view->viewData['name'] = $this->name;
+        }
     }
 
     /**
@@ -41,6 +44,10 @@ class SettingsSection extends WordPressObject
      */
     public function display()
     {
+        if (empty($this->view)) {
+            return;
+        }
+
         $this->view->render();
     }
 

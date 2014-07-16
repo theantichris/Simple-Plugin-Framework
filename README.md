@@ -258,9 +258,9 @@ The $args parameter can be used to pass in additional arguments for the field in
 
 #### SettingsSection
 
-The SettingsSection constructor requires a name and View to be specified.
+The SettingsSection class requires a name to be instantiated. Optionally a View can be specified.
 
-Unless you need to specify something specific you can leave the view file for the section blank since WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property automatically.
+Unless you need to display something specific like instructions to the user you do not need to pass in a View since WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property automatically.
 
     $section = new SettingsSection('Section One', $sectionView);
 
