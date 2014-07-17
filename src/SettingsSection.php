@@ -30,7 +30,7 @@ class SettingsSection extends WordPressObject
 
         if (!empty($view)) {
             $this->view                   = $view;
-            $this->view->viewData['name'] = $this->name;
+            $this->view->viewData['name'] = $this->getName();
         }
     }
 

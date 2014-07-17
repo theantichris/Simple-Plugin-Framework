@@ -25,6 +25,6 @@ class UtilityPage extends Page
      */
     public function addPage()
     {
-        add_utility_page($this->name, $this->name, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
+        add_utility_page($this->getName(), $this->getName(), $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
     }
 }
