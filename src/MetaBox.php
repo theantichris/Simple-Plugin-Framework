@@ -14,7 +14,7 @@ class MetaBox extends WordPressObject
     /** @var View The View object responsible for printing out the HTML for the edit screen section. */
     private $view;
     /** @var string[] The type of Write screen on which to show the edit screen section. */
-    private $postTypes;
+    private $postTypes = array();
     /** @var string The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side'). */
     private $context = 'advanced';
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
@@ -42,7 +42,7 @@ class MetaBox extends WordPressObject
         if (is_array($postTypes)) {
             $this->postTypes = $postTypes;
         } else {
-            $postTypes[] = $postTypes;
+            $this->postTypes[] = $postTypes;
         }
 
 
