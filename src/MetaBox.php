@@ -24,6 +24,9 @@ class MetaBox extends WordPressObject
     private $args;
 
     /**
+     * Sets properties and ties the addMetaBox method to the add_meta_boxes hook.
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
+     *
      * @since 3.0.0
      *
      * @param string $name Title of the edit screen section, visible to user.
@@ -35,5 +38,21 @@ class MetaBox extends WordPressObject
         $this->name     = $name;
         $this->view     = $view;
         $this->postType = $postType;
+
+        add_action('add_meta_boxes', array($this, 'addMetaBox'));
+    }
+
+    /**
+     * Calls the WordPress function add_meta_box().
+     * Do not call directly, it is only public so WordPress can call it.
+     * @link http://codex.wordpress.org/Function_Reference/add_meta_box
+     *
+     * @since 3.0.0
+     *
+     * @return void
+     */
+    public function addMetaBox()
+    {
+        add_meta_box($this->getSlug(), $this->name, array($this->view, 'render'), $this->postType, $this->context, $this->priority, $this->args);
     }
 }
