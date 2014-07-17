@@ -11,7 +11,7 @@ namespace theantichris\SPF;
  * @package theantichris\SPF
  * @since 3.0.0
  */
-abstract class Capability extends  Enum
+abstract class Capability extends Enum
 {
     const switch_themes          = 'switch_themes';
     const edit_themes            = 'edit_themes';

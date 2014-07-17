@@ -1,18 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: christopher.lamm
- * Date: 7/17/14
- * Time: 12:02 PM
- */
+
 namespace theantichris\SPF;
 
-
 /**
- * Class Capability
+ * Class Enum
  *
- * An enum of all valid WordPress capabilities.
- * @link http://codex.wordpress.org/Roles_and_Capabilities#Capabilities
+ * Base class for creating enums.
  *
  * @package theantichris\SPF
  * @since 3.0.0
