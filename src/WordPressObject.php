@@ -61,7 +61,7 @@ abstract class WordPressObject
      * @return string
      */
     public function getName(){
-        return $this->name;
+        return __($this->name, self::$textDomain);
     }
 
     /**
