@@ -43,6 +43,45 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * @since 3.0.0
+     *
+     * @param string $context
+     * @return MetaBox
+     */
+    public function setContext($context)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * @since 3.0.0
+     *
+     * @param string $priority
+     * @return MetaBox
+     */
+    public function setPriority($priority)
+    {
+        $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * @since 3.0.0
+     *
+     * @param \mixed[] $args
+     * @return MetaBox
+     */
+    public function setArgs($args)
+    {
+        $this->args = $args;
+
+        return $this;
+    }
+
+    /**
      * Calls the WordPress function add_meta_box().
      * Do not call directly, it is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/add_meta_box
