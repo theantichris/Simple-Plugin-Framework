@@ -16,11 +16,11 @@ class MetaBox extends WordPressObject
     /** @var string[] The type of Write screen on which to show the edit screen section. */
     private $postTypes;
     /** @var string The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side'). */
-    private $context;
+    private $context = 'advanced';
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
-    private $priority;
-    /** @var mixed[] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
-    private $args;
+    private $priority = 'default';
+    /** @var mixed[]|null Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
+    private $args = null;
 
     /**
      * Sets properties and ties the addMetaBox method to the add_meta_boxes hook.
