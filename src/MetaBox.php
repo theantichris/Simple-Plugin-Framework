@@ -23,8 +23,9 @@ class MetaBox extends WordPressObject
     private $args = null;
 
     /**
-     * Sets properties and ties the addMetaBox method to the add_meta_boxes hook.
+     * Sets properties, ties the addMetaBox method to the add_meta_boxes hook, and ties the saveMetaBox method to the save_post hook.
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
+     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post
      *
      * @since 3.0.0
      *
@@ -45,8 +46,8 @@ class MetaBox extends WordPressObject
             $this->postTypes[] = $postTypes;
         }
 
-
         add_action('add_meta_boxes', array($this, 'addMetaBox'));
+        add_action('save_post', array($this, 'saveMetaBox'));
     }
 
     /**
@@ -103,5 +104,39 @@ class MetaBox extends WordPressObject
         foreach ($this->postTypes as $postType) {
             add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this->view, 'render'), $postType, $this->context, $this->priority, $this->args);
         }
+    }
+
+    /**
+     * Method that saves the meta box when the post is updated.
+     * Do not call directly, it is only public so WordPress can call it.
+     *
+     * @since 3.0.0
+     *
+     * @param int $postId
+     * @return void
+     */
+    public function saveMetaBox($postId)
+    {
+        // Don't do anything if this is an autosave.
+        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+            return;
+        }
+
+        // Check the user's permissions.
+        if (isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
+            if (!current_user_can('edit_page', $postId)) {
+                return;
+            }
+        } else {
+            if (!current_user_can('edit_post', $postId)) {
+                return;
+            }
+        }
+
+        if (!isset($_POST[$this->getSlug()])) {
+            return;
+        }
+
+        update_post_meta($postId, $this->getSlug(), sanitize_text_field($_POST[$this->getSlug()]));
     }
 }
