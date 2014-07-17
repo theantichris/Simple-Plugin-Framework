@@ -102,7 +102,7 @@ class MetaBox extends WordPressObject
     {
         /** @var string $postType */
         foreach ($this->postTypes as $postType) {
-            add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this->view, 'render'), $postType, $this->context, $this->priority, $this->args);
+            add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this, 'render'), $postType, $this->context, $this->priority, $this->args);
         }
     }
 
@@ -138,5 +138,18 @@ class MetaBox extends WordPressObject
         }
 
         update_post_meta($postId, $this->getSlug(), sanitize_text_field($_POST[$this->getSlug()]));
+    }
+
+    /**
+     * Adds the post to the view data then renders the HTML.
+     *
+     * @since 3.0.0
+     *
+     * @param $post
+     * @return void
+     */
+    public function render($post){
+        $this->view->viewData['post'] = $post;
+        $this->view->render();
     }
 }
