@@ -15,7 +15,6 @@ class MetaBox extends WordPressObject
     private $view;
     /** @var string The type of Write screen on which to show the edit screen section. */
     private $postType;
-
     /** @var string The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side'). */
     private $context;
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
