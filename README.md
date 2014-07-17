@@ -63,7 +63,7 @@ Setting a parent page for a sub page:
 
 #### getName()
 
-Use this public method to get the object's user-readable display name.
+Use this public method to get the object's user-readable display name. The $name property is passed through the text domain before it is returned.
 
     echo $someObject->getName();
 
