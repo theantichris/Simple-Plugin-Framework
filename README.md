@@ -327,3 +327,12 @@ The class takes a name and View object when instantiated. The constructor assign
 The addWidget() method calls the WordPress function [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
 
     $myWidget = new DashboardWidget('My Widget', $widgetView);
+
+### WelcomePanel
+
+You can replace the default WordPress welcome panel with a custom welcome panel using this class. This is accomplished using the [welcome_panel](http://codex.wordpress.org/Plugin_API/Action_Reference/welcome_panel) hook.
+
+The class only requires a View object to be passed in. The View's view file will contain the HTML you would like to the welcome panel to display.
+
+    $welcomePanel = new WelcomePanel($welcomePanelView);
+
