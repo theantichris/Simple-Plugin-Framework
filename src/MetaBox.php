@@ -53,6 +53,6 @@ class MetaBox extends WordPressObject
      */
     public function addMetaBox()
     {
-        add_meta_box($this->getSlug(), $this->name, array($this->view, 'render'), $this->postType, $this->context, $this->priority, $this->args);
+        add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this->view, 'render'), $this->postType, $this->context, $this->priority, $this->args);
     }
 }
