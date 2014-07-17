@@ -82,7 +82,7 @@ class MetaBox extends WordPressObject
      * @param \mixed[] $args Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable.
      * @return MetaBox
      */
-    public function setArgs($args)
+    public function setArgs(array $args)
     {
         $this->args = $args;
 
