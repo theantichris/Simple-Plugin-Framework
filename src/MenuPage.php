@@ -24,6 +24,6 @@ class MenuPage extends Page
      */
     public function addPage()
     {
-        add_menu_page($this->name, $this->name, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon, $this->position);
+        add_menu_page($this->getName(), $this->getName(), $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon, $this->position);
     }
 }

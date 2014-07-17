@@ -37,7 +37,7 @@ class MetaBox extends WordPressObject
     {
         $this->name                   = $name;
         $this->view                   = $view;
-        $this->view->viewData['name'] = $this->name;
+        $this->view->viewData['name'] = $this->getName();
         $this->view->viewData['slug'] = $this->getSlug();
 
         if (is_array($postTypes)) {
@@ -102,7 +102,7 @@ class MetaBox extends WordPressObject
     {
         /** @var string $postType */
         foreach ($this->postTypes as $postType) {
-            add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this, 'render'), $postType, $this->context, $this->priority, $this->args);
+            add_meta_box($this->getSlug(),$this->getName(), array($this, 'render'), $postType, $this->context, $this->priority, $this->args);
         }
     }
 

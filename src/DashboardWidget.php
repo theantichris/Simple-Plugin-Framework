@@ -29,7 +29,7 @@ class DashboardWidget extends WordPressObject
     {
         $this->name                   = $name;
         $this->view                   = $view;
-        $this->view->viewData['name'] = $this->name;
+        $this->view->viewData['name'] = $this->getName();
         $this->view->viewData['slug'] = $this->getSlug();
 
         add_action('wp_dashboard_setup', array($this, 'addWidget'));

@@ -25,6 +25,6 @@ class ObjectPage extends Page
      */
     public function addPage()
     {
-        add_object_page($this->name, $this->name, $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
+        add_object_page($this->getName(), $this->getName(), $this->capability, $this->getSlug(), array($this, 'display'), $this->menuIcon);
     }
 }

@@ -20,7 +20,7 @@ abstract class Enum
      * @param string $value
      * @return bool
      */
-    public function isValid($value)
+    public static function isValid($value)
     {
         return defined("self::{$value}");
     }
