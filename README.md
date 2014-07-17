@@ -67,7 +67,7 @@ Use this public method to get the object's user-readable display name.
 
     echo $someObject->getName();
 
-### Post Types
+### PostType
 
 The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels to be generated correctly.
 
@@ -150,6 +150,40 @@ SPF checks if the taxonomy exists before adding it.
 Terms can be added to the taxonomy by using the addTerm() method. It requires the term to be added and can optionally take the term description. This method checks if the term has already been added and only adds it if it has not. It ties the WordPress function [wp_insert_term](http://codex.wordpress.org/Function_Reference/wp_insert_term) to the [init](http://codex.wordpress.org/Plugin_API/Action_Reference/init) hook. This method can be chained.
 
     $taxonomy->addTerm('Tag One', 'This is the first tag.');
+
+### MetaBoxes
+
+Meta boxes containing custom fields can be added to your post types using this class. The object requires the name, View, and post type slugs to attach it to when instantiated.
+
+The constructor sets the parameters then ties the addMetaBox() method to the [add_meta_boxes](http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes) hook and the saveMetaBox() method to the [save_post](http://codex.wordpress.org/Plugin_API/Action_Reference/save_post) hook.
+
+The $postTypes argument can either be a single string or an array of strings if you want to tie the meta box to multiple post types.
+
+The View's $viewFile should only contain the HTML for the input field and label for the custom field.
+
+    $metaBox = new MetaBox('My MetaBox', $metaBoxView, $postTypes);
+
+#### Setters
+
+Setters are available for the context, priority, and optional arguments properties.
+
+##### setContext()
+
+This sets the part of the page the meta box will be shown on. Accepted values are 'normal', 'advanced', and 'side'. The default is 'advanced'.
+
+    $metaBox->setContext('side');
+
+##### setPriority()
+
+This sets the priority within the context where the box will be shown. Accepted values are 'high', 'core', 'default' and 'low'. The default is 'default'.
+
+    $metaBox->setPriority('low');
+
+#### setArgs()
+
+This sets an array of optional arguments that will be sent to the MetaBox's View object.
+
+    $metaBox->setArgs(array('one' => 1, 'two' => 2);
 
 ### Pages
 
