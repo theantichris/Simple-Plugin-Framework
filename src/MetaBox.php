@@ -53,7 +53,7 @@ class MetaBox extends WordPressObject
     /**
      * @since 3.0.0
      *
-     * @param string $context
+     * @param string $context The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side').
      * @return MetaBox
      */
     public function setContext($context)
@@ -66,7 +66,7 @@ class MetaBox extends WordPressObject
     /**
      * @since 3.0.0
      *
-     * @param string $priority
+     * @param string $priority The priority within the context where the boxes should show ('high', 'core', 'default' or 'low').
      * @return MetaBox
      */
     public function setPriority($priority)
@@ -79,7 +79,7 @@ class MetaBox extends WordPressObject
     /**
      * @since 3.0.0
      *
-     * @param \mixed[] $args
+     * @param \mixed[] $args Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable.
      * @return MetaBox
      */
     public function setArgs($args)
@@ -112,17 +112,15 @@ class MetaBox extends WordPressObject
      *
      * @since 3.0.0
      *
-     * @param int $postId
+     * @param int $postId ID of the current WordPress post.
      * @return void
      */
     public function saveMetaBox($postId)
     {
-        // Don't do anything if this is an autosave.
         if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
             return;
         }
 
-        // Check the user's permissions.
         if (isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
             if (!current_user_can('edit_page', $postId)) {
                 return;
@@ -142,14 +140,18 @@ class MetaBox extends WordPressObject
 
     /**
      * Adds the post to the view data then renders the HTML.
+     * Do not call directly, it is only public so WordPress can call it.
      *
      * @since 3.0.0
      *
-     * @param $post
+     * @param \WP_Post $post The current WordPress post object.
+     * @param mixed[] $args Optional arguments specified from the $args property.
      * @return void
      */
-    public function render($post){
+    public function render($post, $args)
+    {
         $this->view->viewData['post'] = $post;
+        $this->view->viewData['args'] = $args['args'];
         $this->view->render();
     }
 }
