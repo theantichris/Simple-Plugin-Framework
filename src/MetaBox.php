@@ -34,8 +34,10 @@ class MetaBox extends WordPressObject
      */
     function __construct($name, $view, $postTypes)
     {
-        $this->name = $name;
-        $this->view = $view;
+        $this->name                   = $name;
+        $this->view                   = $view;
+        $this->view->viewData['name'] = $this->name;
+        $this->view->viewData['slug'] = $this->getSlug();
 
         if (is_array($postTypes)) {
             $this->postTypes = $postTypes;
