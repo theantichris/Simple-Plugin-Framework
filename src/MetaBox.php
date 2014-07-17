@@ -13,8 +13,8 @@ class MetaBox extends WordPressObject
     protected $name;
     /** @var View The View object responsible for printing out the HTML for the edit screen section. */
     private $view;
-    /** @var string The type of Write screen on which to show the edit screen section. */
-    private $postType;
+    /** @var string[] The type of Write screen on which to show the edit screen section. */
+    private $postTypes;
     /** @var string The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side'). */
     private $context;
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
@@ -30,13 +30,19 @@ class MetaBox extends WordPressObject
      *
      * @param string $name Title of the edit screen section, visible to user.
      * @param View $view The View object responsible for printing out the HTML for the edit screen section.
-     * @param string $postType The type of Write screen on which to show the edit screen section.
+     * @param string|string[] $postTypes The type of Write screen on which to show the edit screen section.
      */
-    function __construct($name, $view, $postType)
+    function __construct($name, $view, $postTypes)
     {
-        $this->name     = $name;
-        $this->view     = $view;
-        $this->postType = $postType;
+        $this->name = $name;
+        $this->view = $view;
+
+        if (is_array($postTypes)) {
+            $this->postTypes = $postTypes;
+        } else {
+            $postTypes[] = $postTypes;
+        }
+
 
         add_action('add_meta_boxes', array($this, 'addMetaBox'));
     }
@@ -91,6 +97,9 @@ class MetaBox extends WordPressObject
      */
     public function addMetaBox()
     {
-        add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this->view, 'render'), $this->postType, $this->context, $this->priority, $this->args);
+        /** @var string $postType */
+        foreach ($this->postTypes as $postType) {
+            add_meta_box($this->getSlug(), __($this->name, self::$textDomain), array($this->view, 'render'), $postType, $this->context, $this->priority, $this->args);
+        }
     }
 }
