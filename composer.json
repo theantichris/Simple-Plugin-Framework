@@ -1,5 +1,5 @@
 {
-    "name": "theantichris/spf",
+    "name": "theantichris/simple-plugin-framework",
     "type": "library",
     "description": "A simple framework for creating WordPress plugins.",
     "keywords": ["wordpress", "plugin", "framework"],
