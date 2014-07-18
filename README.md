@@ -12,7 +12,7 @@ when it is instantiated.
 
 ### Composer
 
-The package is hosted on [Packagist](https://packagist.org/packages/theantichris/wp-plugin-framework) and ready to be
+The package is hosted on [Packagist](https://packagist.org/packages/theantichris/simple-plugin-framework) and ready to be
 using with [Composer](https://getcomposer.org/). Just add package to your composer.json.
 
 ### Using SPF in Your Plugin
