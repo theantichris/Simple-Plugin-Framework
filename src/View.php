@@ -11,7 +11,7 @@ class View
 {
     /** @var string Full path to the view file. */
     private $viewFile;
-    /** @var \mixed[]|null Any data the view needs to know about. */
+    /** @var \mixed[] Any data the view needs to know about. */
     public $viewData;
 
     /**
@@ -20,7 +20,7 @@ class View
      * @param mixed[]|null $viewData
      * @param string $textDomain
      */
-    public function __construct($viewFile, $viewData = null, $textDomain = '')
+    public function __construct($viewFile, $viewData = array(), $textDomain = '')
     {
         $this->viewFile = $viewFile;
         $this->viewData = $viewData;
