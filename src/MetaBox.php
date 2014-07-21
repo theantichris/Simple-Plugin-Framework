@@ -19,8 +19,8 @@ class MetaBox extends WordPressObject
     private $context = 'advanced';
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
     private $priority = 'default';
-    /** @var mixed[]|null Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
-    private $args = null;
+    /** @var mixed[] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
+    private $args = array();
 
     /**
      * Sets properties, ties the addMetaBox method to the add_meta_boxes hook, and ties the saveMetaBox method to the save_post hook.
