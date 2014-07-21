@@ -9,16 +9,16 @@ namespace theantichris\SPF;
  */
 class View
 {
-    /** @var string Full path to the view file. */
+    /** @var \string Full path to the view file. */
     private $viewFile;
     /** @var \mixed[] Any data the view needs to know about. */
     public $viewData;
 
     /**
      * @since 2.0.0
-     * @param string $viewFile
-     * @param mixed[]|null $viewData
-     * @param string $textDomain
+     * @param \string $viewFile
+     * @param \mixed[] $viewData
+     * @param \string $textDomain
      */
     public function __construct($viewFile, $viewData = array(), $textDomain = '')
     {

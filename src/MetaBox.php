@@ -19,7 +19,7 @@ class MetaBox extends WordPressObject
     private $context = 'advanced';
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
     private $priority = 'default';
-    /** @var mixed[] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
+    /** @var \mixed[] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
     private $args = array();
 
     /**
@@ -145,7 +145,7 @@ class MetaBox extends WordPressObject
      * @since 3.0.0
      *
      * @param \WP_Post $post The current WordPress post object.
-     * @param mixed[] $args Optional arguments specified from the $args property.
+     * @param \mixed[] $args Optional arguments specified from the $args property.
      * @return void
      */
     public function render($post, $args)
