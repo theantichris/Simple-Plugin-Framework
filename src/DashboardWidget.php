@@ -13,8 +13,10 @@ class DashboardWidget extends WordPressObject
 {
     /** @var string The name your widget will display in its heading. */
     protected $name;
-    /** @var View The View object responsible for displaying the widget. */
-    private $view;
+    /** @var string The full path to the object's view file. */
+    private $viewFile;
+    /** @var mixed[] An array of data to give the view file access to. */
+    private $viewData;
 
     /**
      * Assigns properties, sets name and slug in the View's $viewData, and ties the addWidget() method to the wp_dashboard_setup hook.
@@ -23,14 +25,14 @@ class DashboardWidget extends WordPressObject
      * @since 3.0.0
      *
      * @param string $name The name your widget will display in its heading.
-     * @param View $view The View object responsible for displaying the widget.
+     * @param string|null $viewFile The full path to the object's view file.
      */
-    public function __construct($name, View $view)
+    public function __construct($name, $viewFile)
     {
-        $this->name                   = $name;
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->getName();
-        $this->view->viewData['slug'] = $this->getSlug();
+        $this->name             = $name;
+        $this->viewFile         = $viewFile;
+        $this->viewData['name'] = $this->getName();
+        $this->viewData['slug'] = $this->getSlug();
 
         add_action('wp_dashboard_setup', array($this, 'addWidget'));
     }
@@ -46,6 +48,20 @@ class DashboardWidget extends WordPressObject
      */
     public function addWidget()
     {
-        wp_add_dashboard_widget($this->getSlug(), $this->getName(), array($this->view, 'render'));
+        wp_add_dashboard_widget($this->getSlug(), $this->getName(), array($this, 'display'));
+    }
+
+    /**
+     * Passes the view file and data to the the render() method.
+     * Callback for wp_add_dashboard_widget() in addWidget().
+     * Should not be called directly. It is only public so WordPress can call it.
+     *
+     * @since 4.0.0
+     *
+     * @return void
+     */
+    public function display()
+    {
+        View::render($this->viewFile, $this->viewData);
     }
 }
