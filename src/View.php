@@ -13,8 +13,8 @@ class View
      * Passes data into and renders a view file.
      *
      * @since 0.1.0
-     * @param $viewFile
-     * @param $viewData
+     * @param string $viewFile Full path to the view file.
+     * @param mixed[]|null $viewData Any data that needs to be used in the view.
      * @return void
      */
     public static function render($viewFile, $viewData)
