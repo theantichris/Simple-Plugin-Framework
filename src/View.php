@@ -23,15 +23,15 @@ class View
             extract($viewData);
         }
 
-        ob_start(); // Start the output buffer.
+        ob_start();
 
         /** @noinspection PhpIncludeInspection */
-        include($viewFile); // Include the template.
+        include($viewFile);
 
         /** @var string $template Contains the contents of the output buffer. */
-        $template = ob_get_contents(); // Add the template contents to the output buffer.
+        $template = ob_get_contents();
 
-        ob_end_clean(); // End the output buffer.
+        ob_end_clean();
 
         echo $template;
     }
