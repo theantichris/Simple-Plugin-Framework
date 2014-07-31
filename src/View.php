@@ -23,6 +23,8 @@ class View
             extract($viewData);
         }
 
+        // TODO: Try without output buffer.
+
         ob_start();
 
         /** @noinspection PhpIncludeInspection */
