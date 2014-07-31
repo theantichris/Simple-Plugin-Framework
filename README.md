@@ -395,16 +395,12 @@ welcome panel to display.
 
 ## Views
 
-The WordPressObject classes use the included View class to manage their display.
+The WordPressObject classes use the included static View class to display their output. Each object has a display()
+method that is used as the callback in the WordPress functions.
 
-The View class requires a view file when instantiated. This view file is a PHP file that contains the HTML to display
-the WordPress object. The view file should contain as little logic as possible to keep code clean and easy to manage.
+This display() method calls View::render() passing in the $viewFile and $viewData properties. The $viewFile property is
+a string representing the full path and file name of the file to use as the view. The $viewData property is an
+associative array of extra information needed in the view file if any.
 
-    $view = new View('FULL_PATH_AND_FILE_NAME');
-
-To pass data to the view file add it to the Views $viewData property. The $viewData property is an associative array
-that gets [extracted](http://php.net/manual/en/function.extract.php) when the view file is rendered. This adds a
-variable with the same name as the array key.
-
-    $view->viewData['key'] = 'value'; // Becomes $key on the view file.
-
+The render() method [extracts](http://php.net/manual/en/function.extract.php) the $viewData property to make variables
+in the view. For example `$viewData['foo']` becomes `$foo`.
