@@ -15,7 +15,7 @@ class DashboardWidget extends WordPressObject
     protected $name;
     /** @var string The full path to the object's view file. */
     private $viewFile;
-    /** @var mixed[] An array of data to give the view file access to. */
+    /** @var mixed[] An array of data to pass to the view file. */
     private $viewData;
 
     /**
@@ -25,12 +25,14 @@ class DashboardWidget extends WordPressObject
      * @since 3.0.0
      *
      * @param string $name The name your widget will display in its heading.
-     * @param string|null $viewFile The full path to the object's view file.
+     * @param string $viewFile The full path to the object's view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, $viewFile)
+    public function __construct($name, $viewFile, $viewData = array())
     {
         $this->name             = $name;
         $this->viewFile         = $viewFile;
+        $this->viewData         = $viewData;
         $this->viewData['name'] = $this->getName();
         $this->viewData['slug'] = $this->getSlug();
 
