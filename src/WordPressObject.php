@@ -81,4 +81,16 @@ abstract class WordPressObject
     {
         return sanitize_title($this->name);
     }
+
+    /**
+     * Default display callback for WordPress objects.
+     *
+     * @since 4.0.0
+     *
+     * @return void
+     */
+    public function display()
+    {
+        View::render($this->viewFile, $this->viewData);
+    }
 }
