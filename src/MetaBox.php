@@ -9,18 +9,12 @@ namespace theantichris\SPF;
  */
 class MetaBox extends WordPressObject
 {
-    /** @var string Title of the edit screen section, visible to user. */
-    protected $name;
-    /** @var View The View object responsible for printing out the HTML for the edit screen section. */
-    private $view;
     /** @var string[] The type of Write screen on which to show the edit screen section. */
     private $postTypes = array();
     /** @var string The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side'). */
     private $context = 'advanced';
     /** @var string The priority within the context where the boxes should show ('high', 'core', 'default' or 'low'). */
     private $priority = 'default';
-    /** @var \mixed[] Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable. */
-    private $args = array();
 
     /**
      * Sets properties, ties the addMetaBox method to the add_meta_boxes hook, and ties the saveMetaBox method to the save_post hook.
@@ -30,15 +24,17 @@ class MetaBox extends WordPressObject
      * @since 3.0.0
      *
      * @param string $name Title of the edit screen section, visible to user.
-     * @param View $view The View object responsible for printing out the HTML for the edit screen section.
      * @param string|string[] $postTypes The type of Write screen on which to show the edit screen section.
+     * @param string $viewFile The View object responsible for printing out the HTML for the edit screen section.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    function __construct($name, $view, $postTypes)
+    function __construct($name, $postTypes, $viewFile, $viewData = array())
     {
-        $this->name                   = $name;
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->getName();
-        $this->view->viewData['slug'] = $this->getSlug();
+        $this->name             = $name;
+        $this->viewFile         = $viewFile;
+        $this->viewData         = $viewData;
+        $this->viewData['name'] = $this->getName();
+        $this->viewData['slug'] = $this->getSlug();
 
         if (is_array($postTypes)) {
             $this->postTypes = $postTypes;
@@ -77,19 +73,6 @@ class MetaBox extends WordPressObject
     }
 
     /**
-     * @since 3.0.0
-     *
-     * @param \mixed[] $args Arguments to pass into your callback function. The callback will receive the $post object and whatever parameters are passed through this variable.
-     * @return MetaBox
-     */
-    public function setArgs(array $args)
-    {
-        $this->args = $args;
-
-        return $this;
-    }
-
-    /**
      * Calls the WordPress function add_meta_box().
      * Do not call directly, it is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/add_meta_box
@@ -102,7 +85,7 @@ class MetaBox extends WordPressObject
     {
         /** @var string $postType */
         foreach ($this->postTypes as $postType) {
-            add_meta_box($this->getSlug(), $this->getName(), array($this, 'render'), $postType, $this->context, $this->priority, $this->args);
+            add_meta_box($this->getSlug(), $this->getName(), array($this, 'display'), $postType, $this->context, $this->priority);
         }
     }
 
@@ -145,14 +128,12 @@ class MetaBox extends WordPressObject
      * @since 3.0.0
      *
      * @param \WP_Post $post The current WordPress post object.
-     * @param \mixed[] $args Optional arguments specified from the $args property.
      * @return void
      */
-    public function render($post, $args)
+    public function display($post)
     {
-        $this->view->viewData['post'] = $post;
-        $this->view->viewData += $args['args'];
+        $this->viewData['post'] = $post;
 
-        $this->view->render();
+        View::render($this->viewFile, $this->viewData);
     }
 }
