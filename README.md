@@ -79,6 +79,11 @@ domain before it is returned.
 
     echo $someObject->getName();
 
+#### display()
+
+This method is never called directly but used as the display callback function for the WordPress Objects. It calls the
+View class' render() method passing in the object's $viewFile and $viewData property.
+
 ### PostType
 
 The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels
@@ -177,16 +182,17 @@ take the term description. This method checks if the term has already been added
 ### MetaBoxes
 
 Meta boxes containing custom fields can be added to your post types using this class. The object requires the name,
-View, and post type slugs to attach it to when instantiated.
+post type slugs to attach it to, and a view file when instantiated. View data can be passed in optionally.
 
-The constructor sets the parameters then ties the addMetaBox() method to the
+The constructor sets the properties then ties the addMetaBox() method to the
 [add_meta_boxes](http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes) hook and the saveMetaBox()
 method to the [save_post](http://codex.wordpress.org/Plugin_API/Action_Reference/save_post) hook.
 
 The $postTypes argument can either be a single string or an array of strings if you want to tie the meta box to multiple
  post types.
 
-The View's $viewFile should only contain the HTML for the input field and label for the custom field.
+The view file should contain the HTML for the input field and label for the custom field. An any special information it
+needs to display.
 
     $metaBox = new MetaBox('My MetaBox', $metaBoxView, $postTypes);
 
