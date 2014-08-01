@@ -14,7 +14,7 @@ class View
      *
      * @since 0.1.0
      * @param string $viewFile The full path to the view file.
-     * @param mixed[]|null $viewData An array of data to pass to the view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      * @return void
      */
     public static function render($viewFile, $viewData)
