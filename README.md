@@ -391,8 +391,8 @@ The addWidget() method calls the WordPress function
 You can replace the default WordPress welcome panel with a custom welcome panel using this class. This is accomplished
 using the [welcome_panel](http://codex.wordpress.org/Plugin_API/Action_Reference/welcome_panel) hook.
 
-The class only requires a View object to be passed in. The View's view file will contain the HTML you would like to the
-welcome panel to display.
+The class only requires a view file to be passed in but view data can be passed in optionally. The view file will
+contain the HTML you would like to the welcome panel to display.
 
     $welcomePanel = new WelcomePanel($welcomePanelView);
 
