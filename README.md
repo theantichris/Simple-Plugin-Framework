@@ -404,3 +404,6 @@ associative array of extra information needed in the view file if any.
 
 The render() method [extracts](http://php.net/manual/en/function.extract.php) the $viewData property to make variables
 in the view. For example `$viewData['foo']` becomes `$foo`.
+
+A view file is, at minimum, a php file that contains the HTML output of the object. You can include as little or as much
+logic in your view file as you want.
