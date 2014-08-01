@@ -45,18 +45,4 @@ class DashboardWidget extends WordPressObject
     {
         wp_add_dashboard_widget($this->getSlug(), $this->getName(), array($this, 'display'));
     }
-
-    /**
-     * Passes the view file and data to the the render() method.
-     * Callback for wp_add_dashboard_widget() in addWidget().
-     * Should not be called directly. It is only public so WordPress can call it.
-     *
-     * @since 4.0.0
-     *
-     * @return void
-     */
-    public function display()
-    {
-        View::render($this->viewFile, $this->viewData);
-    }
 }
