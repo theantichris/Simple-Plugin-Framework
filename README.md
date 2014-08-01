@@ -225,15 +225,12 @@ This sets an array of optional arguments that will be sent to the MetaBox's View
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes.
  All page classes inherit from the Page abstract class.
 
-All page classes require a name and View when instantiated. The slug and name are added to the View's $viewData array
-automatically.
+All page classes require a name and view file when instantiated, $viewData can be passed in optionally.  The slug and
+name are added to the $viewData array automatically.
 
 The base constructor sets the parameters then ties the abstract addPage() method to the
 [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is
 overridden in the child classes to use the correct WordPress function to add that type of page.
-
-The display() method in the Page class is used as the display call back for all pages and will run the page object's
-View's render() method.
 
 #### Setters
 
