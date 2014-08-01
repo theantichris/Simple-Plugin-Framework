@@ -11,13 +11,6 @@ namespace theantichris\SPF;
  */
 class DashboardWidget extends WordPressObject
 {
-    /** @var string The name your widget will display in its heading. */
-    protected $name;
-    /** @var string The full path to the object's view file. */
-    private $viewFile;
-    /** @var mixed[] An array of data to pass to the view file. */
-    private $viewData;
-
     /**
      * Assigns properties, sets name and slug in the View's $viewData, and ties the addWidget() method to the wp_dashboard_setup hook.
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup
