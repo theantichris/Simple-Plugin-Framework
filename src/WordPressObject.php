@@ -84,6 +84,7 @@ abstract class WordPressObject
 
     /**
      * Default display callback for WordPress objects.
+     * Do not call directly, it is only public so WordPress can call it.
      *
      * @since 4.0.0
      *

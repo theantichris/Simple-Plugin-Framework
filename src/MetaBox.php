@@ -122,7 +122,7 @@ class MetaBox extends WordPressObject
     }
 
     /**
-     * Adds the post to the view data then renders the HTML.
+     * Override of the base display() method to add post information to $viewData.
      * Do not call directly, it is only public so WordPress can call it.
      *
      * @since 3.0.0
