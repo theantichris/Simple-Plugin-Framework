@@ -341,11 +341,12 @@ generated automatically to create a <label> tag for the field.
 
 #### SettingsSection
 
-The SettingsSection class requires a name to be instantiated. Optionally a View can be specified.
+The SettingsSection class requires a name to be instantiated. A view file and view data can be passed in, optionally.
 
-Unless you need to display something specific like instructions to the user you do not need to pass in a View since
-WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property
-automatically.
+Unless you need to display something specific like instructions to the user you do not need to include a view file since
+WordPress will automatically display the section's name on the page.
+
+If you do use a view file the name is added to the $viewData property automatically.
 
     $section = new SettingsSection('Section One', $sectionView);
 
