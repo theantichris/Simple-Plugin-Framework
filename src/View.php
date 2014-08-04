@@ -9,42 +9,31 @@ namespace theantichris\SPF;
  */
 class View
 {
-    /** @var \string Full path to the view file. */
-    private $viewFile;
-    /** @var \mixed[] Any data the view needs to know about. */
-    public $viewData;
-
     /**
-     * @since 2.0.0
-     * @param \string $viewFile
-     * @param \mixed[] $viewData
-     * @param \string $textDomain
-     */
-    public function __construct($viewFile, $viewData = array(), $textDomain = '')
-    {
-        $this->viewFile = $viewFile;
-        $this->viewData = $viewData;
-    }
-
-    /**
+     * Passes data into and renders a view file.
+     *
      * @since 0.1.0
+     * @param string $viewFile The full path to the view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      * @return void
      */
-    public function render()
+    public static function render($viewFile, $viewData)
     {
-        if ($this->viewData) {
-            extract($this->viewData);
+        if ($viewData) {
+            extract($viewData);
         }
 
-        ob_start(); // Start the output buffer.
+        // TODO: Try without output buffer.
+
+        ob_start();
 
         /** @noinspection PhpIncludeInspection */
-        include($this->viewFile); // Include the template.
+        include($viewFile);
 
         /** @var string $template Contains the contents of the output buffer. */
-        $template = ob_get_contents(); // Add the template contents to the output buffer.
+        $template = ob_get_contents();
 
-        ob_end_clean(); // End the output buffer.
+        ob_end_clean();
 
         echo $template;
     }

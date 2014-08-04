@@ -13,10 +13,6 @@ namespace theantichris\SPF;
  */
 abstract class Page extends WordPressObject
 {
-    /** @var string The text to be displayed in the title tags of the page when the menu is selected. */
-    protected $name;
-    /** @var View The View object responsible for rendering the page. */
-    protected $view;
     /** @var string The capability required for this menu to be displayed to the user. */
     protected $capability = Capability::manage_options;
     /** @var string The url to the icon to be used for this menu or the name of the icon from the iconfont. */
@@ -31,14 +27,16 @@ abstract class Page extends WordPressObject
      * @since 0.1.0
      *
      * @param string $name The text to be displayed in the title tags of the page when the menu is selected.
-     * @param View $view The View object responsible for rendering the page.
+     * @param string $viewFile The full path to the view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, View $view)
+    public function __construct($name, $viewFile, $viewData = array())
     {
-        $this->name                   = $name;
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->getName();
-        $this->view->viewData['slug'] = $this->getSlug();
+        $this->name             = $name;
+        $this->viewFile         = $viewFile;
+        $this->viewData         = $viewData;
+        $this->viewData['name'] = $this->getName();
+        $this->viewData['slug'] = $this->getSlug();
 
         add_action('admin_menu', array($this, 'addPage'));
     }
@@ -104,7 +102,7 @@ abstract class Page extends WordPressObject
     abstract public function addPage();
 
     /**
-     * Displays the HTML output of the page if the user has the correct capability.
+     * Overridden version of the base display() method to add capability checking.
      * Should not be called directly. It is only public so WordPress can call it.
      * @link http://codex.wordpress.org/Function_Reference/current_user_can
      *
@@ -118,6 +116,6 @@ abstract class Page extends WordPressObject
             wp_die(__('You do not have sufficient permissions to access this page.', parent::$textDomain));
         }
 
-        $this->view->render();
+        View::render($this->viewFile, $this->viewData);
     }
 }

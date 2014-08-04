@@ -79,6 +79,11 @@ domain before it is returned.
 
     echo $someObject->getName();
 
+#### display()
+
+This method is never called directly but used as the display callback function for the WordPress Objects. It calls the
+View class' render() method passing in the object's $viewFile and $viewData property.
+
 ### PostType
 
 The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels
@@ -177,16 +182,17 @@ take the term description. This method checks if the term has already been added
 ### MetaBoxes
 
 Meta boxes containing custom fields can be added to your post types using this class. The object requires the name,
-View, and post type slugs to attach it to when instantiated.
+post type slugs to attach it to, and a view file when instantiated. View data can be passed in optionally.
 
-The constructor sets the parameters then ties the addMetaBox() method to the
+The constructor sets the properties then ties the addMetaBox() method to the
 [add_meta_boxes](http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes) hook and the saveMetaBox()
 method to the [save_post](http://codex.wordpress.org/Plugin_API/Action_Reference/save_post) hook.
 
 The $postTypes argument can either be a single string or an array of strings if you want to tie the meta box to multiple
  post types.
 
-The View's $viewFile should only contain the HTML for the input field and label for the custom field.
+The view file should contain the HTML for the input field and label for the custom field. An any special information it
+needs to display.
 
     $metaBox = new MetaBox('My MetaBox', $metaBoxView, $postTypes);
 
@@ -219,15 +225,12 @@ This sets an array of optional arguments that will be sent to the MetaBox's View
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes.
  All page classes inherit from the Page abstract class.
 
-All page classes require a name and View when instantiated. The slug and name are added to the View's $viewData array
-automatically.
+All page classes require a name and view file when instantiated, $viewData can be passed in optionally.  The slug and
+name are added to the $viewData array automatically.
 
 The base constructor sets the parameters then ties the abstract addPage() method to the
 [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is
 overridden in the child classes to use the correct WordPress function to add that type of page.
-
-The display() method in the Page class is used as the display call back for all pages and will run the page object's
-View's render() method.
 
 #### Setters
 
@@ -323,28 +326,27 @@ The Settings constructor requires the slug for the page the settings will be dis
 
 #### SettingsFields
 
-The SettingsField constructor requires a name and View to be passed in.
+The SettingsField constructor requires a name, prefix, and a view file to be passed in. View data can be passed in as
+well.
 
-The View file should only contain the HTML needed to render the input field. The name and slug are added to the View's
-$viewData property automatically.
+You must specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix
+parameter.
 
-You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix
-parameter. This defaults to 'spf'.
+The view file should only contain the HTML and logic needed to render the input field. The name and slug are added to
+the $viewData property automatically.
 
-The $args parameter can be used to pass in additional arguments for the field in WordPress. A __label_for__ argument is
-generated automatically to create a <label> tag for the field.
-
-    $field = new SettingsField('My Field', $viewView);
+    $field = new SettingsField('My Field', $prefix, $viewView, $viewData);
 
 #### SettingsSection
 
-The SettingsSection class requires a name to be instantiated. Optionally a View can be specified.
+The SettingsSection class requires a name to be instantiated. A view file and view data can be passed in, optionally.
 
-Unless you need to display something specific like instructions to the user you do not need to pass in a View since
-WordPress will automatically display the section's name on the page. The name is added to the View's $viewData property
-automatically.
+Unless you need to display something specific like instructions to the user you do not need to include a view file since
+WordPress will automatically display the section's name on the page.
 
-    $section = new SettingsSection('Section One', $sectionView);
+If you do use a view file the name is added to the $viewData property automatically.
+
+    $section = new SettingsSection('Section One', $viewFile, $viewData);
 
 #### Adding SettingsField to SettingsSection
 
@@ -372,9 +374,11 @@ or...
 
 You can use the DashboardWidget class to add a new widget to the WordPress dashboard.
 
-The class takes a name and View object when instantiated. The constructor assigns the properties, adds the name and slug
- to the View's data, then ties the addWidget() method to the
- [wp_dashboard_setup](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup) hook.
+The class takes a name and path to a view file when instantiated. Data you need to pass to the view can be supplied in
+the optional $viewData argument. The DashboardWidget's name and slug are automatically added to the $viewData.
+
+The constructor assigns the properties and ties the addWidget() method to the
+[wp_dashboard_setup](http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup) hook.
 
 The addWidget() method calls the WordPress function
 [wp_add_dashboard_widget](http://codex.wordpress.org/Function_Reference/wp_add_dashboard_widget).
@@ -386,23 +390,22 @@ The addWidget() method calls the WordPress function
 You can replace the default WordPress welcome panel with a custom welcome panel using this class. This is accomplished
 using the [welcome_panel](http://codex.wordpress.org/Plugin_API/Action_Reference/welcome_panel) hook.
 
-The class only requires a View object to be passed in. The View's view file will contain the HTML you would like to the
-welcome panel to display.
+The class only requires a view file to be passed in but view data can be passed in optionally. The view file will
+contain the HTML you would like to the welcome panel to display.
 
     $welcomePanel = new WelcomePanel($welcomePanelView);
 
 ## Views
 
-The WordPressObject classes use the included View class to manage their display.
+The WordPressObject classes use the included static View class to display their output. Each object has a display()
+method that is used as the callback in the WordPress functions.
 
-The View class requires a view file when instantiated. This view file is a PHP file that contains the HTML to display
-the WordPress object. The view file should contain as little logic as possible to keep code clean and easy to manage.
+This display() method calls View::render() passing in the $viewFile and $viewData properties. The $viewFile property is
+a string representing the full path and file name of the file to use as the view. The $viewData property is an
+associative array of extra information needed in the view file if any.
 
-    $view = new View('FULL_PATH_AND_FILE_NAME');
+The render() method [extracts](http://php.net/manual/en/function.extract.php) the $viewData property to make variables
+in the view. For example `$viewData['foo']` becomes `$foo`.
 
-To pass data to the view file add it to the Views $viewData property. The $viewData property is an associative array
-that gets [extracted](http://php.net/manual/en/function.extract.php) when the view file is rendered. This adds a
-variable with the same name as the array key.
-
-    $view->viewData['key'] = 'value'; // Becomes $key on the view file.
-
+A view file is, at minimum, a php file that contains the HTML output of the object. You can include as little or as much
+logic in your view file as you want.

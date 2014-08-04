@@ -13,6 +13,10 @@ abstract class WordPressObject
     public static $textDomain = 'default';
     /** @var string Name or title of the WordPress object. */
     protected $name;
+    /** @var string The full path to the object's view file. */
+    protected $viewFile;
+    /** @var mixed[] An array of data to pass to the view file. */
+    protected $viewData;
 
     /**
      * Takes a plural string and returns the singular version.     *
@@ -60,7 +64,8 @@ abstract class WordPressObject
      *
      * @return string
      */
-    public function getName(){
+    public function getName()
+    {
         return __($this->name, self::$textDomain);
     }
 
@@ -75,5 +80,18 @@ abstract class WordPressObject
     public function getSlug()
     {
         return sanitize_title($this->name);
+    }
+
+    /**
+     * Default display callback for WordPress objects.
+     * Do not call directly, it is only public so WordPress can call it.
+     *
+     * @since 4.0.0
+     *
+     * @return void
+     */
+    public function display()
+    {
+        View::render($this->viewFile, $this->viewData);
     }
 }

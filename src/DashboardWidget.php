@@ -11,11 +11,6 @@ namespace theantichris\SPF;
  */
 class DashboardWidget extends WordPressObject
 {
-    /** @var string The name your widget will display in its heading. */
-    protected $name;
-    /** @var View The View object responsible for displaying the widget. */
-    private $view;
-
     /**
      * Assigns properties, sets name and slug in the View's $viewData, and ties the addWidget() method to the wp_dashboard_setup hook.
      * @link http://codex.wordpress.org/Plugin_API/Action_Reference/wp_dashboard_setup
@@ -23,14 +18,16 @@ class DashboardWidget extends WordPressObject
      * @since 3.0.0
      *
      * @param string $name The name your widget will display in its heading.
-     * @param View $view The View object responsible for displaying the widget.
+     * @param string $viewFile The full path to the object's view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, View $view)
+    public function __construct($name, $viewFile, $viewData = array())
     {
-        $this->name                   = $name;
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->getName();
-        $this->view->viewData['slug'] = $this->getSlug();
+        $this->name             = $name;
+        $this->viewFile         = $viewFile;
+        $this->viewData         = $viewData;
+        $this->viewData['name'] = $this->getName();
+        $this->viewData['slug'] = $this->getSlug();
 
         add_action('wp_dashboard_setup', array($this, 'addWidget'));
     }
@@ -46,6 +43,6 @@ class DashboardWidget extends WordPressObject
      */
     public function addWidget()
     {
-        wp_add_dashboard_widget($this->getSlug(), $this->getName(), array($this->view, 'render'));
+        wp_add_dashboard_widget($this->getSlug(), $this->getName(), array($this, 'display'));
     }
 }

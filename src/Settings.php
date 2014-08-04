@@ -113,7 +113,7 @@ class Settings extends WordPressObject
 
             /** @var SettingsField $field */
             foreach ($fields as $field) {
-                add_settings_field($field->getSlug(), $field->getName(), array($field, 'display'), $this->pageSlug, $section->getSlug(), $field->getArgs());
+                add_settings_field($field->getSlug(), $field->getName(), array($field, 'display'), $this->pageSlug, $section->getSlug());
 
                 register_setting($this->pageSlug, $field->getSlug());
             }

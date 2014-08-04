@@ -13,8 +13,6 @@ namespace theantichris\SPF;
  */
 class PostType extends WordPressObject
 {
-    /** @var string General name for the post type, must be plural. */
-    protected $name;
     /** @var string[] An array of labels for this post type. */
     private $labels;
     /** @var string A short descriptive summary of what the post type is. */

@@ -9,10 +9,6 @@ namespace theantichris\SPF;
  */
 class SettingsSection extends WordPressObject
 {
-    /** @var string Title of the section. Used to generate the slug. */
-    protected $name;
-    /** @var View|null The View object responsible for rendering the field's HTML. */
-    private $view;
     /** @var SettingsField[] An array of settings fields added to the section. */
     private $settingsFields = array();
 
@@ -22,20 +18,22 @@ class SettingsSection extends WordPressObject
      * @since 2.0.0
      *
      * @param string $name Title of the section. Used to generate the slug.
-     * @param View|null $view The View object responsible for rendering the field's HTML.
+     * @param string $viewFile The full path to the view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, $view = null)
+    public function __construct($name, $viewFile = '', $viewData = array())
     {
         $this->name = $name;
 
-        if (!empty($view)) {
-            $this->view                   = $view;
-            $this->view->viewData['name'] = $this->getName();
+        if (!empty($viewFile)) {
+            $this->viewFile = $viewFile;
+            $this->viewData         = $viewData;
+            $this->viewData['name'] = $this->getName();
         }
     }
 
     /**
-     * Renders the sections HTML.
+     * Override of the parent class display() method.
      * Should not be called directly. It is only public so WordPress can call it.
      *
      * @since 2.0.0
@@ -48,7 +46,7 @@ class SettingsSection extends WordPressObject
             return;
         }
 
-        $this->view->render();
+        View::render($this->viewFile, $this->viewData);
     }
 
     /**
