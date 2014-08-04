@@ -7,6 +7,7 @@
 * display() method added to WordPressObject class
 * $prefix is now required on SettingsField class
 * Default $prefix value removed for SettingsField class
+* $args property removed from SettingsField class, use $viewData instead
 * Redundant properties and methods removed from child classes
 
 ### 3.0.0
