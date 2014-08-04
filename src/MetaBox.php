@@ -85,7 +85,7 @@ class MetaBox extends WordPressObject
     {
         /** @var string $postType */
         foreach ($this->postTypes as $postType) {
-            add_meta_box($this->getSlug(), $this->getName(), array($this, 'display'), $postType, $this->context, $this->priority);
+            add_meta_box($this->getSlug(), $this->getName(), array($this, 'displayMetaBox'), $postType, $this->context, $this->priority);
         }
     }
 
@@ -122,17 +122,17 @@ class MetaBox extends WordPressObject
     }
 
     /**
-     * Gets called when a method that isn't defined is called. Used for overloading.
+     * Special display callback for the object that takes a WordPress post object as a parameter.
+     * Do not call directly, it is only public so WordPress can call it.
      *
-     * @param string $methodName Name of method called.
-     * @param mixed[] $parameter Array of parameters from the method call.
+     * @since 3.0.0
+     *
+     * @param \WP_Post $post The current WordPress post object.
+     * @return void
      */
-    public function __call($methodName, $parameter)
+    public function displayMetaBox($post)
     {
-        // Overload of display() method.
-        if ($methodName == 'display') {
-            $this->viewData['post'] = $parameter[0];
-            View::render($this->viewFile, $this->viewData);
-        }
+        $this->viewData['post'] = $post;
+        View::render($this->viewFile, $this->viewData);
     }
 }
