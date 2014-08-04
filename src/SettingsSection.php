@@ -21,12 +21,12 @@ class SettingsSection extends WordPressObject
      * @param string $viewFile The full path to the view file.
      * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, $viewFile, $viewData = array())
+    public function __construct($name, $viewFile = '', $viewData = array())
     {
         $this->name = $name;
 
-        if (!empty($view)) {
-            $this->view             = $view;
+        if (!empty($viewFile)) {
+            $this->viewFile = $viewFile;
             $this->viewData         = $viewData;
             $this->viewData['name'] = $this->getName();
         }
