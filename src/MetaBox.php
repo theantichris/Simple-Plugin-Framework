@@ -121,19 +121,11 @@ class MetaBox extends WordPressObject
         update_post_meta($postId, $this->getSlug(), sanitize_text_field($_POST[$this->getSlug()]));
     }
 
-    /**
-     * Override of the base display() method to add post information to $viewData.
-     * Do not call directly, it is only public so WordPress can call it.
-     *
-     * @since 3.0.0
-     *
-     * @param \WP_Post $post The current WordPress post object.
-     * @return void
-     */
-    public function display($post)
+    public function __call($methodName, $parameter)
     {
-        $this->viewData['post'] = $post;
-
-        View::render($this->viewFile, $this->viewData);
+        if ($methodName == 'display') {
+            $this->viewData['post'] = $parameter[0];
+            View::render($this->viewFile, $this->viewData);
+        }
     }
 }
