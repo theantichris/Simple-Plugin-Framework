@@ -121,8 +121,15 @@ class MetaBox extends WordPressObject
         update_post_meta($postId, $this->getSlug(), sanitize_text_field($_POST[$this->getSlug()]));
     }
 
+    /**
+     * Gets called when a method that isn't defined is called. Used for overloading.
+     *
+     * @param string $methodName Name of method called.
+     * @param mixed[] $parameter Array of parameters from the method call.
+     */
     public function __call($methodName, $parameter)
     {
+        // Overload of display() method.
         if ($methodName == 'display') {
             $this->viewData['post'] = $parameter[0];
             View::render($this->viewFile, $this->viewData);
