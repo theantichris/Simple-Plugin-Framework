@@ -326,18 +326,16 @@ The Settings constructor requires the slug for the page the settings will be dis
 
 #### SettingsFields
 
-The SettingsField constructor requires a name and View to be passed in.
+The SettingsField constructor requires a name, prefix, and a view file to be passed in. View data can be passed in as
+well.
 
-The View file should only contain the HTML needed to render the input field. The name and slug are added to the View's
-$viewData property automatically.
+You must specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix
+parameter.
 
-You can specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix
-parameter. This defaults to 'spf'.
+The view file should only contain the HTML and logic needed to render the input field. The name and slug are added to
+the $viewData property automatically.
 
-The $args parameter can be used to pass in additional arguments for the field in WordPress. A __label_for__ argument is
-generated automatically to create a <label> tag for the field.
-
-    $field = new SettingsField('My Field', $viewView);
+    $field = new SettingsField('My Field', $prefix, $viewView, $viewData);
 
 #### SettingsSection
 
@@ -348,7 +346,7 @@ WordPress will automatically display the section's name on the page.
 
 If you do use a view file the name is added to the $viewData property automatically.
 
-    $section = new SettingsSection('Section One', $sectionView);
+    $section = new SettingsSection('Section One', $viewFile, $viewData);
 
 #### Adding SettingsField to SettingsSection
 

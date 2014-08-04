@@ -9,14 +9,8 @@ namespace theantichris\SPF;
  */
 class SettingsField extends WordPressObject
 {
-    /** @var string Title of the field. Used to generate the slug. */
-    protected $name;
-    /** @var View The View object responsible for rendering the field's HTML. */
-    private $view;
     /** @var string An identifier that will be prefixed to the ID to prevent naming conflicts in the database. */
     private $prefix;
-    /** @var mixed[] Additional arguments that are passed to the $callback function. */
-    private $args;
 
     /**
      * Assigns properties and sets up the view.
@@ -24,19 +18,18 @@ class SettingsField extends WordPressObject
      * @since 2.0.0
      *
      * @param string $name Title of the field. Used to generate the slug.
-     * @param View $view The View object responsible for rendering the field's HTML.
      * @param string $prefix An identifier that will be prefixed to the ID to prevent naming conflicts in the database.
-     * @param mixed[] $args Additional arguments that are passed to the $callback function.
+     * @param string $viewFile The full path to the view file.
+     * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, View $view, $prefix = 'spf', $args = array())
+    public function __construct($name, $prefix, $viewFile, $viewData = array())
     {
-        $this->prefix                 = $prefix;
-        $this->name                   = $name;
-        $this->args                   = $args;
-        $this->args['label_for']      = $this->getSlug(); // Automatically adds a <label> to the field.
-        $this->view                   = $view;
-        $this->view->viewData['name'] = $this->getName();
-        $this->view->viewData['slug'] = $this->getSlug();
+        $this->prefix           = $prefix;
+        $this->name             = $name;
+        $this->viewData         = $viewData;
+        $this->viewFile         = $viewFile;
+        $this->viewData['name'] = $this->getName();
+        $this->viewData['slug'] = $this->getSlug();
     }
 
     /**
@@ -49,30 +42,5 @@ class SettingsField extends WordPressObject
     public function getSlug()
     {
         return $this->prefix . '-' . sanitize_title($this->name);
-    }
-
-    /**
-     * Returns $args.
-     *
-     * @since 2.0.0
-     *
-     * @return mixed[]
-     */
-    public function getArgs()
-    {
-        return $this->args;
-    }
-
-    /**
-     * Renders the fields' view.
-     * Should not be called directly. It is only public so WordPress can call it.
-     *
-     * @since 2.0.0
-     *
-     * @return void
-     */
-    public function display()
-    {
-        $this->view->render();
     }
 } 
