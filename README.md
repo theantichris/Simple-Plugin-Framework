@@ -48,12 +48,6 @@ WordPressObject parent class. This is optional, the text domain has a default va
 
     WordPressObject::$textDomain = 'my-text-domain';
 
-#### makeSingular()
-
-The makeSingular() method takes a word as a string and returns the singular version of the word. The PostType and
-Taxonomy classes use this to generate labels. This is a protected method and gets called automatically where it is
-needed.
-
 #### getSlug()
 
 Slugs are automatically generated for all objects other than Settings.
