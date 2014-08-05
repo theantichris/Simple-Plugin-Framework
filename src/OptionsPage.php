@@ -24,6 +24,7 @@ class OptionsPage extends Page
      */
     public function addPage()
     {
-        add_options_page($this->getName(), $this->getName(), $this->capability, $this->getSlug(), array($this, 'display'));
+        $name = $this->getName();
+        add_options_page($name, $name, $this->capability, $this->getSlug(), array($this, 'display'));
     }
 }

@@ -27,7 +27,9 @@ class SubMenuPage extends Page
      */
     public function addPage()
     {
-        add_submenu_page($this->parentSlug, $this->getName(), $this->getName(), $this->capability, $this->getSlug(), array($this, 'display'));
+        $name = $this->getName();
+
+        add_submenu_page($this->parentSlug, $name, $name, $this->capability, $this->getSlug(), array($this, 'display'));
     }
 
     /**

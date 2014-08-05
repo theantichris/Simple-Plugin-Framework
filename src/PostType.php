@@ -61,24 +61,25 @@ class PostType extends WordPressObject
      */
     private function setLabels()
     {
-        /** @var string $singular Singular version of $name. */
-        $singular = Helper::makeSingular($this->name);
+        $name     = $this->name;
+        $singular = Helper::makeSingular($name);
 
-        /** @var string[] $labels */
+        $textDomain = parent::$textDomain;
+
         $labels = array(
-            'name'               => __($this->name, parent::$textDomain),
-            'singular_name'      => __($singular, parent::$textDomain),
-            'add_new'            => __('Add New', parent::$textDomain),
-            'add_new_item'       => __('Add New ' . $singular, parent::$textDomain),
-            'edit_item'          => __('Edit ' . $singular, parent::$textDomain),
-            'new_item'           => __('New ' . $singular, parent::$textDomain),
-            'all_items'          => __('All ' . $this->name, parent::$textDomain),
-            'view_item'          => __('View ' . $singular, parent::$textDomain),
-            'search_items'       => __('Search ' . $this->name, parent::$textDomain),
-            'not_found'          => __('No ' . strtolower($this->name) . ' found.', parent::$textDomain),
-            'not_found_in_trash' => __('No ' . strtolower($this->name) . ' found in Trash.', parent::$textDomain),
+            'name'               => __($name, $textDomain),
+            'singular_name'      => __($singular, $textDomain),
+            'add_new'            => __('Add New', $textDomain),
+            'add_new_item'       => __('Add New ' . $singular, $textDomain),
+            'edit_item'          => __('Edit ' . $singular, $textDomain),
+            'new_item'           => __('New ' . $singular, $textDomain),
+            'all_items'          => __('All ' . $name, $textDomain),
+            'view_item'          => __('View ' . $singular, $textDomain),
+            'search_items'       => __('Search ' . $name, $textDomain),
+            'not_found'          => __('No ' . strtolower($name) . ' found.', $textDomain),
+            'not_found_in_trash' => __('No ' . strtolower($name) . ' found in Trash.', $textDomain),
             'parent_item_colon'  => '',
-            'menu_name'          => __($this->name, parent::$textDomain)
+            'menu_name'          => __($name, $textDomain)
         );
 
         return $labels;

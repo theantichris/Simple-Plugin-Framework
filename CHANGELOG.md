@@ -11,6 +11,7 @@
 * Redundant properties and methods removed from child classes
 * Created Helper static class
 * Moved makeSingular() from WordPressObject to Helper
+* Misc. refactoring
 
 ### 3.0.0
 

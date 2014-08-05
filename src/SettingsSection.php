@@ -26,7 +26,7 @@ class SettingsSection extends WordPressObject
         $this->name = $name;
 
         if (!empty($viewFile)) {
-            $this->viewFile = $viewFile;
+            $this->viewFile         = $viewFile;
             $this->viewData         = $viewData;
             $this->viewData['name'] = $this->getName();
         }
@@ -81,10 +81,12 @@ class SettingsSection extends WordPressObject
      */
     private function addField(SettingsField $field)
     {
-        if (array_key_exists($field->getSlug(), $this->settingsFields)) {
-            wp_die(__("A field with ID {$field->getSlug()} was already added to the settings section {$this->getSlug()} page.", parent::$textDomain));
+        $fieldSlug = $field->getSlug();
+
+        if (array_key_exists($fieldSlug, $this->settingsFields)) {
+            wp_die(__("A field with ID {$fieldSlug} was already added to the settings section {$this->getSlug()} page.", parent::$textDomain));
         } else {
-            $this->settingsFields[$field->getSlug()] = $field;
+            $this->settingsFields[$fieldSlug] = $field;
         }
     }
 

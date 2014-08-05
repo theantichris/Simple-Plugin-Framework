@@ -13,7 +13,6 @@ namespace theantichris\SPF;
  */
 class Taxonomy extends WordPressObject
 {
-    protected $name;
     /** @var string|string[] Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered. */
     private $postTypes;
     /** @var array An array of labels for this taxonomy. */
@@ -47,21 +46,23 @@ class Taxonomy extends WordPressObject
      */
     private function setLabels()
     {
-        /** @var string $singular Singular version of the taxonomy name. */
-        $singular = Helper::makeSingular($this->name);
+        $name     = $this->name;
+        $singular = Helper::makeSingular($name);
+
+        $textDomain = parent::$textDomain;
 
         return array(
-            'name'              => __($this->name, parent::$textDomain),
-            'singular_name'     => __($singular, parent::$textDomain),
-            'search_items'      => __('Search ' . $this->name, parent::$textDomain),
-            'all_items'         => __('All ' . $this->name, parent::$textDomain),
-            'parent_item'       => __('Parent ' . $singular, parent::$textDomain),
-            'parent_item_colon' => __('Parent ' . $singular . ':', parent::$textDomain),
-            'edit_item'         => __('Edit ' . $singular, parent::$textDomain),
-            'update_item'       => __('Update ' . $singular, parent::$textDomain),
-            'add_new_item'      => __('Add New ' . $singular, parent::$textDomain),
-            'new_item_name'     => __('New ' . $singular . ' Name', parent::$textDomain),
-            'menu_name'         => __($singular, parent::$textDomain),
+            'name'              => __($name, $textDomain),
+            'singular_name'     => __($singular, $textDomain),
+            'search_items'      => __('Search ' . $name, $textDomain),
+            'all_items'         => __('All ' . $name, $textDomain),
+            'parent_item'       => __('Parent ' . $singular, $textDomain),
+            'parent_item_colon' => __('Parent ' . $singular . ':', $textDomain),
+            'edit_item'         => __('Edit ' . $singular, $textDomain),
+            'update_item'       => __('Update ' . $singular, $textDomain),
+            'add_new_item'      => __('Add New ' . $singular, $textDomain),
+            'new_item_name'     => __('New ' . $singular . ' Name', $textDomain),
+            'menu_name'         => __($singular, $textDomain),
         );
     }
 
@@ -77,13 +78,15 @@ class Taxonomy extends WordPressObject
      */
     public function registerCustomTaxonomy()
     {
-        if (!taxonomy_exists($this->getSlug())) {
+        $slug = $this->getSlug();
+
+        if (!taxonomy_exists($slug)) {
             /** @var string[] $arguments */
             $arguments = array(
                 'labels' => $this->labels,
             );
 
-            register_taxonomy($this->getSlug(), $this->postTypes, $arguments);
+            register_taxonomy($slug, $this->postTypes, $arguments);
         }
     }
 
@@ -99,12 +102,14 @@ class Taxonomy extends WordPressObject
      */
     public function addTerm($term, $description = '')
     {
-        if (is_array($this->terms)) {
-            if (!array_key_exists($term, $this->terms)) {
-                $this->terms[$term] = $description;
+        $terms = $this->terms;
+
+        if (is_array($terms)) {
+            if (!array_key_exists($term, $terms)) {
+                $terms[$term] = $description;
             }
         } else {
-            $this->terms[$term] = $description;
+            $terms[$term] = $description;
         }
 
         add_action('init', array($this, 'insertTerms'));
