@@ -48,7 +48,7 @@ class Taxonomy extends WordPressObject
     private function setLabels()
     {
         /** @var string $singular Singular version of the taxonomy name. */
-        $singular = $this->makeSingular($this->name);
+        $singular = Helper::makeSingular($this->name);
 
         return array(
             'name'              => __($this->name, parent::$textDomain),

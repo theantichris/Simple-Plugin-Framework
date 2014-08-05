@@ -62,7 +62,7 @@ class PostType extends WordPressObject
     private function setLabels()
     {
         /** @var string $singular Singular version of $name. */
-        $singular = $this->makeSingular($this->name);
+        $singular = Helper::makeSingular($this->name);
 
         /** @var string[] $labels */
         $labels = array(
