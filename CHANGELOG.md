@@ -9,6 +9,8 @@
 * Default $prefix value removed for SettingsField class
 * $args property removed from SettingsField class, use $viewData instead
 * Redundant properties and methods removed from child classes
+* Created Helper static class
+* Moved makeSingular() from WordPressObject to Helper
 
 ### 3.0.0
 
