@@ -1,6 +1,10 @@
+### 5.0.0
+* Due to the nature of this update most object constructor signatures have been changed and will need to be updated
+* Slugs are no longer generated automatically but required on object instantiation
+
 ### 4.0.0
 
-* Due to the nature of this update most object constructor signatures have been updated
+* Due to the nature of this update most object constructor signatures have been changed and will need to be updated
 * View class made static
 * $viewFile property added to WordPressObject class
 * $viewData property added to WordPressObject class

@@ -43,10 +43,12 @@ class PostType extends WordPressObject
      * @since 0.1.0
      *
      * @param string $name General name for the post type, must be plural.
+     * @param string $slug Unique identifier for the object in the WordPress database.
      */
-    function __construct($name)
+    function __construct($name, $slug)
     {
         $this->name   = $name;
+        $this->slug   = $slug;
         $this->labels = $this->setLabels();
 
         add_action('init', array($this, 'registerPostType'));
@@ -61,25 +63,24 @@ class PostType extends WordPressObject
      */
     private function setLabels()
     {
-        $name     = $this->name;
-        $singular = Helper::makeSingular($name);
+        $singular = Helper::makeSingular($this->name);
 
         $textDomain = parent::$textDomain;
 
         $labels = array(
-            'name'               => __($name, $textDomain),
+            'name'               => __($this->name, $textDomain),
             'singular_name'      => __($singular, $textDomain),
             'add_new'            => __('Add New', $textDomain),
             'add_new_item'       => __('Add New ' . $singular, $textDomain),
             'edit_item'          => __('Edit ' . $singular, $textDomain),
             'new_item'           => __('New ' . $singular, $textDomain),
-            'all_items'          => __('All ' . $name, $textDomain),
+            'all_items'          => __('All ' . $this->name, $textDomain),
             'view_item'          => __('View ' . $singular, $textDomain),
-            'search_items'       => __('Search ' . $name, $textDomain),
-            'not_found'          => __('No ' . strtolower($name) . ' found.', $textDomain),
-            'not_found_in_trash' => __('No ' . strtolower($name) . ' found in Trash.', $textDomain),
+            'search_items'       => __('Search ' . $this->name, $textDomain),
+            'not_found'          => __('No ' . strtolower($this->name) . ' found.', $textDomain),
+            'not_found_in_trash' => __('No ' . strtolower($this->name) . ' found in Trash.', $textDomain),
             'parent_item_colon'  => '',
-            'menu_name'          => __($name, $textDomain)
+            'menu_name'          => __($this->name, $textDomain)
         );
 
         return $labels;
