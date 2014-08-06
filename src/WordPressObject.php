@@ -13,6 +13,8 @@ abstract class WordPressObject
     public static $textDomain = 'default';
     /** @var string Name or title of the WordPress object. */
     protected $name;
+    /** @var  string Unique identifier for the object in the WordPress database. */
+    protected $slug;
     /** @var string The full path to the object's view file. */
     protected $viewFile;
     /** @var mixed[] An array of data to pass to the view file. */
@@ -40,7 +42,7 @@ abstract class WordPressObject
      */
     public function getSlug()
     {
-        return sanitize_title($this->name);
+        return $this->slug;
     }
 
     /**
