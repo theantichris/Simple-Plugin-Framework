@@ -68,10 +68,12 @@ class Settings extends WordPressObject
      */
     private function addSection(SettingsSection $section)
     {
-        if (array_key_exists($section->getSlug(), $this->settingsSections)) {
-            wp_die(__("A section with ID {$section->getSlug()} was already added to the settings for the {$this->pageSlug} page.", parent::$textDomain));
+        $sectionSlug = $section->getSlug();
+
+        if (array_key_exists($sectionSlug, $this->settingsSections)) {
+            wp_die(__("A section with ID {$sectionSlug} was already added to the settings for the {$this->pageSlug} page.", parent::$textDomain));
         } else {
-            $this->settingsSections[$section->getSlug()] = $section;
+            $this->settingsSections[$sectionSlug] = $section;
         }
 
         return $this;

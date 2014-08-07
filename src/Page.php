@@ -27,12 +27,14 @@ abstract class Page extends WordPressObject
      * @since 0.1.0
      *
      * @param string $name The text to be displayed in the title tags of the page when the menu is selected.
+     * @param string $slug Unique identifier for the object in the WordPress database.
      * @param string $viewFile The full path to the view file.
      * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    public function __construct($name, $viewFile, $viewData = array())
+    public function __construct($name, $slug, $viewFile, $viewData = array())
     {
         $this->name             = $name;
+        $this->slug             = $slug;
         $this->viewFile         = $viewFile;
         $this->viewData         = $viewData;
         $this->viewData['name'] = $this->getName();

@@ -50,21 +50,10 @@ WordPressObject parent class. This is optional, the text domain has a default va
 
 #### getSlug()
 
-Slugs are automatically generated for all objects other than Settings.
+This public method returns the object's slug. A slug is a unique identifier for the object in the WordPress database.
+This method is used within the framework to tie related objects together.
 
-The public method getSlug() returns an object's $name property after passing it through the WordPress
-[sanitize_title()](http://codex.wordpress.org/Function_Reference/sanitize_title) function and returns that value. In the
- case of SettingsField getSlug() will also append the prefix.
-
-This is useful for anytime you need to get the slug or ID of an object to use later in the code.
-
-Getting an option value:
-
-    get_option($field->getSlug());
-
-Setting a parent page for a sub page:
-
-    $subPage->setParentSlug($parentPage->getSlug());
+    echo $someObject->getSlug();
 
 #### getName()
 
@@ -80,8 +69,8 @@ View class' render() method passing in the object's $viewFile and $viewData prop
 
 ### PostType
 
-The PostType class constructor requires the name of the post type to be created. The name must be plural for the labels
-to be generated correctly.
+The PostType class constructor requires the name of the post type and a slug to be created. The name must be plural for
+the labels to be generated correctly.
 
 The PostType class constructor generates the labels for the post type and then ties the
 [register_post_type()](http://codex.wordpress.org/Function_Reference/register_post_type) function to the
@@ -157,8 +146,8 @@ __false__ to disable all features.
 
 ### Taxonomies
 
-The Taxonomy class requires the plural display name of the taxonomy when instantiated. Optionally, the post types to
-register the taxonomy with (defaults to post) and the text domain.
+The Taxonomy class requires the plural display name of the taxonomy and a slug when instantiated. Optionally, the post
+types to register the taxonomy with (defaults to post) and the text domain.
 
 The constructor sets up the properties, generates the labels, and ties the
 [register_taxonomy()](http://codex.wordpress.org/Function_Reference/register_taxonomy) function  to the
@@ -175,8 +164,9 @@ take the term description. This method checks if the term has already been added
 
 ### MetaBoxes
 
-Meta boxes containing custom fields can be added to your post types using this class. The object requires the name,
-post type slugs to attach it to, and a view file when instantiated. View data can be passed in optionally.
+Meta boxes containing custom fields can be added to your post types using this class. The object requires the name, slug
+ for the meta box, post type slugs to attach it to, and a view file when instantiated. View data can be passed in
+ optionally.
 
 The constructor sets the properties then ties the addMetaBox() method to the
 [add_meta_boxes](http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes) hook and the saveMetaBox()
@@ -219,8 +209,8 @@ This sets an array of optional arguments that will be sent to the MetaBox's View
 You can create new dashboard pages by using the MenuPage, ObjectPage, UtilityPage, SubMenuPage, and OptionsPage classes.
  All page classes inherit from the Page abstract class.
 
-All page classes require a name and view file when instantiated, $viewData can be passed in optionally.  The slug and
-name are added to the $viewData array automatically.
+All page classes require a name, slug, and view file when instantiated, $viewData can be passed in optionally.  The slug
+ and name are added to the $viewData array automatically.
 
 The base constructor sets the parameters then ties the abstract addPage() method to the
 [admin_menu](http://codex.wordpress.org/Plugin_API/Action_Reference/admin_menu) hook. This addPage() method is
@@ -320,7 +310,7 @@ The Settings constructor requires the slug for the page the settings will be dis
 
 #### SettingsFields
 
-The SettingsField constructor requires a name, prefix, and a view file to be passed in. View data can be passed in as
+The SettingsField constructor requires a name, slug, and a view file to be passed in. View data can be passed in as
 well.
 
 You must specify a prefix for your field's slugs to help prevent naming conflicts in the database by using the $prefix
@@ -333,7 +323,8 @@ the $viewData property automatically.
 
 #### SettingsSection
 
-The SettingsSection class requires a name to be instantiated. A view file and view data can be passed in, optionally.
+The SettingsSection class requires a name and slug to be instantiated. A view file and view data can be passed in,
+optionally.
 
 Unless you need to display something specific like instructions to the user you do not need to include a view file since
 WordPress will automatically display the section's name on the page.
@@ -368,7 +359,7 @@ or...
 
 You can use the DashboardWidget class to add a new widget to the WordPress dashboard.
 
-The class takes a name and path to a view file when instantiated. Data you need to pass to the view can be supplied in
+The class takes a name, slug, and path to a view file when instantiated. Data you need to pass to the view can be supplied in
 the optional $viewData argument. The DashboardWidget's name and slug are automatically added to the $viewData.
 
 The constructor assigns the properties and ties the addWidget() method to the

@@ -27,11 +27,13 @@ class Taxonomy extends WordPressObject
      * @since 0.1.0
      *
      * @param string $name The name of the taxonomy. Must be plural.
+     * @param string $slug Unique identifier for the object in the WordPress database.
      * @param string|string[] $postTypes Slug of the object type for the taxonomy object. Object-types can be built-in Post Type or any Custom Post Type that may be registered.
      */
-    public function __construct($name, $postTypes = 'post')
+    public function __construct($name, $slug, $postTypes = 'post')
     {
         $this->name      = $name;
+        $this->slug      = $slug;
         $this->postTypes = $postTypes;
         $this->labels    = $this->setLabels();
 
@@ -46,16 +48,15 @@ class Taxonomy extends WordPressObject
      */
     private function setLabels()
     {
-        $name     = $this->name;
-        $singular = Helper::makeSingular($name);
+        $singular = Helper::makeSingular($this->name);
 
         $textDomain = parent::$textDomain;
 
         return array(
-            'name'              => __($name, $textDomain),
+            'name'              => __($this->name, $textDomain),
             'singular_name'     => __($singular, $textDomain),
-            'search_items'      => __('Search ' . $name, $textDomain),
-            'all_items'         => __('All ' . $name, $textDomain),
+            'search_items'      => __('Search ' . $this->name, $textDomain),
+            'all_items'         => __('All ' . $this->name, $textDomain),
             'parent_item'       => __('Parent ' . $singular, $textDomain),
             'parent_item_colon' => __('Parent ' . $singular . ':', $textDomain),
             'edit_item'         => __('Edit ' . $singular, $textDomain),
