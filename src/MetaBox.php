@@ -118,8 +118,8 @@ class MetaBox extends WordPressObject
         }
 
         foreach ($_POST as $key => $value) {
-            if (strpos($key, MetaBoxViewHelper::$prefix) !== false) {
-                $key = str_replace(MetaBoxViewHelper::$prefix, '', $key);
+            if (strpos($key, 'spf-meta-') !== false) {
+                $key = str_replace('spf-meta-', '', $key);
                 update_post_meta($postId, $key, sanitize_text_field($value));
             }
         }

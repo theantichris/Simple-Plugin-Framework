@@ -2,11 +2,8 @@
 
 namespace theantichris\SPF;
 
-class MetaBoxViewHelper
+class MetaBoxHelper
 {
-
-    public static $prefix = 'spf-meta-';
-
     /**
      * Outputs a text HTML input field.
      *
