@@ -13,7 +13,7 @@ class MetaBoxHelper
      * @param string $slug Unique identifier for the input field.
      * @return void
      */
-    public static function CreateTextInput($name, $slug)
+    public static function TextInput($name, $slug)
     {
         $viewData = array(
             'name' => $name,
