@@ -156,6 +156,6 @@ class MetaBox extends WordPressObject
             'slug' => $slug,
         );
 
-        View::render(__DIR__ . '/ViewHelpers/MetaBoxTextInput.php', $viewData);
+        View::render(__DIR__ . '/MetaBoxInputs/TextInput.php', $viewData);
     }
 }
