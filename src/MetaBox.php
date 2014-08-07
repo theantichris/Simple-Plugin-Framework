@@ -24,19 +24,16 @@ class MetaBox extends WordPressObject
      * @since 3.0.0
      *
      * @param string $name Title of the edit screen section, visible to user.
-     * @param string $slug Unique identifier for the object in the WordPress database.
      * @param string|string[] $postTypes The type of Write screen on which to show the edit screen section.
      * @param string $viewFile The View object responsible for printing out the HTML for the edit screen section.
      * @param mixed[] $viewData An array of data to pass to the view file.
      */
-    function __construct($name, $slug, $postTypes, $viewFile, $viewData = array())
+    function __construct($name, $postTypes, $viewFile, $viewData = array())
     {
         $this->name             = $name;
-        $this->slug             = $slug;
         $this->viewFile         = $viewFile;
         $this->viewData         = $viewData;
         $this->viewData['name'] = $this->getName();
-        $this->viewData['slug'] = $this->getSlug();
 
         if (is_array($postTypes)) {
             $this->postTypes = $postTypes;
