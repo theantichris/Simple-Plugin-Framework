@@ -9,9 +9,8 @@ use theantichris\SPF\MetaBoxViewHelper;
 $fieldName = MetaBoxViewHelper::$prefix . $slug;
 
 /** @var string $value The current value of the custom field. */
-$value = esc_attr(get_post_meta(get_post()->ID, $fieldName, true));
+$value = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
 ?>
 
-<label for="<?= $fieldName; ?>"><?= $name; ?></label>
 <input type="text" name="<?= $fieldName; ?>" id="<?= $fieldName; ?>" value="<?= $value; ?>"/>
