@@ -49,6 +49,8 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * Sets the WordPress context of the meta box.
+     *
      * @since 3.0.0
      *
      * @param string $context The part of the page where the edit screen section should be shown ('normal', 'advanced', or 'side').
@@ -62,6 +64,8 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * Sets the WordPress priority of the meta box.
+     *
      * @since 3.0.0
      *
      * @param string $priority The priority within the context where the boxes should show ('high', 'core', 'default' or 'low').
