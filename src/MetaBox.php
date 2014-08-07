@@ -141,7 +141,7 @@ class MetaBox extends WordPressObject
     }
 
     /**
-     * Outputs a text HTML input field.
+     * View helper to output a text HTML input field.
      *
      * @since 5.0.0
      *
