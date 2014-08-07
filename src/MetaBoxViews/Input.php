@@ -11,7 +11,15 @@ $value = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
 ?>
 
-<div>
-    <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
-    <input type="<?= $type; ?>" name="<?= $fieldId; ?>" value="<?= $value; ?>"/>
-</div>
+<table class="form-table">
+    <tbody>
+    <tr>
+        <th scope="row">
+            <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
+        </th>
+        <td>
+            <input type="<?= $type; ?>" name="<?= $fieldId; ?>" value="<?= $value; ?>"/>
+        </td>
+    </tr>
+    </tbody>
+</table>
