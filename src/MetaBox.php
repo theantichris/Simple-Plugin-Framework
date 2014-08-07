@@ -174,4 +174,14 @@ class MetaBox extends WordPressObject
     {
         self::ViewHelper($name, $slug, 'text');
     }
+
+    public static function UrlInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'url');
+    }
+
+    public static function NumberInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'number');
+    }
 }
