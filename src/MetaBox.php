@@ -140,6 +140,17 @@ class MetaBox extends WordPressObject
         View::render($this->viewFile, $this->viewData);
     }
 
+    private static function ViewHelper($name, $slug, $type)
+    {
+        $viewData = array(
+            'name' => $name,
+            'slug' => $slug,
+            'type' => $type,
+        );
+
+        View::render(__DIR__ . '/MetaBoxViews/TextInput.php', $viewData);
+    }
+
     /**
      * View helper to output a text HTML input field.
      *
@@ -151,11 +162,6 @@ class MetaBox extends WordPressObject
      */
     public static function TextInput($name, $slug)
     {
-        $viewData = array(
-            'name' => $name,
-            'slug' => $slug,
-        );
-
-        View::render(__DIR__ . '/MetaBoxViews/TextInput.php', $viewData);
+        self::ViewHelper($name, $slug, 'text');
     }
 }

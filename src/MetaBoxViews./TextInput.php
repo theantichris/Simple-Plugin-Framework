@@ -12,6 +12,6 @@ $value = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 ?>
 
 <div>
-    <label for="<?= $fieldId; ?>"><?= $name; ?>:
-        <input type="text" name="<?= $fieldId; ?>" value="<?= $value; ?>"/></label>
+    <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
+    <input type="<?= $type; ?>" name="<?= $fieldId; ?>" value="<?= $value; ?>"/>
 </div>
