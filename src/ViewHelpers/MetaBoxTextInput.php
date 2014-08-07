@@ -6,7 +6,7 @@ use theantichris\SPF\MetaBoxViewHelper;
 /** @var string $slug */
 
 /** @var string $fieldName */
-$fieldName = MetaBoxViewHelper::$prefix . $fieldName;
+$fieldName = MetaBoxViewHelper::$prefix . $slug;
 
 /** @var string $value The current value of the custom field. */
 $value = esc_attr(get_post_meta(get_post()->ID, $fieldName, true));
