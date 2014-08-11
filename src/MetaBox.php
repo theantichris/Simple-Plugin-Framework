@@ -319,6 +319,8 @@ class MetaBox extends WordPressObject
         self::ViewHelper($name, $slug, 'search');
     }
 
+    // TODO: Select
+
     /**
      * View helper to output a telephone HTML input field.
      *
@@ -332,6 +334,8 @@ class MetaBox extends WordPressObject
     {
         self::ViewHelper($name, $slug, 'tel');
     }
+
+    // TODO: Textarea
 
     /**
      * View helper to output a text HTML input field.
