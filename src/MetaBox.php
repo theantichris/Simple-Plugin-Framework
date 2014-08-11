@@ -335,7 +335,24 @@ class MetaBox extends WordPressObject
         self::ViewHelper($name, $slug, 'tel');
     }
 
-    // TODO: Textarea
+    /**
+     * View helper to output a textarea HTML field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @param integer $rows Number of rows the textarea has.
+     * @param integer $cols Number of cols the textarea has.
+     * @return void
+     */
+    public static function Textarea($name, $slug, $rows, $cols)
+    {
+        $attributes['rows'] = $rows;
+        $attributes['cols'] = $cols;
+
+        self::ViewHelper($name, $slug, $attributes);
+    }
 
     /**
      * View helper to output a text HTML input field.
