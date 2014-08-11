@@ -149,14 +149,22 @@ class MetaBox extends WordPressObject
      * @param string $name Display name for the input field. Used as the label.
      * @param string $slug Unique identifier for the input field.
      * @param string $type The type of the input field.
+     * @param mixed[] $attributes Data to pass add to the input as HTML attributes.
      * @return void
      */
-    private static function ViewHelper($name, $slug, $type)
+    private static function ViewHelper($name, $slug, $type, $attributes = array())
     {
+        $attributesString = '';
+
+        foreach ($attributes as $key => $value) {
+            $attributesString .= $key . '="' . $value . '" ';
+        }
+
         $viewData = array(
-            'name' => $name,
-            'slug' => $slug,
-            'type' => $type,
+            'name'       => $name,
+            'slug'       => $slug,
+            'type'       => $type,
+            'attributes' => $attributesString,
         );
 
         View::render(__DIR__ . '/MetaBoxViews/Input.php', $viewData);
@@ -258,6 +266,25 @@ class MetaBox extends WordPressObject
     public static function NumberInput($name, $slug)
     {
         self::ViewHelper($name, $slug, 'number');
+    }
+
+    /**
+     * View helper to output a range HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @param integer $min Minimum range.
+     * @param integer $max Maximum range.
+     * @return void
+     */
+    public static function RangeInput($name, $slug, $min, $max)
+    {
+        $attributes['min'] = $min;
+        $attributes['max'] = $max;
+
+        self::ViewHelper($name, $slug, 'range', $attributes);
     }
 
     /**

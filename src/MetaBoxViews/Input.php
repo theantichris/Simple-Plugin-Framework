@@ -2,6 +2,7 @@
 
 /** @var string $name */
 /** @var string $slug */
+/** @var string $attributes */
 
 /** @var string $fieldId */
 $fieldId = 'spf-meta-' . $slug;
@@ -18,7 +19,7 @@ $value = esc_attr(get_post_meta(get_post()->ID, $slug, true));
             <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
         </th>
         <td>
-            <input type="<?= $type; ?>" name="<?= $fieldId; ?>" value="<?= $value; ?>"/>
+            <input type="<?= $type; ?>" name="<?= $fieldId; ?>" <?= $attributes; ?> value="<?= $value; ?>"/>
         </td>
     </tr>
     </tbody>
