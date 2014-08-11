@@ -180,7 +180,7 @@ class MetaBox extends WordPressObject
      * @param string $value The checkbox's value.
      * @return void
      */
-    public static function Checkbox($name, $slug, $value)
+    public static function CheckboxInput($name, $slug, $value)
     {
         self::ViewHelper($name, $slug, 'checkbox', array('value' => $value));
     }
