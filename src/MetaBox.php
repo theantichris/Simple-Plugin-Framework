@@ -141,13 +141,14 @@ class MetaBox extends WordPressObject
     }
 
     /**
-     * View helper to output various HTML input fields.
+     * Base view helper to output various HTML input fields.
+     * Gets called by public methods.
      *
      * @since 5.0.0
      *
-     * @param $name
-     * @param $slug
-     * @param $type
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @param string $type The type of the input field.
      * @return void
      */
     private static function ViewHelper($name, $slug, $type)
@@ -159,6 +160,34 @@ class MetaBox extends WordPressObject
         );
 
         View::render(__DIR__ . '/MetaBoxViews/Input.php', $viewData);
+    }
+
+    /**
+     * View helper to output a color HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function ColorInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'color');
+    }
+
+    /**
+     * View helper to output a number HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function NumberInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'number');
     }
 
     /**
@@ -175,13 +204,17 @@ class MetaBox extends WordPressObject
         self::ViewHelper($name, $slug, 'text');
     }
 
+    /**
+     * View helper to output a URL HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
     public static function UrlInput($name, $slug)
     {
         self::ViewHelper($name, $slug, 'url');
-    }
-
-    public static function NumberInput($name, $slug)
-    {
-        self::ViewHelper($name, $slug, 'number');
     }
 }
