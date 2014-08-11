@@ -177,6 +177,76 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * View helper to output a date HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function DateInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'date');
+    }
+
+    /**
+     * View helper to output a datetime HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function DateTimeInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'datetime');
+    }
+
+    /**
+     * View helper to output a datetime-local HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function DateTimeLocalInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'datetime-local');
+    }
+
+    /**
+     * View helper to output a email HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function EmailInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'email');
+    }
+
+    /**
+     * View helper to output a month HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function MonthInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'month');
+    }
+
+    /**
      * View helper to output a number HTML input field.
      *
      * @since 5.0.0
