@@ -365,10 +365,13 @@ class MetaBox extends WordPressObject
      */
     public static function Textarea($name, $slug, $rows, $cols)
     {
-        $attributes['rows'] = $rows;
-        $attributes['cols'] = $cols;
+        $viewData = array(
+            'name'       => $name,
+            'slug'       => $slug,
+            'attributes' => 'rows="' . $rows . '" cols="' . $cols . '"',
+        );
 
-        self::ViewHelper($name, $slug, $attributes);
+        View::render(__DIR__ . '/MetaBoxViews/Textarea.php', $viewData);
     }
 
     /**
