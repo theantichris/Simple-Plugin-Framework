@@ -288,6 +288,34 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * View helper to output a search HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function SearchInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'search');
+    }
+
+    /**
+     * View helper to output a telephone HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function TelInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'tel');
+    }
+
+    /**
      * View helper to output a text HTML input field.
      *
      * @since 5.0.0
@@ -313,5 +341,19 @@ class MetaBox extends WordPressObject
     public static function UrlInput($name, $slug)
     {
         self::ViewHelper($name, $slug, 'url');
+    }
+
+    /**
+     * View helper to output a week HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function WeekInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'week');
     }
 }
