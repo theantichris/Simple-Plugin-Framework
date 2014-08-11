@@ -5,7 +5,7 @@ namespace theantichris\SPF;
 /**
  * Class MetaBox
  * @package theantichris\SPF
- * @since 3.0.0
+ * @since   3.0.0
  */
 class MetaBox extends WordPressObject
 {
@@ -18,15 +18,15 @@ class MetaBox extends WordPressObject
 
     /**
      * Sets properties, ties the addMetaBox method to the add_meta_boxes hook, and ties the saveMetaBox method to the save_post hook.
-     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
-     * @link http://codex.wordpress.org/Plugin_API/Action_Reference/save_post
+     * @link  http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes
+     * @link  http://codex.wordpress.org/Plugin_API/Action_Reference/save_post
      *
      * @since 3.0.0
      *
-     * @param string $name Title of the edit screen section, visible to user.
+     * @param string          $name      Title of the edit screen section, visible to user.
      * @param string|string[] $postTypes The type of Write screen on which to show the edit screen section.
-     * @param string $viewFile The View object responsible for printing out the HTML for the edit screen section.
-     * @param mixed[] $viewData An array of data to pass to the view file.
+     * @param string          $viewFile  The View object responsible for printing out the HTML for the edit screen section.
+     * @param mixed[]         $viewData  An array of data to pass to the view file.
      */
     function __construct($name, $postTypes, $viewFile, $viewData = array())
     {
@@ -78,7 +78,7 @@ class MetaBox extends WordPressObject
     /**
      * Calls the WordPress function add_meta_box().
      * Do not call directly, it is only public so WordPress can call it.
-     * @link http://codex.wordpress.org/Function_Reference/add_meta_box
+     * @link  http://codex.wordpress.org/Function_Reference/add_meta_box
      *
      * @since 3.0.0
      *
@@ -146,9 +146,9 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
-     * @param string $name Display name for the input field. Used as the label.
-     * @param string $slug Unique identifier for the input field.
-     * @param string $type The type of the input field.
+     * @param string  $name       Display name for the input field. Used as the label.
+     * @param string  $slug       Unique identifier for the input field.
+     * @param string  $type       The type of the input field.
      * @param mixed[] $attributes Data to pass add to the input as HTML attributes.
      * @return void
      */
@@ -177,14 +177,20 @@ class MetaBox extends WordPressObject
      *
      * TODO: Create its own view with hidden field.
      *
-     * @param string $name Display name for the input field. Used as the label.
-     * @param string $slug Unique identifier for the input field.
+     * @param string $name  Display name for the input field. Used as the label.
+     * @param string $slug  Unique identifier for the input field.
      * @param string $value The checkbox's value.
      * @return void
      */
     public static function CheckboxInput($name, $slug, $value)
     {
-        self::ViewHelper($name, $slug, 'checkbox', array('value' => $value));
+        $viewData = array(
+            'name'  => $name,
+            'slug'  => $slug,
+            'value' => $value,
+        );
+
+        View::render(__DIR__ . '/MetaBoxViews/Checkbox.php', $viewData);
     }
 
     /**
@@ -306,10 +312,10 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
-     * @param string $name Display name for the input field. Used as the label.
-     * @param string $slug Unique identifier for the input field.
-     * @param integer $min Minimum range.
-     * @param integer $max Maximum range.
+     * @param string  $name Display name for the input field. Used as the label.
+     * @param string  $slug Unique identifier for the input field.
+     * @param integer $min  Minimum range.
+     * @param integer $max  Maximum range.
      * @return void
      */
     public static function RangeInput($name, $slug, $min, $max)
@@ -355,8 +361,8 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
-     * @param string $name Display name for the input field. Used as the label.
-     * @param string $slug Unique identifier for the input field.
+     * @param string  $name Display name for the input field. Used as the label.
+     * @param string  $slug Unique identifier for the input field.
      * @param integer $rows Number of rows the textarea has.
      * @param integer $cols Number of cols the textarea has.
      * @return void
