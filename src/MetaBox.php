@@ -170,6 +170,8 @@ class MetaBox extends WordPressObject
         View::render(__DIR__ . '/MetaBoxViews/Input.php', $viewData);
     }
 
+    // TODO: Checkboxes
+
     /**
      * View helper to output a color HTML input field.
      *
@@ -267,6 +269,22 @@ class MetaBox extends WordPressObject
     {
         self::ViewHelper($name, $slug, 'number');
     }
+
+    /**
+     * View helper to output a password HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     * @return void
+     */
+    public static function PasswordInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'password');
+    }
+
+    // TODO: Radio buttons
 
     /**
      * View helper to output a range HTML input field.
