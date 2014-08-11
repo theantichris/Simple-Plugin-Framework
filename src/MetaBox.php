@@ -355,8 +355,6 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
-     * TODO: Needs its own input.
-     *
      * @param string $name Display name for the input field. Used as the label.
      * @param string $slug Unique identifier for the input field.
      * @param integer $rows Number of rows the textarea has.
