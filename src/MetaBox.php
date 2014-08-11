@@ -175,6 +175,8 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
+     * TODO: Create its own view with hidden field.
+     *
      * @param string $name Display name for the input field. Used as the label.
      * @param string $slug Unique identifier for the input field.
      * @param string $value The checkbox's value.
