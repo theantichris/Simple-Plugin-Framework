@@ -3,6 +3,7 @@
 /** @var string $name */
 /** @var string $slug */
 /** @var string $value */
+/** @var string $default */
 
 /** @var string $fieldId */
 $fieldId = 'spf-meta-' . $slug;
@@ -11,7 +12,7 @@ $fieldId = 'spf-meta-' . $slug;
 $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
 if ($currentValue != '') {
-    $checked = 'checked';
+    $checked = 'checked="checked"';
 } else {
     $checked = '';
 }
@@ -25,8 +26,8 @@ if ($currentValue != '') {
             <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
         </th>
         <td>
-            <input type="checkbox" name="<?= $fieldId; ?>" value="<?= $value; ?>" checked="<?= $checked; ?>" />
-            <input type="hidden" name="" value="" />
+            <input type="checkbox" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?= $checked; ?>/>
+            <input type="hidden" name="<?= 'checkbox-default-' . $fieldId; ?>" value="<?= $default; ?>"/>
         </td>
     </tr>
     </tbody>
