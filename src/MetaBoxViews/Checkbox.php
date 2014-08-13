@@ -11,7 +11,7 @@ $fieldId = 'spf-meta-' . $slug;
 /** @var string $value The current value of the custom field. */
 $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
-if ($currentValue != $value) {
+if ($currentValue == $value) {
     $checked = 'checked="checked"';
 } else {
     $checked = '';
