@@ -11,10 +11,11 @@ $fieldId = 'spf-meta-' . $slug;
 /** @var string $value The current value of the custom field. */
 $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
-if ($currentValue != '') {
-    $checked = 'checked="checked"';
-} else {
-    $checked = '';
+function checked($value, $currentValue)
+{
+    if ($currentValue != $value) {
+        echo 'checked="checked"';
+    }
 }
 
 ?>
@@ -26,7 +27,7 @@ if ($currentValue != '') {
             <label for="<?= $fieldId; ?>"><?= $name; ?>: </label>
         </th>
         <td>
-            <input type="checkbox" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?= $checked; ?>/>
+            <input type="checkbox" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?php checked($value, $currentValue); ?>/>
             <input type="hidden" name="<?= 'checkbox-default-' . $fieldId; ?>" value="<?= $default; ?>"/>
         </td>
     </tr>
