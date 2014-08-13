@@ -360,7 +360,27 @@ class MetaBox extends WordPressObject
         self::ViewHelper($name, $slug, 'password');
     }
 
-    // TODO: Radio buttons
+    /**
+     * View helper to output a radio HTML input fields.
+     *
+     * @since 5.0.0
+     *
+     * @param string   $name   Display name for the input field. Used as the label.
+     * @param string   $slug   Unique identifier for the input field.
+     * @param string[] $values All possible values for the radio buttons.
+     *
+     * @return void
+     */
+    public static function RadioButtonInputs($name, $slug, $values)
+    {
+        $viewData = array(
+            'name'   => $name,
+            'slug'   => $slug,
+            'values' => $values,
+        );
+
+        View::render(__DIR__ . '/MetaBoxViews/RadioButtons.php', $viewData);
+    }
 
     /**
      * View helper to output a range HTML input field.
