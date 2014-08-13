@@ -10,11 +10,10 @@ $fieldId = 'spf-meta-' . $slug;
 /** @var string $value The current value of the custom field. */
 $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
 
-function checked($value, $currentValue)
-{
-    if ($value == $currentValue) {
-        echo 'checked="checked"';
-    }
+if ($value == $currentValue) {
+    $checked = 'checked="checked"';
+} else {
+    $checked = '';
 }
 
 ?>
@@ -27,7 +26,7 @@ function checked($value, $currentValue)
         </th>
         <td>
             <?php foreach ($values as $value) : ?>
-                <input type="radio" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?php checked($value, $currentValue); ?>/>
+                <input type="radio" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?= $checked; ?>/>
             <?php endforeach; ?>
         </td>
     </tr>
