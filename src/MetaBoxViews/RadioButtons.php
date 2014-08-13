@@ -21,7 +21,7 @@ $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
         <td>
             <?php foreach ($values as $value) : ?>
                 <?php $checked = ($value == $currentValue) ? 'checked="checked"' : ''; ?>
-                <input type="radio" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?= $checked; ?>/>
+                <input type="radio" name="<?= $fieldId; ?>" value="<?= $value; ?>" <?= $checked; ?>/> <?= $value; ?>
             <?php endforeach; ?>
         </td>
     </tr>

@@ -22,7 +22,7 @@ $currentValue = esc_attr(get_post_meta(get_post()->ID, $slug, true));
             <select name="<?= $fieldId; ?>">
                 <?php foreach ($options as $option) : ?>
                     <?php $selected = ($option == $currentValue) ? 'selected="selected"' : ''; ?>
-                    <option value="<?= strtolower($option); ?>" <?= $selected; ?>><?= $option; ?></option>
+                    <option value="<?= $option; ?>" <?= $selected; ?>><?= $option; ?></option>
                 <?php endforeach; ?>
             </select>
         </td>
