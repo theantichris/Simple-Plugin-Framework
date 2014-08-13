@@ -417,7 +417,27 @@ class MetaBox extends WordPressObject
         self::ViewHelper($name, $slug, 'search');
     }
 
-    // TODO: Select
+    /**
+     * View helper to output a select HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string   $name    Display name for the input field. Used as the label.
+     * @param string   $slug    Unique identifier for the input field.
+     * @param string[] $options All options for the select input.
+     *
+     * @return void
+     */
+    public static function SelectInput($name, $slug, $options)
+    {
+        $viewData = array(
+            'name'    => $name,
+            'slug'    => $slug,
+            'options' => $options,
+        );
+
+        View::render(__DIR__ . '/MetaBoxViews/Select.php', $viewData);
+    }
 
     /**
      * View helper to output a telephone HTML input field.
