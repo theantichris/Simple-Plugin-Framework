@@ -286,6 +286,21 @@ class MetaBox extends WordPressObject
     }
 
     /**
+     * View helper to output a file HTML input field.
+     *
+     * @since 5.0.0
+     *
+     * @param string $name Display name for the input field. Used as the label.
+     * @param string $slug Unique identifier for the input field.
+     *
+     * @return void
+     */
+    public static function FileInput($name, $slug)
+    {
+        self::ViewHelper($name, $slug, 'file');
+    }
+
+    /**
      * View helper to output a hidden HTML input field.
      *
      * @since 5.0.0
