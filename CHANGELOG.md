@@ -2,9 +2,9 @@
 * Due to the nature of this update most object constructor signatures have been changed and will need to be updated
 * Slugs are no longer generated automatically but required on object instantiation
 * Meta boxes have been completely reworked
- * Now supports multiple fields per meta box
- * Fixed saving for checkboxes
- * Fields are created for the meta box by using static methods in the meta box's view file
+    * Now supports multiple fields per meta box
+    * Fixed saving for checkboxes
+    * Fields are created for the meta box by using static methods in the meta box's view file
 
 ### 4.0.0
 
