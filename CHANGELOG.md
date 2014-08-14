@@ -5,6 +5,8 @@
     * Now supports multiple fields per meta box
     * Fixed saving for checkboxes
     * Fields are created for the meta box by using static methods in the meta box's view file
+* Moved isValid() method to Capbilitiy class
+* Removed Enum class
 
 ### 4.0.0
 
