@@ -164,9 +164,8 @@ take the term description. This method checks if the term has already been added
 
 ### MetaBoxes
 
-Meta boxes containing custom fields can be added to your post types using this class. The object requires the name, slug
- for the meta box, post type slugs to attach it to, and a view file when instantiated. View data can be passed in
- optionally.
+Meta boxes containing 1 or more custom field can be added to your post types using this class. The object requires the
+name, post type slugs to attach it to, and a view file when instantiated. View data can be passed in optionally.
 
 The constructor sets the properties then ties the addMetaBox() method to the
 [add_meta_boxes](http://codex.wordpress.org/Plugin_API/Action_Reference/add_meta_boxes) hook and the saveMetaBox()
@@ -175,14 +174,13 @@ method to the [save_post](http://codex.wordpress.org/Plugin_API/Action_Reference
 The $postTypes argument can either be a single string or an array of strings if you want to tie the meta box to multiple
  post types.
 
-The view file should contain the HTML for the input field and label for the custom field. An any special information it
-needs to display.
+    $metaBox = new MetaBox('My MetaBox', $postTypes, $viewFiles, $viewData);
 
-    $metaBox = new MetaBox('My MetaBox', $metaBoxView, $postTypes);
+The class automatically handles saving the custom fields to the WordPress database when the post is updated.
 
 #### Setters
 
-Setters are available for the context, priority, and optional arguments properties.
+Setters are available for the context and priority properties.
 
 ##### setContext()
 
@@ -198,11 +196,31 @@ This sets the priority within the context where the box will be shown. Accepted 
 
     $metaBox->setPriority('low');
 
-#### setArgs()
+#### Custom Fields
 
-This sets an array of optional arguments that will be sent to the MetaBox's View object.
+To add custom fields to the meta box using the MetaBox class' static methods in the meta box's view file.
 
-    $metaBox->setArgs(array('one' => 1, 'two' => 2);
+    MetaBox::CheckboxInput($name, $slug, $value, $default = '');
+    MetaBox::ColorInput($name, $slug);
+    MetaBox::DateInput($name, $slug);
+    MetaBox::DateTimeInput($name, $slug);
+    MetaBox::DateTimeLocalInput($name, $slug);
+    MetaBox::EmailInput($name, $slug);
+    MetaBox::FileInput($name, $slug);
+    MetaBox::HiddenInput($name, $slug);
+    MetaBox::MonthInput($name, $slug);
+    MetaBox::NumberInput($name, $slug);
+    MetaBox::PasswordInput($name, $slug);
+    MetaBox::RadioButtonInputs($name, $slug, $values);
+    MetaBox::RangeInput($name, $slug, $min, $max);
+    MetaBox::SearchInput($name, $slug);
+    MetaBox::SelectInput($name, $slug, $options);
+    MetaBox::TelInput($name, $slug);
+    MetaBox::Textarea($name, $slug, $rows, $cols);
+    MetaBox::TextInput($name, $slug);
+    MetaBox::TimeInput($name, $slug);
+    MetaBox::UrlInput($name, $slug);
+    MetaBox::WeekInput($name, $slug);
 
 ### Pages
 
