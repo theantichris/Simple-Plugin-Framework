@@ -86,6 +86,12 @@ overridden using setters.
 The setDescription() method accepts a string.
 
     $postType->setDescription('This is my custom post type.');
+    
+#### hasArchive()
+
+The hasArchive() method accepts a boolean value. The default is true.
+
+    $postType->hasArchive(false);
 
 #### setPublic()
 
