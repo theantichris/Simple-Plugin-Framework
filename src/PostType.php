@@ -35,6 +35,8 @@ class PostType extends WordPressObject
     );
     /** @var string[]|bool $supports Registers support of certain features for a given post type. */
     private $supports = array('title', 'editor');
+    
+    private $hasArchive = true;
 
     /**
      * Sets up properties and ties the registerPostType() method to the init WordPress action hook.
@@ -99,6 +101,11 @@ class PostType extends WordPressObject
         $this->description = __($description, parent::$textDomain);
 
         return $this;
+    }
+    
+    public function hasArchive($hasArchive)
+    {
+        $this->hasArchive = $hasArchive;
     }
 
     /**
@@ -207,6 +214,7 @@ class PostType extends WordPressObject
                 'menu_icon'     => $this->menuIcon,
                 'capabilities'  => $this->capabilities,
                 'supports'      => $this->supports,
+                'has_archive'   => $this->hasArchive,
             );
 
             register_post_type($this->getSlug(), $arguments);
