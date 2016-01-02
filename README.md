@@ -217,7 +217,7 @@ To add custom fields to the meta box using the MetaBox class' static methods in 
     MetaBox::MonthInput($name, $slug);
     MetaBox::NumberInput($name, $slug);
     MetaBox::PasswordInput($name, $slug);
-    MetaBox::RadioButtonInputs($name, $slug, $values);
+    MetaBox::RadioButtonInputs($name, $slug, $options, $displayBlock);
     MetaBox::RangeInput($name, $slug, $min, $max);
     MetaBox::SearchInput($name, $slug);
     MetaBox::SelectInput($name, $slug, $options);
