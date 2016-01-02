@@ -1,4 +1,8 @@
-### 5.0.1
+## 5.0.3
+
+* Add more options to the radio button MetaBox helper
+
+### 5.0.2
 
 * Added `es` option to Helper::makeSingular()
 
