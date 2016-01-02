@@ -26,7 +26,7 @@ $currentValue = esc_attr( get_post_meta( get_post()->ID, $slug, true ) );
 					<div>
 				<?php endif; ?>
 
-				<input type="radio" name="<?= $fieldId; ?>" value="<?= $option['value']; ?>" <?= $checked; ?>/> <?= $options['display']; ?>
+				<input type="radio" name="<?= $fieldId; ?>" value="<?= $option['value']; ?>" <?= $checked; ?>/> <?= $option['display']; ?>
 
 				<?php if ( $displayBlock ): ?>
 					</div>

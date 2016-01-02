@@ -357,10 +357,10 @@ class MetaBox extends WordPressObject {
 	 */
 	public static function RadioButtonInputs( $name, $slug, $options, $displayBlock = false ) {
 		$viewData = array(
-			'name'    => $name,
-			'slug'    => $slug,
-			'options' => $options,
-			'block'   => $displayBlock,
+			'name'         => $name,
+			'slug'         => $slug,
+			'options'      => $options,
+			'displayBlock' => $displayBlock,
 		);
 
 		View::render( __DIR__ . '/MetaBoxViews/RadioButtons.php', $viewData );
