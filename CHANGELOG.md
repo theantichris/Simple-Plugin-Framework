@@ -1,11 +1,20 @@
+### 5.0.1
+
+* Added `es` option to Helper::makeSingular()
+
+### 5.0.1
+
+* Added `delete_posts` capability to PostType class
+
 ### 5.0.0
+
 * Due to the nature of this update most object constructor signatures have been changed and will need to be updated
 * Slugs are no longer generated automatically but required on object instantiation
 * Meta boxes have been completely reworked
     * Now supports multiple fields per meta box
     * Fixed saving for checkboxes
     * Fields are created for the meta box by using static methods in the meta box's view file
-* Moved isValid() method to Capbilitiy class
+* Moved isValid() method to Capability class
 * Removed Enum class
 
 ### 4.0.0
