@@ -148,7 +148,7 @@ Usage:
 The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in
 __false__ to disable all features.
 
-    $postType->setSupports('title', 'editor', 'thumbnail');
+    $postType->setSupports(['title', 'editor', 'thumbnail']);
 
 ### Taxonomies
 

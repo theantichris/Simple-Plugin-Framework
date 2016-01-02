@@ -1,6 +1,7 @@
 ## 5.0.3
 
 * Add more options to the radio button MetaBox helper
+* Fixed documentation errors
 
 ### 5.0.2
 
