@@ -2,6 +2,7 @@
 
 * Add more options to the radio button MetaBox helper
 * Fixed documentation errors
+* Added step attribute for NumberInput.
 
 ### 5.0.2
 

@@ -148,7 +148,7 @@ Usage:
 The setSupports() method accepts a string array of the WordPress features the post type supports. You can also pass in
 __false__ to disable all features.
 
-    $postType->setSupports(['title', 'editor', 'thumbnail']);
+    $postType->setSupports(['title', 'editor', 'thumbnail']``);
 
 ### Taxonomies
 
@@ -215,7 +215,7 @@ To add custom fields to the meta box using the MetaBox class' static methods in 
     MetaBox::FileInput($name, $slug);
     MetaBox::HiddenInput($name, $slug);
     MetaBox::MonthInput($name, $slug);
-    MetaBox::NumberInput($name, $slug);
+    MetaBox::NumberInput($name, $slug, $step = '1');
     MetaBox::PasswordInput($name, $slug);
     MetaBox::RadioButtonInputs($name, $slug, $options, $displayBlock);
     MetaBox::RangeInput($name, $slug, $min, $max);

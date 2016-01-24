@@ -1,5 +1,6 @@
 {
     "name": "theantichris/simple-plugin-framework",
+    "version": "5.0.3@dev",
     "type": "library",
     "description": "A simple framework for creating WordPress plugins.",
     "keywords": ["wordpress", "plugin", "framework"],
