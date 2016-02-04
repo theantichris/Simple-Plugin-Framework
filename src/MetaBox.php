@@ -93,7 +93,10 @@ class MetaBox extends WordPressObject
     {
         /** @var string $postType */
         foreach ($this->postTypes as $postType) {
-            add_meta_box($this->getSlug(), $this->getName(), array($this, 'displayMetaBox'), $postType, $this->context, $this->priority);
+            add_meta_box($this->getSlug(), $this->getName(), array(
+                $this,
+                'displayMetaBox',
+            ), $postType, $this->context, $this->priority);
         }
     }
 
@@ -337,12 +340,15 @@ class MetaBox extends WordPressObject
      *
      * @param string $name Display name for the input field. Used as the label.
      * @param string $slug Unique identifier for the input field.
+     * @param string $step Value of the step attribute. Defaults to 1.
      *
      * @return void
      */
-    public static function NumberInput($name, $slug)
+    public static function NumberInput($name, $slug, $step = '1')
     {
-        self::ViewHelper($name, $slug, 'number');
+        $attributes['step'] = $step;
+
+        self::ViewHelper($name, $slug, 'number', $attributes);
     }
 
     /**
@@ -365,18 +371,19 @@ class MetaBox extends WordPressObject
      *
      * @since 5.0.0
      *
-     * @param string   $name   Display name for the input field. Used as the label.
-     * @param string   $slug   Unique identifier for the input field.
-     * @param string[] $values All possible values for the radio buttons.
-     *
-     * @return void
+     * @param string   $name         Display name for the input field. Used as the label.
+     * @param string   $slug         Unique identifier for the input field.
+     * @param string[] $options      An array of options for the radio buttons.
+     *                               [['value' => 'value1', 'display' => 'Display Text]]
+     * @param bool     $displayBlock If true, options are displayed as block elements (new lines)
      */
-    public static function RadioButtonInputs($name, $slug, $values)
+    public static function RadioButtonInputs($name, $slug, $options, $displayBlock = false)
     {
         $viewData = array(
-            'name'   => $name,
-            'slug'   => $slug,
-            'values' => $values,
+            'name'         => $name,
+            'slug'         => $slug,
+            'options'      => $options,
+            'displayBlock' => $displayBlock,
         );
 
         View::render(__DIR__ . '/MetaBoxViews/RadioButtons.php', $viewData);
